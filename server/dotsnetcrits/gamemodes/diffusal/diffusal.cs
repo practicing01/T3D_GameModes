@@ -16,11 +16,6 @@ function DiffusalGMServer::onAdd(%this)
 
   %pos = %obj.getPosition();
 
-  datablock TriggerData(DiffusalGMTrigger)
-  {
-    tickPeriodMS = 1000;
-  };
-
   %this.trigger_ = new Trigger()
   {
     dataBlock = "DiffusalGMTrigger";

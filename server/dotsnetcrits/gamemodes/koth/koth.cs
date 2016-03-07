@@ -19,11 +19,6 @@ function KOTHGMServer::onAdd(%this)
 
   %this.userpers_ = new SimSet();
 
-  datablock TriggerData(KOTHGMTrigger)
-  {
-    tickPeriodMS = 1000;
-  };
-
   %this.trigger_ = new Trigger()
   {
     dataBlock = "KOTHGMTrigger";

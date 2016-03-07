@@ -54,7 +54,8 @@ function TeamChooser::CreateTeamParticleEmitter(%this, %team)
     };
   }
 
-  MissionCleanup.add(%emitterNode);
+  //ClientMissionCleanup.add(%emitterNode);
+  //MissionCleanup.add(%emitterNode);
   return %emitterNode;
 }
 

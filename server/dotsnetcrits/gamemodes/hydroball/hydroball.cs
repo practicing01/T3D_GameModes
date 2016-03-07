@@ -20,12 +20,7 @@ function HydroballGMServer::onAdd(%this)
       %pos = %obj.position;
     }
   }
-
-  datablock TriggerData(HydroballGMTrigger)
-  {
-    tickPeriodMS = 100;
-  };
-
+  
   %this.prefab_ = new Prefab()
   {
     class = "HydroballGMPrefab";

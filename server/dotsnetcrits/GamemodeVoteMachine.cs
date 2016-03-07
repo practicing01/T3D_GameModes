@@ -59,8 +59,9 @@ function GameModeVoteMachine::onGamemodeVoteCast(%this, %data)
         }
 
       }
+
+      %this.tally_.empty();
     }
 
-    %this.tally_.empty();
   }
 }
