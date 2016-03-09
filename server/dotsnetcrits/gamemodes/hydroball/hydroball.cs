@@ -20,7 +20,7 @@ function HydroballGMServer::onAdd(%this)
       %pos = %obj.position;
     }
   }
-  
+
   %this.prefab_ = new Prefab()
   {
     class = "HydroballGMPrefab";

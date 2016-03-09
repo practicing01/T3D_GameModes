@@ -1,7 +1,7 @@
 function AmmolessGMClient::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-  
+  ClientMissionCleanup.add(%this);
+
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "AmmolessGMClientQueue";

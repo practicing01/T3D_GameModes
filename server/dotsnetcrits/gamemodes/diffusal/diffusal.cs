@@ -67,10 +67,10 @@ function DiffusalGMServer::onRemove(%this)
 
 function DiffusalGMTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
-  if (%trigger.enabled_ == false)
+  /*if (%trigger.enabled_ == false)
   {
     return;
-  }
+  }*/
 
 //the following for debug until i can test multiplayer
   if (!DiffusalGMServerSO.diffusalCandidates_.isMember(%obj))
@@ -126,10 +126,10 @@ function DiffusalGMTrigger::onEnterTrigger(%this, %trigger, %obj)
 
 function DiffusalGMTrigger::onLeaveTrigger(%this, %trigger, %obj)
 {
-  if (%trigger.enabled_ == false)
+  /*if (%trigger.enabled_ == false)
   {
     return;
-  }
+  }*/
 
   if (isObject(DiffusalGMServerSO))
   {
@@ -150,7 +150,35 @@ function DiffusalGMTrigger::onLeaveTrigger(%this, %trigger, %obj)
 
 function DiffusalGMServer::Diffuse(%this)
 {
-  if (%this.bomb_.team_ == 0)//team A
+  %diffuserTeam = -1;
+
+  if (isObject(DNCServer.TeamChooser_))
+  {
+    for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
+    {
+      %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
+
+      if (%playerObj == %this.diffuser_)
+      {
+        %diffuserTeam = 0;//team A
+        break;
+      }
+    }
+
+    for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
+    {
+      %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
+
+      if (%playerObj == %this.diffuser_)
+      {
+        %diffuserTeam = 1;//team B
+        break;
+      }
+    }
+
+  }
+
+  if (%this.bomb_.team_ == 0 && %diffuserTeam != %this.bomb_.team_)//team A
   {
     if (isObject(DNCServer.TeamChooser_))
     {
@@ -161,7 +189,7 @@ function DiffusalGMServer::Diffuse(%this)
       }
     }
   }
-  else if (%this.bomb_.team_ == 1)//team B
+  else if (%this.bomb_.team_ == 1 && %diffuserTeam != %this.bomb_.team_)//team B
   {
     if (isObject(DNCServer.TeamChooser_))
     {
@@ -174,9 +202,8 @@ function DiffusalGMServer::Diffuse(%this)
   }
 
   %this.trigger_.enabled_ = false;
+  %this.diffuser_.mountObject(%this.bomb_, GetMountIndexDNC(%this.diffuser_, 0));
   %this.diffuser_ = -1;
-  %obj = ClientGroup.getObject(getRandom(0, ClientGroup.getCount() - 1)).getControlObject();
-  %obj.mountObject(%this.bomb_, GetMountIndexDNC(%obj, 0));
 
   cancel(%this.detonateSchedule_);
 
@@ -208,9 +235,9 @@ function DiffusalGMServer::Detonate(%this)
   }
 
   %this.trigger_.enabled_ = false;
-  %this.diffuser_ = -1;
   %obj = ClientGroup.getObject(getRandom(0, ClientGroup.getCount() - 1)).getControlObject();
   %obj.mountObject(%this.bomb_, GetMountIndexDNC(%obj, 0));
+  %this.diffuser_ = -1;
 
   cancel(%this.diffuseSchedule_);
 

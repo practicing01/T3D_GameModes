@@ -1,6 +1,6 @@
 function DiffusalGMClient::onAdd(%this)
 {
-  MissionCleanup.add(%this);
+  ClientMissionCleanup.add(%this);
 
   %this.sphereCastRadius_ = 3.0;
 
@@ -37,6 +37,10 @@ function DiffusalGMClient::onRemove(%this)
 
 function DiffusalGMClient::BombAction(%this)
 {
+  commandToServer('BombActionDiffusalGM');
+  return;
+  //todo client-side datablock name dereferencing
+
   %obj = ServerConnection.getControlObject();
 
   %pos = %obj.getPosition();

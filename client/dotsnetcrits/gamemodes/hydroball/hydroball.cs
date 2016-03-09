@@ -1,6 +1,6 @@
 function HydroballGMClient::onAdd(%this)
 {
-  MissionCleanup.add(%this);
+  ClientMissionCleanup.add(%this);
 
   %this.sphereCastRadius_ = 3.0;
 
@@ -37,13 +37,17 @@ function HydroballGMClient::onRemove(%this)
 
 function HydroballGMClient::BallAction(%this)
 {
+  commandToServer('BallActionHydroballGM');
+  return;
+  //todo figure out how to get datablock name of an object on the ClientGroup
+  
   %obj = ServerConnection.getControlObject();
 
   %pos = %obj.getPosition();
 
-  initContainerRadiusSearch(%pos, %this.sphereCastRadius_, $TypeMasks::ShapeBaseObjectType);
+  initContainerRadiusSearch(%pos, %this.sphereCastRadius_, $TypeMasks::ShapeBaseObjectType, true);
 
-  while ( (%targetObject = containerSearchNext()) != 0 )
+  while ( (%targetObject = containerSearchNext(true)) != 0 )
   {
     if(%targetObject.getName() $= "hydroball" || %targetObject.getName() $= "hydroballDummy")
     {

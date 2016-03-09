@@ -141,6 +141,12 @@ function GetMountIndexDNC(%obj, %slot)
   return %index - %slot;
 }
 
+function DeathMatchGame::loadOut(%game, %player)
+{
+  parent::loadOut(%game, %player);
+  echo("dm loadout :)");
+}
+
 new ScriptObject(DNCServer)
 {
   class = "DotsNetCritsServer";

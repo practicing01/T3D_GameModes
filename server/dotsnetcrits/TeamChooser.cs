@@ -59,36 +59,6 @@ function TeamChooser::CreateTeamParticleEmitter(%this, %team)
   return %emitterNode;
 }
 
-function TeamChooser::GetMountIndex(%this, %obj)
-{
-  %modelFile = %obj.getModelFile();
-
-  %shapeConstructor = "";
-
-  for (%y = 0; %y <  TSShapeConstructorGroup.getCount(); %y++)
-  {
-    %TSShapeConstructor = TSShapeConstructorGroup.getObject(%y);
-
-    if (%TSShapeConstructor.baseShape $= %modelFile)
-    {
-      %shapeConstructor = %TSShapeConstructor;
-      break;
-    }
-  }
-
-  %index = -1;
-
-  for (%y = 0; %y <  %shapeConstructor.	getNodeCount(); %y++)
-  {
-    if (strstr(%shapeConstructor.getNodeName(%y), "mount") != -1)
-    {
-      %index++;
-    }
-  }
-
-  return %index;
-}
-
 function TeamChooser::onTeamJoinRequest(%this, %data)
 {
   %client = %data.getValue(%data.getIndexFromKey("client"));
@@ -112,7 +82,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
       %emitterNode = %this.CreateTeamParticleEmitter(%team);
       %this.teamAParticleEmitters_.add(%emitterNode);
 
-      %obj.mountObject(%emitterNode, %this.GetMountIndex(%obj));
+      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
     }
 
     if (%this.teamB_.isMember(%obj))
@@ -139,7 +109,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
       %emitterNode = %this.CreateTeamParticleEmitter(%team);
       %this.teamBParticleEmitters_.add(%emitterNode);
 
-      %obj.mountObject(%emitterNode, %this.GetMountIndex(%obj));
+      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
     }
 
     if (%this.teamA_.isMember(%obj))
