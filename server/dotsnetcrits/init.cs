@@ -1,7 +1,8 @@
 function DotsNetCritsServer::onAdd(%this)
 {
   %this.ClientLeaveCleanup_ = new ArrayObject();
-  %this.ClientLeaveListeners_ = new ArrayObject();
+  %this.ClientLeaveListeners_ = new SimSet();
+  %this.loadOutListeners_ = new SimSet();
 
   %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
 
@@ -69,12 +70,22 @@ function DotsNetCritsServer::onRemove(%this)
 
   if (isObject(%this.ClientLeaveCleanup_))
   {
+    for (%x = 0; %x < DNCServer.ClientLeaveCleanup_.count(); %x++)
+    {
+      DNCServer.ClientLeaveCleanup_.getValue(%x).delete();
+    }
+
     %this.ClientLeaveCleanup_.delete();
   }
 
   if (isObject(%this.ClientLeaveListeners_))
   {
     %this.ClientLeaveListeners_.delete();
+  }
+
+  if (isObject(%this.loadOutListeners_))
+  {
+    %this.loadOutListeners_.delete();
   }
 
   echo("dnc server go bye bye");
@@ -112,13 +123,16 @@ function DotsNetCritsServer::onWeaponLoadRequest(%this, %data)
 
   for (%x = 0; %x < getFieldCount(%dirList); %x++)
   {
-    if (getField(%dirList, %x) $= %weapon)//Make sure the weapon exists.
+    if (strlwr(getField(%dirList, %x)) $= strlwr(%weapon))//Make sure the weapon exists.
     {
-      exec("scripts/server/dotsnetcrits/weapons/"@%weapon@"/"@%weapon@".cs");
+      //exec("scripts/server/dotsnetcrits/weapons/"@%weapon@"/"@%weapon@".cs");
 
       %player = %client.getControlObject();
       %player.setInventory(%weapon, 1);
       %player.addToWeaponCycle(%weapon);
+
+      //%player.mountImage(%weapon, 0);
+      %player.use(%weapon);
 
       break;
     }
@@ -155,11 +169,6 @@ function GetMountIndexDNC(%obj, %slot)
   return %index - %slot;
 }
 
-function DeathMatchGame::loadOut(%game, %player)
-{
-  parent::loadOut(%game, %player);
-}
-
 function DeathMatchGame::onClientLeaveGame(%game, %client)
 {
   if (!isObject(DNCServer))
@@ -183,6 +192,24 @@ function DeathMatchGame::onClientLeaveGame(%game, %client)
   parent::onClientLeaveGame(%game, %client);
 }
 
+function DeathMatchGame::loadOut(%game, %player)
+{
+  parent::loadOut(%game, %player);
+
+  for (%x = 0; %x < DNCServer.loadOutListeners_.getCount(); %x++)
+  {
+    DNCServer.loadOutListeners_.getObject(%x).loadOut(%player);
+    /*%obj = DNCServer.loadOutListeners_.getObject(%x);
+    %obj.call("loadOut", %player);*/
+  }
+}
+
+function WeaponLoader::loadOut(%this, %player)
+{
+  %player.setInventory(%this.weapon_, 1);
+  %player.addToWeaponCycle(%this.weapon_);
+}
+
 new ScriptObject(DNCServer)
 {
   class = "DotsNetCritsServer";
@@ -191,4 +218,5 @@ new ScriptObject(DNCServer)
   TeamChooser_ = "";
   ClientLeaveCleanup_ = "";
   ClientLeaveListeners_ = "";
+  loadOutListeners_ = "";
 };

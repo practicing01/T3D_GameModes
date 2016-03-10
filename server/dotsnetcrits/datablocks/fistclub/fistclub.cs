@@ -155,3 +155,12 @@ function fistClubImage::onFire(%this, %obj, %slot)
 }
 
 DefaultPlayerData.maxInv[fistClub] = 1;
+
+%weaponSO = new ScriptObject()
+{
+  class = "WeaponLoader";
+  weapon_ = fistClub;
+};
+
+DNCServer.loadOutListeners_.add(%weaponSO);
+MissionCleanup.add(%weaponSO);
