@@ -1,5 +1,8 @@
 function DotsNetCritsServer::onAdd(%this)
 {
+  %this.ClientLeaveCleanup_ = new ArrayObject();
+  %this.ClientLeaveListeners_ = new ArrayObject();
+
   %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
 
   for (%x = 0; %x < getFieldCount(%dirList); %x++)
@@ -63,6 +66,17 @@ function DotsNetCritsServer::onRemove(%this)
   {
     %this.TeamChooser_.delete();
   }
+
+  if (isObject(%this.ClientLeaveCleanup_))
+  {
+    %this.ClientLeaveCleanup_.delete();
+  }
+
+  if (isObject(%this.ClientLeaveListeners_))
+  {
+    %this.ClientLeaveListeners_.delete();
+  }
+
   echo("dnc server go bye bye");
 }
 
@@ -144,7 +158,29 @@ function GetMountIndexDNC(%obj, %slot)
 function DeathMatchGame::loadOut(%game, %player)
 {
   parent::loadOut(%game, %player);
-  echo("dm loadout :)");
+}
+
+function DeathMatchGame::onClientLeaveGame(%game, %client)
+{
+  if (!isObject(DNCServer))
+  {
+    return;
+  }
+
+  %index = DNCServer.ClientLeaveCleanup_.getIndexFromKey(%client);
+  %simset = DNCServer.ClientLeaveCleanup_.getValue(%index);
+
+  %simset.deleteAllObjects();
+  %simset.delete();
+
+  DNCServer.ClientLeaveCleanup_.erase(%index);
+
+  for (%x = 0; %x < DNCServer.ClientLeaveListeners_.count(); %x++)
+  {
+    DNCServer.ClientLeaveListeners_.getValue(%x).onClientLeaveGame(%client);
+  }
+
+  parent::onClientLeaveGame(%game, %client);
 }
 
 new ScriptObject(DNCServer)
@@ -153,4 +189,6 @@ new ScriptObject(DNCServer)
   EventManager_ = "";
   GameModeVoteMachine_ = "";
   TeamChooser_ = "";
+  ClientLeaveCleanup_ = "";
+  ClientLeaveListeners_ = "";
 };

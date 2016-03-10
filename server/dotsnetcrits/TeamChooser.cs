@@ -29,7 +29,7 @@ function TeamChooser::onRemove(%this)
   }
 }
 
-function TeamChooser::CreateTeamParticleEmitter(%this, %team)
+function TeamChooser::CreateTeamParticleEmitter(%this, %team, %client)
 {
   %emitterNode = "";
 
@@ -54,8 +54,20 @@ function TeamChooser::CreateTeamParticleEmitter(%this, %team)
     };
   }
 
-  //ClientMissionCleanup.add(%emitterNode);
-  //MissionCleanup.add(%emitterNode);
+  %index = DNCServer.ClientLeaveCleanup_.getIndexFromKey(%client);
+
+  if (%index == -1)
+  {
+    %simset = new SimSet();
+    %simset.add(%emitterNode);
+    DNCServer.ClientLeaveCleanup_.add(%client, %simset);
+  }
+  else
+  {
+    %simset = DNCServer.ClientLeaveCleanup_.getValue(%index);
+    %simset.add(%emitterNode);
+  }
+
   return %emitterNode;
 }
 
@@ -79,7 +91,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
     {
       %this.teamA_.add(%obj);
 
-      %emitterNode = %this.CreateTeamParticleEmitter(%team);
+      %emitterNode = %this.CreateTeamParticleEmitter(%team, %client);
       %this.teamAParticleEmitters_.add(%emitterNode);
 
       %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
@@ -106,7 +118,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
     {
       %this.teamB_.add(%obj);
 
-      %emitterNode = %this.CreateTeamParticleEmitter(%team);
+      %emitterNode = %this.CreateTeamParticleEmitter(%team, %client);
       %this.teamBParticleEmitters_.add(%emitterNode);
 
       %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
