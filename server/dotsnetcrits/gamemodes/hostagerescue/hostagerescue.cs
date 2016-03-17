@@ -17,13 +17,24 @@ function HostageRescueGMServer::onAdd(%this)
     %obj = MissionGroup.getObject(%x);
     if (%obj.getName() $= "HostageSpawnHostageRescueGM")
     {
-      %this.hostageSpawn_ = %obj;
       %pos = %obj.position;
       %rot = %obj.rotation;
+
+      %this.hostageSpawn_ = new Marker()
+      {
+        position = %pos;
+        rotation = %rot;
+      };
     }
     else if (%obj.getName() $= "HostageRescueHostageRescueGM")
     {
-      %this.rescueTrigger_ = %obj;
+      %this.rescueTrigger_ = new Trigger()
+      {
+        dataBlock = "HostageRescueGMTrigger";
+        polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
+        position = %obj.position;
+        scale = "6 6 6";
+      };
     }
   }
 
