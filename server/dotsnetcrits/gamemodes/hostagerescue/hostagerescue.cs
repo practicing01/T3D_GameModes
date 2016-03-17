@@ -17,8 +17,13 @@ function HostageRescueGMServer::onAdd(%this)
     %obj = MissionGroup.getObject(%x);
     if (%obj.getName() $= "HostageSpawnHostageRescueGM")
     {
+      %this.hostageSpawn_ = %obj;
       %pos = %obj.position;
       %rot = %obj.rotation;
+    }
+    else if (%obj.getName() $= "HostageRescueHostageRescueGM")
+    {
+      %this.rescueTrigger_ = %obj;
     }
   }
 
@@ -31,6 +36,26 @@ function HostageRescueGMServer::onAdd(%this)
     following_ = false;
     rescuer_ = "";
   };
+
+  if (!isObject(%this.hostageSpawn_))
+  {
+    %this.hostageSpawn_ = new Marker()
+    {
+      position = %pos;
+      rotation = %rot;
+    };
+  }
+
+  if (!isObject(%this.rescueTrigger_))
+  {
+    %this.rescueTrigger_ = new Trigger()
+    {
+      dataBlock = "HostageRescueGMTrigger";
+      polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
+      position = VectorAdd(%pos, ClientGroup.getObject(0).getControlObject().getForwardVector());
+      scale = "6 6 6";
+    };
+  }
 
 }
 
@@ -46,20 +71,29 @@ function HostageRescueGMServer::onRemove(%this)
     %this.hostage_.delete();
   }
 
+  if(isObject(%this.hostageSpawn_))
+  {
+    %this.hostageSpawn_.delete();
+  }
+
+  if(isObject(%this.rescueTrigger_))
+  {
+    %this.rescueTrigger_.delete();
+  }
+
 }
 
 function HostageRescueGMTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
   if (isObject(HostageRescueGMServerSO))
   {
-    if (%obj == HostageRescueGMServerSO.ball_)
+    if (%obj == HostageRescueGMServerSO.hostage_)
     {
-      HostageRescueGMServerSO.ball_.reset();
-      HostageRescueGMServerSO.ball_.setPosition(HostageRescueGMServerSO.ballSpawn_.getPosition());
+      %team = 0;
 
-      if (%trigger == HostageRescueGMServerSO.teamATrigger_)
+      if (isObject(DNCServer.TeamChooser_))
       {
-        if (isObject(DNCServer.TeamChooser_))
+        if (DNCServer.TeamChooser_.teamA_.isMember(%obj.rescuer_))
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
           {
@@ -67,10 +101,7 @@ function HostageRescueGMTrigger::onEnterTrigger(%this, %trigger, %obj)
             Game.incScore(%playerObj.client, 1, false);
           }
         }
-      }
-      else if (%trigger == HostageRescueGMServerSO.teamBTrigger_)
-      {
-        if (isObject(DNCServer.TeamChooser_))
+        else if (DNCServer.TeamChooser_.teamB_.isMember(%obj.rescuer_))
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
           {
@@ -79,6 +110,12 @@ function HostageRescueGMTrigger::onEnterTrigger(%this, %trigger, %obj)
           }
         }
       }
+
+      %obj.stop();
+      %obj.following_ = false;
+      %obj.rescuer_ = "";
+      %obj.setPosition(HostageRescueGMServerSO.hostageSpawn_.getPosition());
+      %obj.rotation = HostageRescueGMServerSO.hostageSpawn_.rotation;
     }
   }
 }
@@ -149,6 +186,6 @@ else
     sphereCastRadius_ = "";
     hostage_ = "";
     rescueTrigger_ = "";
-    hostageSpawns_ = "";
+    hostageSpawn_ = "";
   };
 }

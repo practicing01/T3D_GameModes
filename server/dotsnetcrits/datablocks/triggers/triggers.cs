@@ -12,3 +12,8 @@ datablock TriggerData(DiffusalGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(HostageRescueGMTrigger)
+{
+  tickPeriodMS = 1000;
+};
