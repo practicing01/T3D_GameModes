@@ -88,7 +88,7 @@ function DiffusalGMTrigger::onEnterTrigger(%this, %trigger, %obj)
       {
         for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
         {
-          %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
+          %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x).getControlObject();
 
           if (%obj == %playerObj)
           {
@@ -107,7 +107,7 @@ function DiffusalGMTrigger::onEnterTrigger(%this, %trigger, %obj)
       {
         for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
         {
-          %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
+          %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x).getControlObject();
 
           if (%obj == %playerObj)
           {
@@ -156,9 +156,9 @@ function DiffusalGMServer::Diffuse(%this)
   {
     for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
     {
-      %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
+      %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
 
-      if (%playerObj == %this.diffuser_)
+      if (%client == %this.diffuser_.client)
       {
         %diffuserTeam = 0;//team A
         break;
@@ -167,9 +167,9 @@ function DiffusalGMServer::Diffuse(%this)
 
     for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
     {
-      %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
+      %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
 
-      if (%playerObj == %this.diffuser_)
+      if (%client == %this.diffuser_.client)
       {
         %diffuserTeam = 1;//team B
         break;
@@ -184,8 +184,8 @@ function DiffusalGMServer::Diffuse(%this)
     {
       for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
-        Game.incScore(%playerObj.client, 1, false);
+        %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+        Game.incScore(%client, 1, false);
       }
     }
   }
@@ -195,8 +195,8 @@ function DiffusalGMServer::Diffuse(%this)
     {
       for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
-        Game.incScore(%playerObj.client, 1, false);
+        %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
+        Game.incScore(%client, 1, false);
       }
     }
   }
@@ -217,8 +217,8 @@ function DiffusalGMServer::Detonate(%this)
     {
       for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
-        Game.incScore(%playerObj.client, 1, false);
+        %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
+        Game.incScore(%client, 1, false);
       }
     }
   }
@@ -228,8 +228,8 @@ function DiffusalGMServer::Detonate(%this)
     {
       for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
-        Game.incScore(%playerObj.client, 1, false);
+        %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+        Game.incScore(%client, 1, false);
       }
     }
   }
@@ -261,7 +261,7 @@ function DiffusalGMServer::BombAction(%this, %client)
     {
       for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
+        %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x).getControlObject();
 
         if (%playerObj == %obj)
         {
@@ -273,7 +273,7 @@ function DiffusalGMServer::BombAction(%this, %client)
 
       for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
       {
-        %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
+        %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x).getControlObject();
 
         if (%playerObj == %obj)
         {

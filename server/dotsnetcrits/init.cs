@@ -1,3 +1,16 @@
+if (isObject(DNCServer))
+{
+  %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
+
+  for (%x = 0; %x < getFieldCount(%dirList); %x++)
+  {
+    %file = getField(%dirList, %x);
+    %file = strlwr(%file);
+    exec("scripts/server/dotsnetcrits/datablocks/" @ %file @ "/" @ %file @ ".cs");
+  }
+  return;
+}
+
 function DotsNetCritsServer::onAdd(%this)
 {
   %this.ClientLeaveCleanup_ = new ArrayObject();
@@ -48,6 +61,7 @@ function DotsNetCritsServer::onAdd(%this)
   };
 
   %this.EventManager_.subscribe(%this.TeamChooser_, "TeamJoinRequest");
+  %this.loadOutListeners_.add(%this.TeamChooser_);
 
 }
 

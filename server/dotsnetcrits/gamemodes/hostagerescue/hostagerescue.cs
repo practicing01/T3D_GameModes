@@ -100,24 +100,22 @@ function HostageRescueGMTrigger::onEnterTrigger(%this, %trigger, %obj)
   {
     if (%obj == HostageRescueGMServerSO.hostage_)
     {
-      %team = 0;
-
       if (isObject(DNCServer.TeamChooser_))
       {
-        if (DNCServer.TeamChooser_.teamA_.isMember(%obj.rescuer_))
+        if (DNCServer.TeamChooser_.teamA_.isMember(%obj.rescuer_.client))
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
           {
-            %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
-            Game.incScore(%playerObj.client, 1, false);
+            %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
+            Game.incScore(%client, 1, false);
           }
         }
-        else if (DNCServer.TeamChooser_.teamB_.isMember(%obj.rescuer_))
+        else if (DNCServer.TeamChooser_.teamB_.isMember(%obj.rescuer_.client))
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
           {
-            %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
-            Game.incScore(%playerObj.client, 1, false);
+            %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+            Game.incScore(%client, 1, false);
           }
         }
       }

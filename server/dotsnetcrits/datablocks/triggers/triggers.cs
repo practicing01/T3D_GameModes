@@ -17,3 +17,8 @@ datablock TriggerData(HostageRescueGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(CTFGMTrigger)
+{
+  tickPeriodMS = 1000;
+};

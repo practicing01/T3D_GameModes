@@ -104,8 +104,8 @@ function HydroballGMTrigger::onEnterTrigger(%this, %trigger, %obj)
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
           {
-            %playerObj = DNCServer.TeamChooser_.teamA_.getObject(%x);
-            Game.incScore(%playerObj.client, 1, false);
+            %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
+            Game.incScore(%client, 1, false);
           }
         }
       }
@@ -115,8 +115,8 @@ function HydroballGMTrigger::onEnterTrigger(%this, %trigger, %obj)
         {
           for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
           {
-            %playerObj = DNCServer.TeamChooser_.teamB_.getObject(%x);
-            Game.incScore(%playerObj.client, 1, false);
+            %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+            Game.incScore(%client, 1, false);
           }
         }
       }

@@ -34,3 +34,10 @@ datablock StaticShapeData(bombDiffusalGM)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/diffusal/banana/banana.cached.dts";
   isInvincible = "1";
 };
+
+
+datablock StaticShapeData(flagCTFGM)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/ctf/cookies/cookies.cached.dts";
+  isInvincible = "1";
+};
