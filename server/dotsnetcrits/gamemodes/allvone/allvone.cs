@@ -1,21 +1,18 @@
-function ALLVONEGMServer::onAdd(%this)
+function ALLVONEGMServer::SetTheOne(%this)
 {
-  MissionCleanup.add(%this);
-
-  %this.EventManager_ = new EventManager();
-
-  %this.EventManager_.queue = "ALLVONEGMServerQueue";
-
-  for (%x = 0; %x < ClientGroup.getCount(); %x++)
+  if (isObject(DNCServer.TeamChooser_))
   {
-    %obj = ClientGroup.getObject(%x);
-    
-    %data = new ArrayObject();
-    %data.add("client", %obj);
-    %data.add("team", 0);
-    DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
-    
-    %data.delete();
+    for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
+    {
+      %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+      
+      %data = new ArrayObject();
+      %data.add("client", %client);
+      %data.add("team", 0);
+      DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
+      
+      %data.delete();
+    }
   }
   
   %this.theOne_ = ClientGroup.getRandom();
@@ -26,6 +23,17 @@ function ALLVONEGMServer::onAdd(%this)
   DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
   
   %data.delete();
+}
+
+function ALLVONEGMServer::onAdd(%this)
+{
+  MissionCleanup.add(%this);
+
+  %this.EventManager_ = new EventManager();
+
+  %this.EventManager_.queue = "ALLVONEGMServerQueue";
+
+  %this.SetTheOne();
 
 }
 
@@ -40,7 +48,28 @@ function ALLVONEGMServer::onRemove(%this)
 
 function ALLVONEGMServer::loadOut(%this, %player)
 {
-  echo("ALLVONEGMServer::loadOut");
+  if (isObject(DNCServer.TeamChooser_))
+  {
+    if (DNCServer.TeamChooser_.teamA_.isMember(%player.client))
+    {
+      for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
+      {
+        %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
+        Game.incScore(%client, 1, false);
+      }
+    }
+    else if (DNCServer.TeamChooser_.teamB_.isMember(%player.client))
+    {
+      for (%x = 0; %x < DNCServer.TeamChooser_.teamA_.getCount(); %x++)
+      {
+        %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
+        Game.incScore(%client, 1, false);
+      }
+      
+      %this.SetTheOne();
+    }
+  }
+  
 }
 
 if (isObject(ALLVONEGMServerSO))

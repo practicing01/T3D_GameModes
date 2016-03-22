@@ -224,6 +224,13 @@ function WeaponLoader::loadOut(%this, %player)
   %player.addToWeaponCycle(%this.weapon_);
 }
 
+function DeathMatchGame::onClientEnterGame(%game, %client)
+{
+   echo (%game @"\c4 -> "@ %game.class @" -> DeathMatchGame::onClientEnterGame");
+
+   parent::onClientEnterGame(%game, %client);
+}
+
 new ScriptObject(DNCServer)
 {
   class = "DotsNetCritsServer";
