@@ -2,7 +2,7 @@ function TeamButt::onClick(%this)
 {
   %team = 1;//Team B
 
-  if (%this.getParent().getObject(0) == %this)//Team A
+  if (%this.getText() $= "Team A")//Team A
   {
     %team = 0;
   }

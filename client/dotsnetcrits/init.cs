@@ -15,6 +15,7 @@ function DotsNetCritsClient::onAdd(%this)
   %this.EventManager_.subscribe(%this, "LoadGamemode");
 
   exec("art/gui/DNCMain.gui");
+  exec("scripts/client/dotsnetcrits/DNCButt.cs");
   exec("scripts/client/dotsnetcrits/GamemodeTab.cs");
   exec("scripts/client/dotsnetcrits/TeamTab.cs");
   exec("scripts/client/dotsnetcrits/WeaponTab.cs");
