@@ -1,31 +1,31 @@
-function ALLVONEGMClient::onAdd(%this)
+function AllvOneGMClient::onAdd(%this)
 {
   ClientMissionCleanup.add(%this);
 
   %this.EventManager_ = new EventManager();
 
-  %this.EventManager_.queue = "ALLVONEGMClientQueue";
+  %this.EventManager_.queue = "AllvOneGMClientQueue";
 
 }
 
-function ALLVONEGMClient::onRemove(%this)
+function AllvOneGMClient::onRemove(%this)
 {
   if (isObject(%this.EventManager_))
   {
     %this.EventManager_.delete();
   }
-  echo("ALLVONEGMClient go bye bye");
+  echo("AllvOneGMClient go bye bye");
 }
 
-if (isObject(ALLVONEGMClientSO))
+if (isObject(AllvOneGMClientSO))
 {
-  ALLVONEGMClientSO.delete();
+  AllvOneGMClientSO.delete();
 }
 else
 {
-  new ScriptObject(ALLVONEGMClientSO)
+  new ScriptObject(AllvOneGMClientSO)
   {
-    class = "ALLVONEGMClient";
+    class = "AllvOneGMClient";
     EventManager_ = "";
   };
 }

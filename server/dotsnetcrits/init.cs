@@ -16,6 +16,7 @@ function DotsNetCritsServer::onAdd(%this)
   %this.ClientLeaveCleanup_ = new ArrayObject();
   %this.ClientLeaveListeners_ = new SimSet();
   %this.loadOutListeners_ = new SimSet();
+  %this.loadedGamemodes_ = new SimSet();
 
   %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
 
@@ -101,6 +102,12 @@ function DotsNetCritsServer::onRemove(%this)
   {
     %this.loadOutListeners_.delete();
   }
+  
+  if (isObject(%this.loadedGamemodes_))
+  {
+    %this.loadedGamemodes_.deleteAllObjects();
+    %this.loadedGamemodes_.delete();
+  }
 
   echo("dnc server go bye bye");
 }
@@ -121,6 +128,27 @@ function DotsNetCritsServer::onGamemodeVoteTallied(%this, %gamemode)
         {
           commandToClient(ClientGroup.getObject(%y), 'LoadGamemodeDNC', %gamemode);
         }
+      }
+      
+      %newGM = true;
+      for (%y = 0; %y < %this.loadedGamemodes_.getCount(); %y++)
+      {
+        if (%this.loadedGamemodes_.getObject(%y).name $= %gamemode)
+        {
+          %this.loadedGamemodes_.remove(%this.loadedGamemodes_.getObject(%y));
+          %newGM = false;
+          break;
+        }
+      }
+      
+      if (%newGM == true)
+      {
+        %loadedGM = new ScriptObject()
+        {
+          name_ = %gamemode;
+        };
+        
+        %this.loadedGamemodes_.add(%loadedGM);
       }
 
       break;
@@ -226,9 +254,15 @@ function WeaponLoader::loadOut(%this, %player)
 
 function DeathMatchGame::onClientEnterGame(%game, %client)
 {
-   echo (%game @"\c4 -> "@ %game.class @" -> DeathMatchGame::onClientEnterGame");
-
    parent::onClientEnterGame(%game, %client);
+   
+  if (isObject(DNCServer))
+  {
+    for (%y = 0; %y < DNCServer.loadedGamemodes_.getCount(); %y++)
+    {
+      commandToClient(%client, 'LoadGamemodeDNC', DNCServer.loadedGamemodes_.getObject(%y).name_);
+    }
+  }
 }
 
 new ScriptObject(DNCServer)
@@ -240,4 +274,5 @@ new ScriptObject(DNCServer)
   ClientLeaveCleanup_ = "";
   ClientLeaveListeners_ = "";
   loadOutListeners_ = "";
+  loadedGamemodes_ = "";
 };

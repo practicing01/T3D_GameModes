@@ -70,22 +70,28 @@ function CTFGMServer::onAdd(%this)
 
   if (!isObject(%this.captureATrigger_))
   {
+    %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
+    %finalPos = VectorAdd(%pos, %finalPos);
+    
     %this.captureATrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
       polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-      position = VectorAdd(%pos, ClientGroup.getObject(0).getControlObject().getForwardVector());
+      position = %finalPos;
       scale = "6 6 6";
     };
   }
 
   if (!isObject(%this.captureBTrigger_))
   {
+    %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
+    %finalPos = VectorSub(%pos, %finalPos);
+    
     %this.captureBTrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
       polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-      position = VectorSub(%pos, ClientGroup.getObject(0).getControlObject().getForwardVector());
+      position = %finalPos;
       scale = "6 6 6";
     };
   }

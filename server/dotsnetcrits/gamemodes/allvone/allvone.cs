@@ -1,43 +1,58 @@
-function ALLVONEGMServer::SetTheOne(%this)
+function AllvOneGMServer::SetTheOne(%this)
 {
   if (isObject(DNCServer.TeamChooser_))
   {
     for (%x = 0; %x < DNCServer.TeamChooser_.teamB_.getCount(); %x++)
     {
       %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
-      
+
       %data = new ArrayObject();
       %data.add("client", %client);
       %data.add("team", 0);
       DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
-      
+
       %data.delete();
     }
   }
   
+  for (%x = 0; %x < ClientGroup.getCount(); %x++)
+  {
+    %client = ClientGroup.getObject(%x);
+
+    if (!DNCServer.TeamChooser_.teamA_.isMember(%client))
+    {
+      %data = new ArrayObject();
+      %data.add("client", %client);
+      %data.add("team", 0);
+      DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
+
+      %data.delete();
+    }
+  }
+
   %this.theOne_ = ClientGroup.getRandom();
-  
+
   %data = new ArrayObject();
   %data.add("client", %this.theOne_);
   %data.add("team", 1);
   DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
-  
+
   %data.delete();
 }
 
-function ALLVONEGMServer::onAdd(%this)
+function AllvOneGMServer::onAdd(%this)
 {
   MissionCleanup.add(%this);
 
   %this.EventManager_ = new EventManager();
 
-  %this.EventManager_.queue = "ALLVONEGMServerQueue";
+  %this.EventManager_.queue = "AllvOneGMServerQueue";
 
   %this.SetTheOne();
 
 }
 
-function ALLVONEGMServer::onRemove(%this)
+function AllvOneGMServer::onRemove(%this)
 {
   if (isObject(%this.EventManager_))
   {
@@ -46,7 +61,7 @@ function ALLVONEGMServer::onRemove(%this)
 
 }
 
-function ALLVONEGMServer::loadOut(%this, %player)
+function AllvOneGMServer::loadOut(%this, %player)
 {
   if (isObject(DNCServer.TeamChooser_))
   {
@@ -65,30 +80,30 @@ function ALLVONEGMServer::loadOut(%this, %player)
         %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
         Game.incScore(%client, 1, false);
       }
-      
+
       %this.SetTheOne();
     }
   }
-  
+
 }
 
-if (isObject(ALLVONEGMServerSO))
+if (isObject(AllvOneGMServerSO))
 {
-  ALLVONEGMServerSO.delete();
+  AllvOneGMServerSO.delete();
 }
 else
 {
   %gmSO = new ScriptObject()
   {
-    class = "ALLVONEGMServer";
+    class = "AllvOneGMServer";
   };
-  
+
   DNCServer.loadOutListeners_.add(%gmSO);
   MissionCleanup.add(%gmSO);
 
-  new ScriptObject(ALLVONEGMServerSO)
+  new ScriptObject(AllvOneGMServerSO)
   {
-    class = "ALLVONEGMServer";
+    class = "AllvOneGMServer";
     EventManager_ = "";
     theOne_ = "";
   };
