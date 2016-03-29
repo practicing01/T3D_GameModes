@@ -68,5 +68,6 @@ else
     class = "HostageRescueGMClient";
     EventManager_ = "";
     sphereCastRadius_ = "";
+    actionMap_ = "";
   };
 }

@@ -37,6 +37,11 @@ function PredatorGMServer::onRemove(%this)
     %this.EventManager_.delete();
   }
 
+  if (%this.theOne_ != "")
+  {
+    %this.theOne_.getControlObject().setShapeName(%this.theOnesName_);
+    %this.theOne_.getControlObject().setCloaked(false);
+  }
 }
 
 function PredatorGMServer::loadOut(%this, %player)

@@ -68,5 +68,6 @@ else
     class = "DiffusalGMClient";
     EventManager_ = "";
     sphereCastRadius_ = "";
+    actionMap_ = "";
   };
 }

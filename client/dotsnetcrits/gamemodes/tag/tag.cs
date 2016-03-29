@@ -68,5 +68,6 @@ else
     class = "TagGMClient";
     EventManager_ = "";
     sphereCastRadius_ = "";
+    actionMap_ = "";
   };
 }

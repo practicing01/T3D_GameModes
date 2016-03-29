@@ -68,5 +68,6 @@ else
     class = "CTFGMClient";
     EventManager_ = "";
     sphereCastRadius_ = "";
+    actionMap_ = "";
   };
 }

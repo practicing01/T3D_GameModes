@@ -136,6 +136,12 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 
+  %damageState = %obj.getDamageState();
+  if (%damageState $= "Disabled" || %damageState $= "Destroyed")
+  {
+    return;
+  }
+
   if (%obj.canAttack_ == false)
   {
     return;
@@ -150,7 +156,7 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 
-  //animate
+  %obj.setActionThread("Celebrate_01", false);
 }
 
 if (isObject(ZombieWavesGMServerSO))

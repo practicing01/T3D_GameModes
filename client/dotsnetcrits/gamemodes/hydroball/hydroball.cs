@@ -40,7 +40,7 @@ function HydroballGMClient::BallAction(%this)
   commandToServer('BallActionHydroballGM');
   return;
   //todo figure out how to get datablock name of an object on the ClientGroup
-  
+
   %obj = ServerConnection.getControlObject();
 
   %pos = %obj.getPosition();
@@ -68,5 +68,6 @@ else
     class = "HydroballGMClient";
     EventManager_ = "";
     sphereCastRadius_ = "";
+    actionMap_ = "";
   };
 }
