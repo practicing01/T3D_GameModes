@@ -38,7 +38,10 @@ function SkillsGMClient::onAdd(%this)
     };
   }
 
-  exec("art/gui/dotsnetcrits/skills/Skills.gui");
+  if (!isObject(Skillbar))
+  {
+    exec("art/gui/dotsnetcrits/skills/Skills.gui");
+  }
 
   Canvas.pushDialog(Skillbar);
 }
@@ -66,11 +69,7 @@ function SkillsGMClient::onRemove(%this)
 
 function SkillsGMClient::SkillAction(%this, %slot)
 {
-  if (%slot == 1)
-  {
-    echo("slought");
-  }
-  commandToServer('SkillActionTagGM');
+  commandToServer('SkillActionTagGM',%this.curBar_, %slot);
 }
 
 //function SkillsGMClient::SkillbarCycle(%this, %val)
