@@ -64,9 +64,11 @@ function SilenceSkillsGM::Action(%this, %client, %guiSlot)
     %silence.schedule(%this.duration_ * 1000, "delete");
 
     %this.cooling_ = true;
+    //%this.guiSlot_.setText(%this.coolDownTime_);
+    %this.coolDownElapsedTime_ = 0.0;
+    %this.schedule(1000, "CoolDown");
 
-    %this.schedule(%this.coolDownTime_ * 1000, "CoolDown");
-
+    %player.setActionThread("Celebrate_01", false);
   }
 
 }
@@ -86,9 +88,12 @@ function SilenceSkillsGM::onAdd(%this)
 
 function SilenceSkillsGM::onRemove(%this)
 {
-  %this.silenceSets_.callOnChildren("deleteAllObjects");
-  %this.silenceSets_.deleteAllObjects();
-  %this.silenceSets_.delete();
+  if (isObject(%this.silenceSets_))
+  {
+    %this.silenceSets_.callOnChildren("deleteAllObjects");
+    %this.silenceSets_.deleteAllObjects();
+    %this.silenceSets_.delete();
+  }
 
   cancel(%this.cdSchedule_);
 }
@@ -103,7 +108,17 @@ function SilenceSkillsGM::RemoveEmitter(%this)
 
 function SilenceSkillsGM::CoolDown(%this)
 {
-  %this.cooling_ = false;
+  %this.coolDownElapsedTime_ += 1.0;
+
+  //%this.guiSlot_.setText(%this.coolDownTime_ - %this.coolDownElapsedTime_);
+
+  if (%this.coolDownElapsedTime_ >= %this.coolDownTime_)
+  {
+    %this.cooling_ = false;
+    return;
+  }
+
+  %this.schedule(1000, "CoolDown");
 }
 
 $skill = "";
@@ -115,6 +130,7 @@ if (isObject(SkillsGMServerSO))
     class = "SilenceSkillsGM";
     guiSlot_ = "";
     coolDownTime_ = 5.0;
+    coolDownElapsedTime_ = 0.0;
     cooling_ = false;
     duration_ = 5.0;
     silenceSets_ = "";

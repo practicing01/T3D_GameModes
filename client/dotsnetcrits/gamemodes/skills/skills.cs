@@ -104,6 +104,14 @@ function SkillbarCycleSkillsGMClient(%val)
   Skillbar.getObject(SkillsGMClientSO.curBar_).setVisible(true);
 }
 
+function clientCmdReloadActionMapSkillsGM()
+{
+  if (isObject(SkillsGMClientSO.actionMap_))
+  {
+    SkillsGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(SkillsGMClientSO))
 {
   SkillsGMClientSO.delete();

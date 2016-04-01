@@ -57,6 +57,14 @@ function CTFGMClient::CTFAction(%this)
   }
 }
 
+function clientCmdReloadActionMapCTFGM()
+{
+  if (isObject(CTFGMClientSO.actionMap_))
+  {
+    CTFGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(CTFGMClientSO))
 {
   CTFGMClientSO.delete();

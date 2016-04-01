@@ -37,6 +37,8 @@ function DiffusalGMServer::onAdd(%this)
   %obj.mountObject(%this.bomb_, GetMountIndexDNC(%obj, 0));
 
   %this.diffusalCandidates_ = new SimSet();
+
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function DiffusalGMServer::onRemove(%this)
@@ -317,6 +319,11 @@ function serverCmdBombActionDiffusalGM(%client)
   {
     DiffusalGMServerSO.BombAction(%client);
   }
+}
+
+function DiffusalGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapDiffusalGM', false);
 }
 
 if (isObject(DiffusalGMServerSO))

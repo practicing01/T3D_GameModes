@@ -57,6 +57,14 @@ function HydroballGMClient::BallAction(%this)
   }
 }
 
+function clientCmdReloadActionMapHydroballGM()
+{
+  if (isObject(HydroballGMClientSO.actionMap_))
+  {
+    HydroballGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(HydroballGMClientSO))
 {
   HydroballGMClientSO.delete();

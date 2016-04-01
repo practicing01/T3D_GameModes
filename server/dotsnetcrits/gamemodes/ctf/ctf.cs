@@ -72,7 +72,7 @@ function CTFGMServer::onAdd(%this)
   {
     %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
     %finalPos = VectorAdd(%pos, %finalPos);
-    
+
     %this.captureATrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
@@ -86,7 +86,7 @@ function CTFGMServer::onAdd(%this)
   {
     %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
     %finalPos = VectorSub(%pos, %finalPos);
-    
+
     %this.captureBTrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
@@ -96,6 +96,7 @@ function CTFGMServer::onAdd(%this)
     };
   }
 
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function CTFGMServer::onRemove(%this)
@@ -209,6 +210,11 @@ function serverCmdCTFActionCTFGM(%client)
   {
     CTFGMServerSO.CTFAction(%client);
   }
+}
+
+function CTFGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapCTFGM', false);
 }
 
 if (isObject(CTFGMServerSO))

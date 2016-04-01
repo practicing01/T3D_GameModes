@@ -51,6 +51,7 @@ function SkillsGMServer::onAdd(%this)
     }*/
   }
 
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function SkillsGMServer::onRemove(%this)
@@ -105,6 +106,11 @@ function serverCmdSkillActionTagGM(%client, %curbar, %slot)
   {
     SkillsGMServerSO.SkillAction(%client, %curbar, %slot);
   }
+}
+
+function SkillsGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapSkillsGM', false);
 }
 
 if (isObject(SkillsGMServerSO))

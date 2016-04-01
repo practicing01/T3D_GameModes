@@ -136,6 +136,11 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 
+  if (!isObject(%collObj))
+  {
+    return;
+  }
+
   %damageState = %obj.getDamageState();
   if (%damageState $= "Disabled" || %damageState $= "Destroyed")
   {

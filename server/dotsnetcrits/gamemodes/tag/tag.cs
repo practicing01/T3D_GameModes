@@ -38,6 +38,8 @@ function TagGMServer::SetTheOne(%this)
   DNCServer.EventManager_.postEvent("TeamJoinRequest", %data);
 
   %data.delete();
+
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function TagGMServer::onAdd(%this)
@@ -101,6 +103,11 @@ function serverCmdTagActionTagGM(%client)
   {
     TagGMServerSO.TagAction(%client);
   }
+}
+
+function TagGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapTagGM', false);
 }
 
 if (isObject(TagGMServerSO))

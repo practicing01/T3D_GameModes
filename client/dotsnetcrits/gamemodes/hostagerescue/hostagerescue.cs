@@ -57,6 +57,14 @@ function HostageRescueGMClient::HostageAction(%this)
   }
 }
 
+function clientCmdReloadActionMapHostageRescueGM()
+{
+  if (isObject(HostageRescueGMClientSO.actionMap_))
+  {
+    HostageRescueGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(HostageRescueGMClientSO))
 {
   HostageRescueGMClientSO.delete();

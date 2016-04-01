@@ -63,6 +63,8 @@ function HydroballGMServer::onAdd(%this)
   };
 
   %this.ballDummy_.setHidden(true);
+
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function HydroballGMServer::onRemove(%this)
@@ -204,6 +206,11 @@ function serverCmdBallActionHydroballGM(%client)
   {
     HydroballGMServerSO.BallAction(%client);
   }
+}
+
+function HydroballGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapHydroballGM', false);
 }
 
 if (isObject(HydroballGMServerSO))

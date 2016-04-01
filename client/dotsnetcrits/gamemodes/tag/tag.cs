@@ -57,6 +57,14 @@ function TagGMClient::TagAction(%this)
   }
 }
 
+function clientCmdReloadActionMapTagGM()
+{
+  if (isObject(TagGMClientSO.actionMap_))
+  {
+    TagGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(TagGMClientSO))
 {
   TagGMClientSO.delete();

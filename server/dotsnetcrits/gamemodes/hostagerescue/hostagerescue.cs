@@ -68,6 +68,7 @@ function HostageRescueGMServer::onAdd(%this)
     };
   }
 
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function HostageRescueGMServer::onRemove(%this)
@@ -179,6 +180,11 @@ function HostieHostageRescueGM::onReachDestination(%this, %ai)
 
   %ai.setMoveDestination(VectorAdd(%ai.rescuer_.position, %forwardVector));
 
+}
+
+function HostageRescueGMServer::loadOut(%this, %player)
+{
+  commandToClient(%player.client, 'ReloadActionMapHostageRescueGM', false);
 }
 
 if (isObject(HostageRescueGMServerSO))

@@ -57,6 +57,14 @@ function DiffusalGMClient::BombAction(%this)
   }
 }
 
+function clientCmdReloadActionMapDiffusalGM()
+{
+  if (isObject(DiffusalGMClientSO.actionMap_))
+  {
+    DiffusalGMClientSO.actionMap_.push();
+  }
+}
+
 if (isObject(DiffusalGMClientSO))
 {
   DiffusalGMClientSO.delete();
