@@ -63,7 +63,6 @@ function MeleeSkillsGM::Action(%this, %client, %guiSlot)
         for (%x = 0; %x < %obj.shieldSet_.getCount(); %x++)
         {
           %objArmor += %obj.shieldSet_.getObject(%x).power_;
-          echo(%objArmor);
         }
       }
 

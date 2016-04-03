@@ -9,6 +9,14 @@ function BlindSkillsGM::Action(%this, %client, %guiSlot)
 
   %player = %client.getControlObject();
 
+  if (%player.isField("silenceSet_"))
+  {
+    if (%player.silenceSet_.getCount() > 0)
+    {
+      return;
+    }
+  }
+
   %rayResult = %player.doRaycast(1000.0, $TypeMasks::ShapeBaseObjectType);
 
   %obj = firstWord(%rayResult);
