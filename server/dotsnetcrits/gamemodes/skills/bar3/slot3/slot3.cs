@@ -46,6 +46,15 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
     {
       class = "SnareInstanceSkillsGM";
       emitterNode_ = %targetEmitterNode;
+      model_ = "";
+    };
+
+    %snare.model_ = new StaticShape()
+    {
+      dataBlock = "ketchupbottleSkillsGM";
+      position = %obj.position;
+      rotation = "1 0 0 0";
+      scale = "0.3 0.3 0.3";
     };
 
     %obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
@@ -89,6 +98,11 @@ function SnareInstanceSkillsGM::onRemove(%this)
   if (isObject(%this.emitterNode_))
   {
     %this.emitterNode_.delete();
+  }
+
+  if (isObject(%this.model_))
+  {
+    %this.model_.delete();
   }
 }
 
@@ -143,7 +157,7 @@ if (isObject(SkillsGMServerSO))
     coolDownTime_ = 5.0;
     coolDownElapsedTime_ = 0.0;
     cooling_ = false;
-    duration_ = 1.0;
+    duration_ = 5.0;
     snareSets_ = "";
     cdSchedule_ = "";
     emitterNode_ = "";
