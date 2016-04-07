@@ -17,14 +17,16 @@ function CloakSkillsGM::Action(%this, %client, %guiSlot)
     }
   }
 
-  %rayResult = %player.doRaycast(1000.0, $TypeMasks::ShapeBaseObjectType);
+  //%rayResult = %player.doRaycast(1000.0, $TypeMasks::ShapeBaseObjectType);
 
-  %obj = firstWord(%rayResult);
+  //%obj = firstWord(%rayResult);
 
-  if (!isObject(%obj))
+  /*if (!isObject(%obj))
   {
     return;
-  }
+  }*/
+
+  %obj = %player;
 
   if (%obj.getClassName() $= "Player" || %obj.getClassName() $= "AIPlayer")
   {
