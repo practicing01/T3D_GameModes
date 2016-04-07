@@ -9,9 +9,9 @@ function CloakSkillsGM::Action(%this, %client, %guiSlot)
 
   %player = %client.getControlObject();
 
-  if (%player.isField("cloakSet_"))
+  if (%player.isField("silenceSet_"))
   {
-    if (%player.cloakSet_.getCount() > 0)
+    if (%player.silenceSet_.getCount() > 0)
     {
       return;
     }

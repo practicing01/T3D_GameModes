@@ -7,9 +7,9 @@ function HealSkillsGM::Action(%this, %client, %guiSlot)
 
   %player = %client.getControlObject();
 
-  if (%player.isField("blindSet_"))
+  if (%player.isField("silenceSet_"))
   {
-    if (%player.blindSet_.getCount() > 0)
+    if (%player.silenceSet_.getCount() > 0)
     {
       return;
     }

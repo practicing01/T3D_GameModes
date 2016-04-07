@@ -9,9 +9,9 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
 
   %player = %client.getControlObject();
 
-  if (%player.isField("teleportSet_"))
+  if (%player.isField("silenceSet_"))
   {
-    if (%player.teleportSet_.getCount() > 0)
+    if (%player.silenceSet_.getCount() > 0)
     {
       return;
     }
@@ -25,6 +25,8 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
   %rayResult = %player.doRaycast(1000.0, %mask);
 
   %obj = firstWord(%rayResult);
+
+  %pos = getWord(%rayResult, 1) SPC getWord(%rayResult, 2) SPC getWord(%rayResult, 3);
 
   if (!isObject(%obj))
   {
@@ -45,6 +47,7 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
       emitter = TeleportEmitter;
       active = true;
       velocity = 0.0;
+      position = %pos;
     };
 
     %teleport = new ScriptObject()
@@ -53,7 +56,7 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
       emitterNode_ = %targetEmitterNode;
     };
 
-    %obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
+    //%obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
 
     %obj.teleportSet_.add(%teleport);
 
@@ -83,7 +86,7 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
 
     %player.setActionThread("Celebrate_01", false);
 
-    %player.position = %obj.position;
+    %player.position = %pos;
   //}
 
 }

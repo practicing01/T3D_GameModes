@@ -9,9 +9,9 @@ function HOTSkillsGM::Action(%this, %client, %guiSlot)
 
   %player = %client.getControlObject();
 
-  if (%player.isField("hotSet_"))
+  if (%player.isField("silenceSet_"))
   {
-    if (%player.hotSet_.getCount() > 0)
+    if (%player.silenceSet_.getCount() > 0)
     {
       return;
     }
