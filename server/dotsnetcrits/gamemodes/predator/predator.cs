@@ -24,7 +24,7 @@ function PredatorGMServer::onAdd(%this)
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "PredatorGMServerQueue";
-echo("onadd");
+
   %this.SetTheOne();
 
 }

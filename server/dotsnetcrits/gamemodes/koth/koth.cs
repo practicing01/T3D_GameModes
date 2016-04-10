@@ -76,41 +76,20 @@ function KOTHGMServer::onRemove(%this)
 
 }
 
+function KOTHGMServer::Coronate(%this)
+{
+  if (%this.trigger_.getNumObjects())
+  {
+    %userper = %this.trigger_.getObject(0);
+    %userper.mountObject(%this.plunger_, GetMountIndexDNC(%userper, 0));
+  }
+}
+
 function KOTHGMTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
   if (isObject(KOTHGMServerSO))
   {
-    KOTHGMServerSO.userpers_.add(%obj);
-
-    if (KOTHGMServerSO.userpers_.getcount() == 1)
-    {
-      %modelFile = %obj.getModelFile();
-
-      %shapeConstructor = "";
-
-      for (%x = 0; %x <  TSShapeConstructorGroup.getCount(); %x++)
-      {
-        %TSShapeConstructor = TSShapeConstructorGroup.getObject(%x);
-
-        if (%TSShapeConstructor.baseShape $= %modelFile)
-        {
-          %shapeConstructor = %TSShapeConstructor;
-          break;
-        }
-      }
-
-      %index = -1;
-
-      for (%x = 0; %x <  %shapeConstructor.	getNodeCount(); %x++)
-      {
-        if (strstr(%shapeConstructor.getNodeName(%x), "mount") != -1)
-        {
-          %index++;
-        }
-      }
-
-      %obj.mountObject(KOTHGMServerSO.plunger_, %index);
-    }
+    KOTHGMServerSO.Coronate();
   }
 }
 
@@ -118,18 +97,21 @@ function KOTHGMTrigger::onLeaveTrigger(%this, %trigger, %obj)
 {
   if (isObject(KOTHGMServerSO))
   {
-    KOTHGMServerSO.userpers_.remove(%obj);
-
-    if (KOTHGMServerSO.userpers_.getcount() > 0)
-    {
-      KOTHGMServerSO.userpers_.getObject(0).mountObject(KOTHGMServerSO.plunger_, 0);
-    }
+    KOTHGMServerSO.Coronate();
   }
 }
 
 function KOTHGMTrigger::onTickTrigger(%this, %trigger)
 {
-  Game.incScore(KOTHGMServerSO.userpers_.getObject(0).client, 1, false);
+  %obj = %trigger.getObject(0);
+
+  %damageState = %obj.getDamageState();
+  if (%damageState $= "Disabled" || %damageState $= "Destroyed")
+  {
+    return;
+  }
+
+  Game.incScore(%obj.client, 1, false);
 }
 
 if (isObject(KOTHGMServerSO))

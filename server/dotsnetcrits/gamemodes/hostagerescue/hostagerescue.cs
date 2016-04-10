@@ -1,3 +1,37 @@
+function HostageRescueGMServer::SpawnHostie(%this)
+{
+  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
+
+  %rot = ClientGroup.getObject(0).getControlObject().rotation;
+
+  for (%x = 0; %x < MissionGroup.getCount(); %x++)
+  {
+    %obj = MissionGroup.getObject(%x);
+    if (%obj.getName() $= "HostageSpawnHostageRescueGM")
+    {
+      %pos = %obj.position;
+      %rot = %obj.rotation;
+
+      break;
+    }
+  }
+
+  if (isObject(Hostage))
+  {
+    Hostage.delete();
+  }
+
+  %this.hostage_ = new AiPlayer(Hostage)
+  {
+    dataBlock = HostieHostageRescueGM;
+    mMoveTolerance = 3.0;
+    position = %pos;
+    rotation = %rot;
+    following_ = false;
+    rescuer_ = "";
+  };
+}
+
 function HostageRescueGMServer::onAdd(%this)
 {
   %this.sphereCastRadius_ = 3.0;
@@ -180,6 +214,16 @@ function HostieHostageRescueGM::onReachDestination(%this, %ai)
 
   %ai.setMoveDestination(VectorAdd(%ai.rescuer_.position, %forwardVector));
 
+}
+
+function HostieHostageRescueGM::onDisabled(%this, %obj, %state)
+{
+  parent::onDisabled(%this, %obj, %state);
+
+  if (isObject(HostageRescueGMServerSO))
+  {
+    HostageRescueGMServerSO.SpawnHostie();
+  }
 }
 
 function HostageRescueGMServer::loadOut(%this, %player)
