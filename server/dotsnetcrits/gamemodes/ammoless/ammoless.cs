@@ -12,6 +12,31 @@ function AmmolessGMServer::GetRandyAmmoSpawnVector(%this)
   return ClientGroup.getObject(0).getControlObject().getPosition();
 }
 
+function AmmolessGMServer::ReduceAmmo(%this, %player)
+{
+  %player = ClientGroup.getObject(%x).getControlObject();
+
+  for (%i=0; %i< %player.totalCycledWeapons; %i++)
+  {
+    %weapon = %player.cycleWeapon[%i];
+
+    %player.setInventory(%weapon, 1);
+
+    %image = %weapon.getFieldValue("image");
+
+    if (%image.isField("ammo"))
+    {
+      %player.setInventory(%image.getFieldValue("ammo"), 1);
+    }
+
+    if (%image.isField("clip"))
+    {
+      %player.setInventory(%image.getFieldValue("clip"), 1);
+    }
+
+  }
+}
+
 function AmmolessGMServer::onAdd(%this)
 {
   MissionCleanup.add(%this);
@@ -24,25 +49,7 @@ function AmmolessGMServer::onAdd(%this)
   {
     %obj = ClientGroup.getObject(%x).getControlObject();
 
-    for (%i=0; %i< %obj.totalCycledWeapons; %i++)
-    {
-      %weapon = %obj.cycleWeapon[%i];
-
-      %obj.setInventory(%weapon, 1);
-
-      %image = %weapon.getFieldValue("image");
-
-      if (%image.isField("ammo"))
-      {
-        %obj.setInventory(%image.getFieldValue("ammo"), 1);
-      }
-
-      if (%image.isField("clip"))
-      {
-        %obj.setInventory(%image.getFieldValue("clip"), 1);
-      }
-
-    }
+    %this.ReduceAmmo(%obj);
   }
 
   %pos = %this.GetRandyAmmoSpawnVector();
@@ -99,6 +106,11 @@ function toiletPaperAmmolessGM::onCollision(%this, %obj, %collObj, %vec, %len)
   }
 }
 
+function AmmolessGMServer::loadOut(%this, %player)
+{
+  %this.ReduceAmmo(%player);
+}
+
 if (isObject(AmmolessGMServerSO))
 {
   AmmolessGMServerSO.delete();
@@ -111,4 +123,7 @@ else
     EventManager_ = "";
     ammo_ = "";
   };
+
+  DNCServer.loadOutListeners_.add(AmmolessGMServerSO);
+  MissionCleanup.add(AmmolessGMServerSO);
 }
