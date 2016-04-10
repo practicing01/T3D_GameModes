@@ -109,7 +109,7 @@ datablock ShapeBaseImageData(fistClubImage)
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
    stateSound[3]                    = fistClubFireSound;
-   //stateShapeSequence[3]            = "Melee";
+   stateShapeSequence[3]            = "Celebrate_01";
 
    // Play the reload animation, and transition into
    stateName[4]                     = "Reload";
