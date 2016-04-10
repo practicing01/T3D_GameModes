@@ -1,6 +1,6 @@
 function PredatorGMServer::SetTheOne(%this)
 {
-  if (%this.theOne_ != "")
+  if (isObject(%this.theOne_))
   {
     %this.theOne_.getControlObject().setShapeName(%this.theOnesName_);
   }
@@ -15,7 +15,6 @@ function PredatorGMServer::SetTheOne(%this)
   %this.theOne_.getControlObject().setCloaked(true);
   %this.theOnesName_ = %this.theOne_.getControlObject().getShapeName();
   %this.theOne_.getControlObject().setShapeName("");
-
 }
 
 function PredatorGMServer::onAdd(%this)
@@ -25,7 +24,7 @@ function PredatorGMServer::onAdd(%this)
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "PredatorGMServerQueue";
-
+echo("onadd");
   %this.SetTheOne();
 
 }
@@ -37,7 +36,7 @@ function PredatorGMServer::onRemove(%this)
     %this.EventManager_.delete();
   }
 
-  if (%this.theOne_ != "")
+  if (isObject(%this.theOne_))
   {
     %this.theOne_.getControlObject().setShapeName(%this.theOnesName_);
     %this.theOne_.getControlObject().setCloaked(false);
@@ -73,14 +72,6 @@ if (isObject(PredatorGMServerSO))
 }
 else
 {
-  %gmSO = new ScriptObject()
-  {
-    class = "PredatorGMServer";
-  };
-
-  DNCServer.loadOutListeners_.add(%gmSO);
-  MissionCleanup.add(%gmSO);
-
   new ScriptObject(PredatorGMServerSO)
   {
     class = "PredatorGMServer";
@@ -88,4 +79,7 @@ else
     theOne_ = "";
     theOnesName_ = "";
   };
+
+  DNCServer.loadOutListeners_.add(PredatorGMServerSO);
+  MissionCleanup.add(PredatorGMServerSO);
 }

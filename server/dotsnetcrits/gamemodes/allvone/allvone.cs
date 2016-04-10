@@ -14,7 +14,7 @@ function AllvOneGMServer::SetTheOne(%this)
       %data.delete();
     }
   }
-  
+
   for (%x = 0; %x < ClientGroup.getCount(); %x++)
   {
     %client = ClientGroup.getObject(%x);
@@ -93,18 +93,13 @@ if (isObject(AllvOneGMServerSO))
 }
 else
 {
-  %gmSO = new ScriptObject()
-  {
-    class = "AllvOneGMServer";
-  };
-
-  DNCServer.loadOutListeners_.add(%gmSO);
-  MissionCleanup.add(%gmSO);
-
   new ScriptObject(AllvOneGMServerSO)
   {
     class = "AllvOneGMServer";
     EventManager_ = "";
     theOne_ = "";
   };
+
+  DNCServer.loadOutListeners_.add(AllvOneGMServerSO);
+  MissionCleanup.add(AllvOneGMServerSO);
 }

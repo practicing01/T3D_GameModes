@@ -102,7 +102,7 @@ function DotsNetCritsServer::onRemove(%this)
   {
     %this.loadOutListeners_.delete();
   }
-  
+
   if (isObject(%this.loadedGamemodes_))
   {
     %this.loadedGamemodes_.deleteAllObjects();
@@ -129,25 +129,27 @@ function DotsNetCritsServer::onGamemodeVoteTallied(%this, %gamemode)
           commandToClient(ClientGroup.getObject(%y), 'LoadGamemodeDNC', %gamemode);
         }
       }
-      
+
       %newGM = true;
       for (%y = 0; %y < %this.loadedGamemodes_.getCount(); %y++)
       {
         if (%this.loadedGamemodes_.getObject(%y).name $= %gamemode)
         {
-          %this.loadedGamemodes_.remove(%this.loadedGamemodes_.getObject(%y));
+          %gamemode = %this.loadedGamemodes_.getObject(%y);
+          %this.loadedGamemodes_.remove(%gamemode);
+          %gamemode.delete();
           %newGM = false;
           break;
         }
       }
-      
+
       if (%newGM == true)
       {
         %loadedGM = new ScriptObject()
         {
           name_ = %gamemode;
         };
-        
+
         %this.loadedGamemodes_.add(%loadedGM);
       }
 
@@ -255,7 +257,7 @@ function WeaponLoader::loadOut(%this, %player)
 function DeathMatchGame::onClientEnterGame(%game, %client)
 {
    parent::onClientEnterGame(%game, %client);
-   
+
   if (isObject(DNCServer))
   {
     for (%y = 0; %y < DNCServer.loadedGamemodes_.getCount(); %y++)

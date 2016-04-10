@@ -84,6 +84,12 @@ function TagGMServer::TagAction(%this, %client)
       {
         if (DNCServer.TeamChooser_.teamA_.isMember(%targetObject.client))
         {
+          if (DNCServer.TeamChooser_.teamA_.getCount() == 1)
+          {
+            %this.SetTheOne();
+            return;
+          }
+
           %data = new ArrayObject();
           %data.add("client", %targetObject.client);
           %data.add("team", 1);
