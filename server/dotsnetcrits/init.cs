@@ -109,6 +109,12 @@ function DotsNetCritsServer::onRemove(%this)
     %this.loadedGamemodes_.delete();
   }
 
+  if (isObject(%this.loadedWeapons_))
+  {
+    %this.loadedWeapons_.deleteAllObjects();
+    %this.loadedWeapons_.delete();
+  }
+
   echo("dnc server go bye bye");
 }
 
@@ -277,4 +283,5 @@ new ScriptObject(DNCServer)
   ClientLeaveListeners_ = "";
   loadOutListeners_ = "";
   loadedGamemodes_ = "";
+  loadedWeapons_ = "";
 };

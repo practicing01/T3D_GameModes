@@ -163,4 +163,4 @@ DefaultPlayerData.maxInv[fistClub] = 1;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
-MissionCleanup.add(%weaponSO);
+DNCServer.loadedWeapons_.add(%weaponSO);
