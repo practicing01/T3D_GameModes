@@ -27,9 +27,9 @@ function DNCButt::onClick(%this)
   }
   else if (%this.getName() $= "LevelsButt")
   {
-    //DNCMain.getObject(0).getObject(0).getObject(0).setVisible(true);
-    //DNCMain.getObject(0).getObject(0).getObject(4).setVisible(true);
-    //DNCMain.getObject(0).getObject(0).getObject(0).getObject(7).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(0).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(7).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(0).getObject(3).setVisible(true);
   }
   else if (%this.getName() $= "NodesButt")
   {

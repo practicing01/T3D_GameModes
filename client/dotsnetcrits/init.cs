@@ -19,6 +19,7 @@ function DotsNetCritsClient::onAdd(%this)
   exec("scripts/client/dotsnetcrits/GamemodeTab.cs");
   exec("scripts/client/dotsnetcrits/TeamTab.cs");
   exec("scripts/client/dotsnetcrits/WeaponTab.cs");
+  exec("scripts/client/dotsnetcrits/LevelsTab.cs");
 
   if (isObject(%this.actionMap_))
   {

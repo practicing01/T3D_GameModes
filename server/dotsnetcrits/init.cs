@@ -30,8 +30,10 @@ function DotsNetCritsServer::onAdd(%this)
   exec("scripts/server/dotsnetcrits/rpc/serverCmdGamemodeVoteDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdJoinTeamDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdWeaponLoadDNC.cs");
+  exec("scripts/server/dotsnetcrits/rpc/serverCmdLevelVoteDNC.cs");
   exec("scripts/server/dotsnetcrits/GamemodeVoteMachine.cs");
   exec("scripts/server/dotsnetcrits/TeamChooser.cs");
+  exec("scripts/server/dotsnetcrits/LevelVoteMachine.cs");
 
   %this.EventManager_ = new EventManager();
 
@@ -45,9 +47,15 @@ function DotsNetCritsServer::onAdd(%this)
 
   %this.EventManager_.registerEvent("WeaponLoadRequest");
 
+  %this.EventManager_.registerEvent("LevelVoteCast");
+
+  %this.EventManager_.registerEvent("LevelVoteTallied");
+
   %this.EventManager_.subscribe(%this, "GamemodeVoteTallied");
 
   %this.EventManager_.subscribe(%this, "WeaponLoadRequest");
+
+  %this.EventManager_.subscribe(%this, "LevelVoteTallied");
 
   %this.GameModeVoteMachine_ = new ScriptObject()
   {
@@ -55,6 +63,13 @@ function DotsNetCritsServer::onAdd(%this)
   };
 
   %this.EventManager_.subscribe(%this.GameModeVoteMachine_, "GamemodeVoteCast");
+
+  %this.LevelVoteMachine_ = new ScriptObject()
+  {
+    class = "LevelVoteMachine";
+  };
+
+  %this.EventManager_.subscribe(%this.LevelVoteMachine_, "LevelVoteCast");
 
   %this.TeamChooser_ = new ScriptObject()
   {
@@ -76,6 +91,11 @@ function DotsNetCritsServer::onRemove(%this)
   if (isObject(%this.GameModeVoteMachine_))
   {
     %this.GameModeVoteMachine_.delete();
+  }
+
+  if (isObject(%this.LevelVoteMachine_))
+  {
+    %this.LevelVoteMachine_.delete();
   }
 
   if (isObject(%this.TeamChooser_))
@@ -159,6 +179,22 @@ function DotsNetCritsServer::onGamemodeVoteTallied(%this, %gamemode)
         %this.loadedGamemodes_.add(%loadedGM);
       }
 
+      break;
+    }
+  }
+}
+
+function DotsNetCritsServer::onLevelVoteTallied(%this, %level)
+{
+  %dirList = getDirectoryList("scripts/server/dotsnetcrits/levels/", 1);
+
+  %level = strlwr(%level);
+
+  for (%x = 0; %x < getFieldCount(%dirList); %x++)
+  {
+    if (getField(%dirList, %x) $= %level)//Make sure the level exists.
+    {
+      schedule(0, 0, loadMission, "levels/"@ %level @ ".mis", false);
       break;
     }
   }
@@ -284,4 +320,5 @@ new ScriptObject(DNCServer)
   loadOutListeners_ = "";
   loadedGamemodes_ = "";
   loadedWeapons_ = "";
+  LevelVoteMachine_ = "";
 };
