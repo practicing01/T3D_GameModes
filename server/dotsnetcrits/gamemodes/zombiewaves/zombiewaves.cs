@@ -16,9 +16,13 @@ function ZombieWavesGMServer::onAdd(%this)
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
     %obj = MissionGroup.getObject(%x);
-    if (%obj.getName() $= "ZombieSpawnZombieWavesGM")
+    if (%obj.getName() $= "ZombieSpawnsZombieWavesGM")
     {
-      %this.ZombieSpawns_.add(%obj);
+      for (%y = 0; %y < %obj.getCount(); %y++)
+      {
+        %this.ZombieSpawns_.add(%obj.getObject(%y));
+      }
+      break;
     }
   }
 
