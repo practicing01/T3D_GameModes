@@ -145,6 +145,11 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
     return;
   }
 
+  if (!(%collObj.getType() & ($TypeMasks::ShapeBaseObjectType)))
+  {
+    return;
+  }
+
   %damageState = %obj.getDamageState();
   if (%damageState $= "Disabled" || %damageState $= "Destroyed")
   {
