@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// dustWand weapon. This file contains all the items related to this weapon
+// teleDagger weapon. This file contains all the items related to this weapon
 // including explosions, ammo, the item and the weapon item image.
 // These objects rely on the item & inventory support system defined
 // in item.cs and inventory.cs
@@ -9,9 +9,9 @@
 //--------------------------------------------------------------------------
 // Weapon Item.  This is the item that exists in the world, i.e. when it's
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
-// is mounted onto a shape, the dustWandImage is used.
+// is mounted onto a shape, the teleDaggerImage is used.
 
-datablock ItemData(dustWand)
+datablock ItemData(teleDagger)
 {
    // Mission editor category
    category = "Weapon";
@@ -22,40 +22,40 @@ datablock ItemData(dustWand)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/teleDagger/teleDagger.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
    emap = true;
 
     // Dynamic properties defined by the scripts
-    pickUpName = "a dustWand";
-    description = "dustWand";
+    pickUpName = "a teleDagger";
+    description = "teleDagger";
     maxInventory = 1;
     damageType = "meleeDamage";
     damageRadius = 2;
     directDamage = 20;
-    image = dustWandImage;
+    image = teleDaggerImage;
 };
 
 
 //--------------------------------------------------------------------------
-// dustWand image which does all the work.  Images do not normally exist in
+// teleDagger image which does all the work.  Images do not normally exist in
 // the world, they can only be mounted on ShapeBase objects.
 
-datablock ShapeBaseImageData(dustWandImage)
+datablock ShapeBaseImageData(teleDaggerImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/teleDagger/teleDagger.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/teleDagger/teleDagger.cached.dts";
    emap = false;
 
-   item = dustWand;
+   item = teleDagger;
 
    infiniteAmmo = true;
 
-   //imageAnimPrefix = "dustWand";
-   //imageAnimPrefixFP = "dustWand";
+   //imageAnimPrefix = "teleDagger";
+   //imageAnimPrefixFP = "teleDagger";
 
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
@@ -102,13 +102,13 @@ datablock ShapeBaseImageData(dustWandImage)
    // the actual work.
    stateName[3]                     = "Fire";
    stateTransitionOnTimeout[3]      = "Ready";
-   stateTimeoutValue[3]             = 2.0;
+   stateTimeoutValue[3]             = 1.0;
    stateFire[3]                     = true;
    stateRecoil[3]                   = LightRecoil;
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = dustWandFireSound;
+   stateSound[3]                    = teleDaggerFireSound;
    stateShapeSequence[3]            = "Celebrate_01";
 
    // Play the reload animation, and transition into
@@ -119,7 +119,7 @@ datablock ShapeBaseImageData(dustWandImage)
    stateAllowImageChange[4]         = false;
    stateSequence[4]                 = "Reload";
    //stateEjectShell[4]               = true;
-   //stateSound[4]                    = dustWandReloadSound;
+   //stateSound[4]                    = teleDaggerReloadSound;
 
    // No ammo in the weapon, just idle until something
    // shows up. Play the dry fire sound if the trigger is
@@ -133,34 +133,71 @@ datablock ShapeBaseImageData(dustWandImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = dustWandFireEmptySound;
+   stateSound[6]                    = teleDaggerFireEmptySound;
 };
 
 
 //-----------------------------------------------------------------------------
 
-function dustWandImage::onFire(%this, %obj, %slot)
+function teleDaggerImage::onFire(%this, %obj, %slot)
 {
    %pos = %obj.getPosition();
 
-   %targetEmitterNode = new ParticleEmitterNode()
+   %rayResult = %obj.doRaycast(1.0, $TypeMasks::ShapeBaseObjectType);
+
+   %objTarget = firstWord(%rayResult);
+
+   if (!isObject(%objTarget))
    {
-     datablock = DefaultEmitterNodeData;
-     emitter = GrenadeExpDustEmitter;
+     return;
+   }
+
+   %objTarget.damage(%obj, %pos, %this.item.directDamage, "teleDagger");
+
+   //%teleDir = VectorNormalize(%obj.getEyeVector());
+   %teleDir = %obj.getForwardVector();
+
+   %size = %obj.getObjectBox();
+   %scale = %obj.getScale();
+   %sizex = (getWord(%size, 3) - getWord(%size, 0)) * getWord(%scale, 0);
+   %sizex *= 1.5;
+
+   %sizeTarget = %objTarget.getObjectBox();
+   %scaleTarget = %objTarget.getScale();
+   %sizexTarget = (getWord(%sizeTarget, 3) - getWord(%sizeTarget, 0)) * getWord(%scaleTarget, 0);
+   %sizexTarget *= 1.5;
+
+   %obj.setPosition( VectorAdd( %pos, VectorScale(%teleDir, %sizex + %sizexTarget) ) );
+
+   %emitterNode = new ParticleEmitterNode()
+   {
+     datablock = TeleportEmitterNodeData;
+     emitter = TeleportEmitter;
      active = true;
      velocity = 0.0;
      position = %pos;
    };
 
-   %targetEmitterNode.schedule(5000, "delete");
+   %emitterNode.schedule(1000, "delete");
+
+   %targetEmitterNode = new ParticleEmitterNode()
+   {
+     datablock = TeleportEmitterNodeData;
+     emitter = TeleportEmitter;
+     active = true;
+     velocity = 0.0;
+     position = %obj.position;
+   };
+
+   %targetEmitterNode.schedule(1000, "delete");
 }
 
-DefaultPlayerData.maxInv[dustWand] = 1;
+DefaultPlayerData.maxInv[teleDagger] = 1;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
-  weapon_ = dustWand;
+  weapon_ = teleDagger;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
