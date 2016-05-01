@@ -43,8 +43,8 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
 
     %targetEmitterNode = new ParticleEmitterNode()
     {
-      datablock = TeleportEmitterNodeData;
-      emitter = TeleportEmitter;
+      datablock = TeleportDNCEmitterNodeData;
+      emitter = TeleportDNCEmitter;
       active = true;
       velocity = 0.0;
       position = %pos;
@@ -67,8 +67,8 @@ function TeleportSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = TeleportEmitterNodeData;
-      emitter = TeleportEmitter;
+      datablock = TeleportDNCEmitterNodeData;
+      emitter = TeleportDNCEmitter;
       active = true;
       velocity = 0.0;
     };

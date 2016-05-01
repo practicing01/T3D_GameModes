@@ -636,14 +636,14 @@ if (!isObject(CloakEmitter))
   };
 }
 
-datablock ParticleEmitterNodeData(TeleportEmitterNodeData)
+datablock ParticleEmitterNodeData(TeleportDNCEmitterNodeData)
 {
   timeMultiple = 1.0;
 };
 
-if (!isObject(TeleportParticle))
+if (!isObject(TeleportDNCParticle))
 {
-  datablock ParticleData(TeleportParticle)
+  datablock ParticleData(TeleportDNCParticle)
   {
      textureName = "art/particles/dotsnetcrits/skills/teleport.png";
      dragCoefficient = 0.498534;
@@ -676,16 +676,16 @@ if (!isObject(TeleportParticle))
   };
 }
 
-if (!isObject(TeleportEmitter))
+if (!isObject(TeleportDNCEmitter))
 {
-  datablock ParticleEmitterData(TeleportEmitter)
+  datablock ParticleEmitterData(TeleportDNCEmitter)
   {
      ejectionPeriodMS = "50";
      ejectionVelocity = "1";
      velocityVariance = "0";
      ejectionOffset = "0.2";
      thetaMax = "40";
-     particles = "TeleportParticle";
+     particles = "TeleportDNCParticle";
      blendStyle = "ADDITIVE";
      softParticles = "0";
      softnessDistance = "1";

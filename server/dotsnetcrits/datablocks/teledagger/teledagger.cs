@@ -171,8 +171,8 @@ function teleDaggerImage::onFire(%this, %obj, %slot)
 
    %emitterNode = new ParticleEmitterNode()
    {
-     datablock = TeleportEmitterNodeData;
-     emitter = TeleportEmitter;
+     datablock = TeleportDNCEmitterNodeData;
+     emitter = TeleportDNCEmitter;
      active = true;
      velocity = 0.0;
      position = %pos;
@@ -182,8 +182,8 @@ function teleDaggerImage::onFire(%this, %obj, %slot)
 
    %targetEmitterNode = new ParticleEmitterNode()
    {
-     datablock = TeleportEmitterNodeData;
-     emitter = TeleportEmitter;
+     datablock = TeleportDNCEmitterNodeData;
+     emitter = TeleportDNCEmitter;
      active = true;
      velocity = 0.0;
      position = %obj.position;
