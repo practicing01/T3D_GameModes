@@ -47,3 +47,9 @@ datablock StaticShapeData(ketchupbottleSkillsGM)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/skills/ketchupbottle/ketchupbottle.cached.dts";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(glassBottleStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/weapons/glassBottle/glassBottle.cached.dts";
+  isInvincible = "1";
+};
