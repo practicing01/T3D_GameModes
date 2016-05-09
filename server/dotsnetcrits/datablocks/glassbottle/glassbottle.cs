@@ -36,6 +36,8 @@ datablock ItemData(glassBottle)
     damageRadius = 2;
     directDamage = 20;
     image = glassBottleImage;
+    reticle = "crossHair";
+    zoomReticle = "crossHair";
 };
 
 

@@ -36,6 +36,8 @@ datablock ItemData(pogoBlade)
     damageRadius = 2;
     directDamage = 20;
     image = pogoBladeImage;
+    reticle = "crossHair";
+    zoomReticle = "crossHair";
 };
 
 
@@ -143,6 +145,16 @@ datablock ShapeBaseImageData(pogoBladeImage)
 function pogoBladeImage::onFire(%this, %obj, %slot)
 {
    %pos = %obj.getPosition();
+
+   initContainerRadiusSearch(%pos, %this.item.damageRadius, $TypeMasks::ShapeBaseObjectType);
+
+   while ( (%targetObject = containerSearchNext()) != 0 )
+   {
+     if(%targetObject != %obj)
+     {
+      %targetObject.damage(%obj, %pos, %this.item.directDamage, "fistClub");
+     }
+   }
 
    %obj.applyImpulse("0 0 0", VectorScale(%obj.getUpVector(), 5000.0));
 

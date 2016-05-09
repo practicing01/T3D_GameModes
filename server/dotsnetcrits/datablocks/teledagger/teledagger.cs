@@ -36,6 +36,8 @@ datablock ItemData(teleDagger)
     damageRadius = 2;
     directDamage = 20;
     image = teleDaggerImage;
+    reticle = "crossHair";
+    zoomReticle = "crossHair";
 };
 
 

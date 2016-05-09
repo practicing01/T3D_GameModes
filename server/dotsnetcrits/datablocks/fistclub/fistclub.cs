@@ -36,6 +36,8 @@ datablock ItemData(fistClub)
     damageRadius = 2;
     directDamage = 20;
     image = fistClubImage;
+    reticle = "crossHair";
+    zoomReticle = "crossHair";
 };
 
 

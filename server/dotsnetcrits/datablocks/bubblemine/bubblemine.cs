@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// dustWand weapon. This file contains all the items related to this weapon
+// bubbleMine weapon. This file contains all the items related to this weapon
 // including explosions, ammo, the item and the weapon item image.
 // These objects rely on the item & inventory support system defined
 // in item.cs and inventory.cs
@@ -9,61 +9,75 @@
 //--------------------------------------------------------------------------
 // Weapon Item.  This is the item that exists in the world, i.e. when it's
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
-// is mounted onto a shape, the dustWandImage is used.
+// is mounted onto a shape, the bubbleMineImage is used.
 
-datablock ItemData(dustWand)
+datablock ProximityMineData(bubbleMine)
 {
    // Mission editor category
    category = "Weapon";
+   explosion = GrenadeLauncherExplosion;
 
    // Hook into Item Weapon class hierarchy. The weapon namespace
    // provides common weapon handling functions in addition to hooks
    // into the inventory system.
-   className = "Weapon";
+   //className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/bubbleMine/bubbleMine.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
-   emap = true;
+   sticky = true;
+   simpleServerCollision = false;
+
+   armingDelay = 3.5;
+   autoTriggerDelay = 0;
+   triggerOnOwner = true;
+   triggerRadius = 3.0;
+   triggerDelay = 0.45;
+   explosionOffset = 0.1;
 
     // Dynamic properties defined by the scripts
-    pickUpName = "a dustWand";
-    description = "dustWand";
-    maxInventory = 1;
+    pickUpName = "a bubbleMine";
+    description = "bubbleMine";
+    maxInventory = 20;
     damageType = "meleeDamage";
-    damageRadius = 2;
-    directDamage = 20;
-    image = dustWandImage;
+    damageRadius = 8;
+    radiusDamage = 300;
+    areaImpulse = 2000;
+    image = bubbleMineImage;
     reticle = "crossHair";
     zoomReticle = "crossHair";
+    gravityMod = 0.0;
+    bounceElasticity = 10.0;
+    bounceFriction = 0.0;
 };
 
 
 //--------------------------------------------------------------------------
-// dustWand image which does all the work.  Images do not normally exist in
+// bubbleMine image which does all the work.  Images do not normally exist in
 // the world, they can only be mounted on ShapeBase objects.
 
-datablock ShapeBaseImageData(dustWandImage)
+datablock ShapeBaseImageData(bubbleMineImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/dustWand/dustWand.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/bubbleMine/bubbleMine.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/bubbleMine/bubbleMine.cached.dts";
    emap = false;
 
-   item = dustWand;
+   item = bubbleMine;
 
    infiniteAmmo = true;
 
-   //imageAnimPrefix = "dustWand";
-   //imageAnimPrefixFP = "dustWand";
+   //imageAnimPrefix = "bubbleMine";
+   //imageAnimPrefixFP = "bubbleMine";
 
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
    //eyeOffset = "0.5 0.0 0.0";
    //rotation = "1 0 0 90";
+   scale = "0.1 0.1 0.1";
 
    // When firing from a point offset from the eye, muzzle correction
    // will adjust the muzzle vector to point to the eye LOS point.
@@ -75,6 +89,8 @@ datablock ShapeBaseImageData(dustWandImage)
    // provides some hooks into the inventory system.
    class = "WeaponImage";
    className = "WeaponImage";
+
+   item = bubbleMine;
 
    // Images have a state system which controls how the animations
    // are run, which sounds are played, script callbacks, etc. This
@@ -104,13 +120,13 @@ datablock ShapeBaseImageData(dustWandImage)
    // the actual work.
    stateName[3]                     = "Fire";
    stateTransitionOnTimeout[3]      = "Ready";
-   stateTimeoutValue[3]             = 2.0;
+   stateTimeoutValue[3]             = 1.0;
    stateFire[3]                     = true;
    stateRecoil[3]                   = LightRecoil;
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = dustWandFireSound;
+   stateSound[3]                    = bubbleMineFireSound;
    stateShapeSequence[3]            = "Celebrate_01";
 
    // Play the reload animation, and transition into
@@ -121,7 +137,7 @@ datablock ShapeBaseImageData(dustWandImage)
    stateAllowImageChange[4]         = false;
    stateSequence[4]                 = "Reload";
    //stateEjectShell[4]               = true;
-   //stateSound[4]                    = dustWandReloadSound;
+   //stateSound[4]                    = bubbleMineReloadSound;
 
    // No ammo in the weapon, just idle until something
    // shows up. Play the dry fire sound if the trigger is
@@ -135,34 +151,59 @@ datablock ShapeBaseImageData(dustWandImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = dustWandFireEmptySound;
+   stateSound[6]                    = bubbleMineFireEmptySound;
 };
 
 
 //-----------------------------------------------------------------------------
 
-function dustWandImage::onFire(%this, %obj, %slot)
+
+function bubbleMine::onUse(%this, %obj)
 {
-   %pos = %obj.getPosition();
-
-   %targetEmitterNode = new ParticleEmitterNode()
-   {
-     datablock = DefaultEmitterNodeData;
-     emitter = GrenadeExpDustEmitter;
-     active = true;
-     velocity = 0.0;
-     position = %pos;
-   };
-
-   %targetEmitterNode.schedule(5000, "delete");
+   // Act like a weapon on use
+   Weapon::onUse( %this, %obj );
 }
 
-DefaultPlayerData.maxInv[dustWand] = 1;
+function bubbleMine::onPickup( %this, %obj, %shape, %amount )
+{
+   // Act like a weapon on pickup
+   Weapon::onPickup( %this, %obj, %shape, %amount );
+}
+
+function bubbleMine::onInventory( %this, %obj, %amount )
+{
+   %obj.client.setAmmoAmountHud( 1, %amount );
+
+   // Cycle weapons if we are out of ammo
+   if ( !%amount && ( %slot = %obj.getMountSlot( %this.image ) ) != -1 )
+      %obj.cycleWeapon( "prev" );
+}
+
+function bubbleMineImage::onMount( %this, %obj, %slot )
+{
+   // The mine doesn't use ammo from a player's perspective.
+   %obj.setImageAmmo( %slot, true );
+   %numMines = %obj.getInventory(%this.item);
+   %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numMines  );
+}
+
+function bubbleMineImage::onUnmount( %this, %obj, %slot )
+{
+   %obj.client.RefreshWeaponHud( 0, "", "" );
+}
+
+function bubbleMineImage::onFire( %this, %obj, %slot )
+{
+   // To fire a deployable mine is to throw it
+   %obj.throw( %this.item );
+}
+
+DefaultPlayerData.maxInv[bubbleMine] = 1;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
-  weapon_ = dustWand;
+  weapon_ = bubbleMine;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
