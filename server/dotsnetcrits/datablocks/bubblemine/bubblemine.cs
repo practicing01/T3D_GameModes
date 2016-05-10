@@ -40,7 +40,7 @@ datablock ProximityMineData(bubbleMine)
     // Dynamic properties defined by the scripts
     pickUpName = "a bubbleMine";
     description = "bubbleMine";
-    maxInventory = 20;
+    maxInventory = 1;
     damageType = "meleeDamage";
     damageRadius = 8;
     radiusDamage = 300;
@@ -173,6 +173,12 @@ function bubbleMine::onPickup( %this, %obj, %shape, %amount )
 function bubbleMine::onInventory( %this, %obj, %amount )
 {
    %obj.client.setAmmoAmountHud( 1, %amount );
+
+   if (!%amount)
+   {
+     %obj.setInventory(bubbleMine, 1);
+     return;
+   }
 
    // Cycle weapons if we are out of ammo
    if ( !%amount && ( %slot = %obj.getMountSlot( %this.image ) ) != -1 )
