@@ -142,6 +142,19 @@ datablock ShapeBaseImageData(glassBottleImage)
 
 //-----------------------------------------------------------------------------
 
+function glassBottleImage::onMount( %this, %obj, %slot )
+{
+   // The mine doesn't use ammo from a player's perspective.
+   %obj.setImageAmmo( %slot, true );
+   %numMines = %obj.getInventory(%this.item);
+   %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numMines  );
+}
+
+function glassBottleImage::onUnmount( %this, %obj, %slot )
+{
+   %obj.client.RefreshWeaponHud( 0, "", "" );
+}
+
 function glassBottleImage::onFire(%this, %obj, %slot)
 {
    %pos = %obj.getPosition();

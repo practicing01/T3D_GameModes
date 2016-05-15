@@ -140,6 +140,20 @@ datablock ShapeBaseImageData(shrinkShroomImage)
 
 
 //-----------------------------------------------------------------------------
+
+function shrinkShroomImage::onMount( %this, %obj, %slot )
+{
+   // The mine doesn't use ammo from a player's perspective.
+   %obj.setImageAmmo( %slot, true );
+   %numMines = %obj.getInventory(%this.item);
+   %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numMines  );
+}
+
+function shrinkShroomImage::onUnmount( %this, %obj, %slot )
+{
+   %obj.client.RefreshWeaponHud( 0, "", "" );
+}
+
 function shrinkShroomImage::Unshrink(%this, %obj, %slot, %objTarget)
 {
   if (!isObject(%objTarget))
