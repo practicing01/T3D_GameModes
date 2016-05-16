@@ -6,8 +6,16 @@ if (isObject(DNCServer))
   {
     %file = getField(%dirList, %x);
     %file = strlwr(%file);
+
+    if (%file $= "players")
+    {
+      continue;
+    }
+
     exec("scripts/server/dotsnetcrits/datablocks/" @ %file @ "/" @ %file @ ".cs");
   }
+
+  exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
   return;
 }
 
@@ -24,8 +32,16 @@ function DotsNetCritsServer::onAdd(%this)
   {
     %file = getField(%dirList, %x);
     %file = strlwr(%file);
+
+    if (%file $= "players")
+    {
+      continue;
+    }
+
     exec("scripts/server/dotsnetcrits/datablocks/" @ %file @ "/" @ %file @ ".cs");
   }
+
+  exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
 
   exec("scripts/server/dotsnetcrits/rpc/serverCmdGamemodeVoteDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdJoinTeamDNC.cs");
@@ -293,6 +309,17 @@ function DeathMatchGame::loadOut(%game, %player)
 function WeaponLoader::loadOut(%this, %player)
 {
   %player.setInventory(%this.weapon_, 1);
+
+  if (%this.isField("clip_"))
+  {
+    %player.setInventory(%this.clip_, %player.maxInventory(%this.clip_));
+  }
+
+  if (%this.isField("ammo_"))
+  {
+    %player.setInventory(%this.ammo_, %player.maxInventory(%this.ammo_));
+  }
+
   %player.addToWeaponCycle(%this.weapon_);
 }
 
