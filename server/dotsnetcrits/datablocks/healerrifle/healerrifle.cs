@@ -163,7 +163,7 @@ datablock ItemData(healerRifle)
     description = "healerRifle";
     image = healerRifleImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 

@@ -37,7 +37,7 @@ datablock ItemData(shrinkShroom)
     directDamage = 20;
     image = shrinkShroomImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 

@@ -37,7 +37,7 @@ datablock ItemData(dustWand)
     directDamage = 20;
     image = dustWandImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 

@@ -37,7 +37,7 @@ datablock ItemData(noodleBlade)
     directDamage = 20;
     image = noodleBladeImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 

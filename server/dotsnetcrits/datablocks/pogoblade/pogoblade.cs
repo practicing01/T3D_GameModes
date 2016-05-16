@@ -37,7 +37,7 @@ datablock ItemData(pogoBlade)
     directDamage = 20;
     image = pogoBladeImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 

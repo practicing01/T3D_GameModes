@@ -47,7 +47,7 @@ datablock ProximityMineData(bubbleMine)
     areaImpulse = 2000;
     image = bubbleMineImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
     gravityMod = 0.0;
     bounceElasticity = 10.0;
     bounceFriction = 0.0;

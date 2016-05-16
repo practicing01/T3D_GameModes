@@ -47,7 +47,7 @@ datablock ProximityMineData(hotdogNade)
     areaImpulse = 0;
     image = hotdogNadeImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
     //gravityMod = 0.0;
     bounceElasticity = 10.0;
     bounceFriction = 0.0;

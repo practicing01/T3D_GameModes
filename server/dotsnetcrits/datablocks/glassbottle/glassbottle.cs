@@ -37,7 +37,7 @@ datablock ItemData(glassBottle)
     directDamage = 20;
     image = glassBottleImage;
     reticle = "crossHair";
-    zoomReticle = "crossHair";
+    zoomReticle = "crossHairZoomed";
 };
 
 
