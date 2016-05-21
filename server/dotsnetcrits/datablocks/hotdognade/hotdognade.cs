@@ -42,7 +42,7 @@ datablock ProximityMineData(hotdogNade)
     description = "hotdogNade";
     maxInventory = 1;
     damageType = "meleeDamage";
-    damageRadius = 2;
+    damageRadius = 4;
     radiusDamage = 100;
     areaImpulse = 0;
     image = hotdogNadeImage;
