@@ -167,6 +167,7 @@ function teleMirrorImage::onUnmount( %this, %obj, %slot )
 
 function teleMirrorImage::onFire(%this, %obj, %slot)
 {
+  //credits to irei1as http://forums.torque3d.org/viewtopic.php?f=12&p=5432&sid=361ab2046ec1826bce5b1435cad3eeb3#p5432
    %rayResult = %obj.doRaycast(10000.0, %this.item.rayMask);
 
    %objTarget = firstWord(%rayResult);

@@ -1,19 +1,24 @@
-if (isObject(DNCServer))
+function DotsNetCritsServer::execDirScripts(%this, %dir, %exclusions)
 {
-  %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
+  %dirList = getDirectoryList("scripts/server/dotsnetcrits/" @ %dir @ "/", 1);
 
   for (%x = 0; %x < getFieldCount(%dirList); %x++)
   {
     %file = getField(%dirList, %x);
     %file = strlwr(%file);
 
-    if (%file $= "players")
+    if (strIsMatchMultipleExpr(%exclusions, %file))
     {
       continue;
     }
 
-    exec("scripts/server/dotsnetcrits/datablocks/" @ %file @ "/" @ %file @ ".cs");
+    exec("scripts/server/dotsnetcrits/" @ %dir @ "/" @ %file @ "/" @ %file @ ".cs");
   }
+}
+
+if (isObject(DNCServer))
+{
+  %this.execDirScripts("datablocks", "players");
 
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
   return;
@@ -25,21 +30,10 @@ function DotsNetCritsServer::onAdd(%this)
   %this.ClientLeaveListeners_ = new SimSet();
   %this.loadOutListeners_ = new SimSet();
   %this.loadedGamemodes_ = new SimSet();
+  %this.loadedWeapons_ = new SimSet();
+  %this.loadedNPCs_ = new SimSet();
 
-  %dirList = getDirectoryList("scripts/server/dotsnetcrits/datablocks/", 1);
-
-  for (%x = 0; %x < getFieldCount(%dirList); %x++)
-  {
-    %file = getField(%dirList, %x);
-    %file = strlwr(%file);
-
-    if (%file $= "players")
-    {
-      continue;
-    }
-
-    exec("scripts/server/dotsnetcrits/datablocks/" @ %file @ "/" @ %file @ ".cs");
-  }
+  %this.execDirScripts("datablocks", "players");
 
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
 
@@ -47,6 +41,7 @@ function DotsNetCritsServer::onAdd(%this)
   exec("scripts/server/dotsnetcrits/rpc/serverCmdJoinTeamDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdWeaponLoadDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdLevelVoteDNC.cs");
+  exec("scripts/server/dotsnetcrits/rpc/serverCmdNPCLoadDNC.cs");
   exec("scripts/server/dotsnetcrits/GamemodeVoteMachine.cs");
   exec("scripts/server/dotsnetcrits/TeamChooser.cs");
   exec("scripts/server/dotsnetcrits/LevelVoteMachine.cs");
@@ -67,11 +62,15 @@ function DotsNetCritsServer::onAdd(%this)
 
   %this.EventManager_.registerEvent("LevelVoteTallied");
 
+  %this.EventManager_.registerEvent("NPCLoadRequest");
+
   %this.EventManager_.subscribe(%this, "GamemodeVoteTallied");
 
   %this.EventManager_.subscribe(%this, "WeaponLoadRequest");
 
   %this.EventManager_.subscribe(%this, "LevelVoteTallied");
+
+  %this.EventManager_.subscribe(%this, "NPCLoadRequest");
 
   %this.GameModeVoteMachine_ = new ScriptObject()
   {
@@ -95,6 +94,7 @@ function DotsNetCritsServer::onAdd(%this)
   %this.EventManager_.subscribe(%this.TeamChooser_, "TeamJoinRequest");
   %this.loadOutListeners_.add(%this.TeamChooser_);
 
+  %this.execDirScripts("npcs", "");
 }
 
 function DotsNetCritsServer::onRemove(%this)
@@ -149,6 +149,12 @@ function DotsNetCritsServer::onRemove(%this)
   {
     %this.loadedWeapons_.deleteAllObjects();
     %this.loadedWeapons_.delete();
+  }
+
+  if (isObject(%this.loadedNPCs_))
+  {
+    %this.loadedNPCs_.deleteAllObjects();
+    %this.loadedNPCs_.delete();
   }
 
   echo("dnc server go bye bye");
@@ -516,4 +522,5 @@ new ScriptObject(DNCServer)
   loadedGamemodes_ = "";
   loadedWeapons_ = "";
   LevelVoteMachine_ = "";
+  loadedNPCs_ = "";
 };

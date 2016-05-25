@@ -94,7 +94,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
       %emitterNode = %this.CreateTeamParticleEmitter(%team, %client);
       %this.teamAParticleEmitters_.add(%emitterNode);
 
-      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
+      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 1));
     }
 
     if (%this.teamB_.isMember(%client))
@@ -121,7 +121,7 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
       %emitterNode = %this.CreateTeamParticleEmitter(%team, %client);
       %this.teamBParticleEmitters_.add(%emitterNode);
 
-      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 0));
+      %obj.mountObject(%emitterNode, GetMountIndexDNC(%obj, 1));
     }
 
     if (%this.teamA_.isMember(%client))
@@ -138,16 +138,16 @@ function TeamChooser::onTeamJoinRequest(%this, %data)
 function TeamChooser::loadOut(%this, %player)
 {
   %client = %player.client;
-  
+
   if (%this.teamA_.isMember(%client))
   {
     %index = %this.teamA_.getObjectIndex(%client);
-    %player.mountObject(%this.teamAParticleEmitters_.getObject(%index), GetMountIndexDNC(%player, 0));
+    %player.mountObject(%this.teamAParticleEmitters_.getObject(%index), GetMountIndexDNC(%player, 1));
   }
   else
   {
     %index = %this.teamB_.getObjectIndex(%client);
-    %player.mountObject(%this.teamBParticleEmitters_.getObject(%index), GetMountIndexDNC(%player, 0));
+    %player.mountObject(%this.teamBParticleEmitters_.getObject(%index), GetMountIndexDNC(%player, 1));
   }
 
 }
