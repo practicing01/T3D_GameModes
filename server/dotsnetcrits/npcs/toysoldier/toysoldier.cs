@@ -12,6 +12,10 @@ function toySoldierScriptMsgListener::onClientLeaveGame(%this, %client)
 function toySoldierScriptMsgListener::onAdd(%this)
 {
   %this.npcArray_ = new ArrayObject();
+  %this.rayMask_ = $TypeMasks::StaticObjectType|$TypeMasks::EnvironmentObjectType|$TypeMasks::WaterObjectType|
+  $TypeMasks::ShapeBaseObjectType|$TypeMasks::StaticShapeObjectType|$TypeMasks::DynamicShapeObjectType|
+  $TypeMasks::PlayerObjectType|$TypeMasks::ItemObjectType|$TypeMasks::VehicleObjectType|
+  $TypeMasks::CorpseObjectType;
 }
 
 function toySoldierScriptMsgListener::onRemove(%this)
@@ -49,9 +53,11 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
   {
     %npc = %this.npcArray_.getValue(%x);
 
+    //delete npc
     if (isObject(%npc))
     {
       %npc.delete();
+      commandToClient(%client, 'NPCLoadDNC', %npcName, false);
       return;
     }
 
@@ -83,6 +89,8 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
 
     %this.npcArray_.setValue(%toySoldier, %index);
 
+    commandToClient(%client, 'NPCLoadDNC', %npcName, true);
+
     return;
   }
 
@@ -113,6 +121,56 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
   };
 
   %this.npcArray_.add(%client, %toySoldier);
+
+  commandToClient(%client, 'NPCLoadDNC', %npcName, true);
+}
+
+function toySoldierScriptMsgListener::MoveNPC(%this, %npc, %player)
+{
+  %rayResult = %player.doRaycast(10000.0, %this.rayMask_);
+
+  //%objTarget = firstWord(%rayResult);
+  %objTargetPos = getWords(%rayResult, 1, 3);
+  //%objTargetDir = getWords(%rayResult, 4, 6);
+
+  %npc.setMoveDestination(%objTargetPos);
+}
+
+function toySoldierScriptMsgListener::CommandNPC(%this, %key, %npc, %player)
+{
+  if (%key $= "numpad0")
+  {
+    %this.MoveNPC(%npc, %player);
+  }
+}
+
+function toySoldierScriptMsgListener::onNPCActionToySoldier(%this, %data)
+{
+  %client = %data.getValue(%data.getIndexFromKey("client"));
+  %key = %data.getValue(%data.getIndexFromKey("key"));
+  %player = %client.getControlObject();
+
+  %index = %this.npcArray_.getIndexFromKey(%client);
+
+  if (%index != -1)
+  {
+    %npc = %this.npcArray_.getValue(%x);
+
+    if (isObject(%npc))
+    {
+      %this.CommandNPC(%key, %npc, %player);
+    }
+  }
+}
+
+function serverCmdNPCActionToySoldier(%client, %key)
+{
+  %data = new ArrayObject();
+  %data.add("client", %client);
+  %data.add("key", %key);
+  DNCServer.EventManager_.postEvent("NPCActionToySoldier", %data);
+
+  %data.delete();
 }
 
 %NPC = new ScriptMsgListener()
@@ -120,8 +178,11 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
   class = "toySoldierScriptMsgListener";
   npc_ = "toysoldier";
   npcArray_ = "";
+  rayMask_ = "";
 };
 
 DNCServer.loadedNPCs_.add(%NPC);
+DNCServer.EventManager_.registerEvent("NPCActionToySoldier");
 DNCServer.EventManager_.subscribe(%NPC, "NPCLoadRequest");
+DNCServer.EventManager_.subscribe(%NPC, "NPCActionToySoldier");
 DNCServer.ClientLeaveListeners_.add(%NPC);

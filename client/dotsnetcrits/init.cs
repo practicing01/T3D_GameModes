@@ -1,6 +1,27 @@
+function DotsNetCritsClient::execDirScripts(%this, %dir, %exclusions)
+{
+  %dirList = getDirectoryList("scripts/client/dotsnetcrits/" @ %dir @ "/", 1);
+
+  for (%x = 0; %x < getFieldCount(%dirList); %x++)
+  {
+    %file = getField(%dirList, %x);
+    %file = strlwr(%file);
+
+    if (strIsMatchMultipleExpr(%exclusions, %file))
+    {
+      continue;
+    }
+
+    exec("scripts/client/dotsnetcrits/" @ %dir @ "/" @ %file @ "/" @ %file @ ".cs");
+  }
+}
+
 function DotsNetCritsClient::onAdd(%this)
 {
+  %this.loadedNPCs_ = new SimSet();
+
   exec("scripts/client/dotsnetcrits/rpc/clientCmdLoadGamemodeDNC.cs");
+  exec("scripts/client/dotsnetcrits/rpc/clientCmdNPCLoadDNC.cs");
 
   %this.EventManager_ = new EventManager();
 
@@ -13,6 +34,8 @@ function DotsNetCritsClient::onAdd(%this)
   %this.EventManager_.registerEvent("LoadGamemode");
 
   %this.EventManager_.subscribe(%this, "LoadGamemode");
+
+  %this.EventManager_.registerEvent("NPCLoadRequest");
 
   exec("art/gui/DNCMain.gui");
   exec("scripts/client/dotsnetcrits/DNCButt.cs");
@@ -31,6 +54,8 @@ function DotsNetCritsClient::onAdd(%this)
   %this.actionMap_.bindCmd(keyboard, "escape", "", "escapeFromGameDNC();");
 
   %this.actionMap_.push();
+
+  %this.execDirScripts("npcs", "");
 }
 
 function DotsNetCritsClient::onRemove(%this)
@@ -44,6 +69,12 @@ function DotsNetCritsClient::onRemove(%this)
   {
     %this.actionMap_.pop();
     %this.actionMap_.delete();
+  }
+
+  if (isObject(%this.loadedNPCs_))
+  {
+    %this.loadedNPCs_.deleteAllObjects();
+    %this.loadedNPCs_.delete();
   }
   echo("dnc client go bye bye");
 }
@@ -82,6 +113,7 @@ new ScriptObject(DNCClient)
   class = "DotsNetCritsClient";
   EventManager_ = "";
   actionMap_ = "";
+  loadedNPCs_ = "";
 };
 
 function escapeFromGameDNC()

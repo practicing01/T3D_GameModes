@@ -70,8 +70,6 @@ function DotsNetCritsServer::onAdd(%this)
 
   %this.EventManager_.subscribe(%this, "LevelVoteTallied");
 
-  %this.EventManager_.subscribe(%this, "NPCLoadRequest");
-
   %this.GameModeVoteMachine_ = new ScriptObject()
   {
     class = "GameModeVoteMachine";
