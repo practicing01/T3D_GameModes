@@ -36,6 +36,31 @@ function toySoldierScriptMsgListener::onRemove(%this)
   }
 }
 
+function ToySoldierAI::onDisabled(%this, %obj, %state)
+{
+  parent::onDisabled(%this, %obj, %state);
+
+  %obj.state_ = "dead";
+  %obj.fire(false);
+}
+
+function toySoldierScriptMsgListener::SpawnNPC(%this, %client)
+{
+  %npc = new AiPlayer()
+  {
+    dataBlock = ToySoldierAI;
+    scale = "0.25 0.25 0.25";
+    parentClient_ = %client;
+    parentNPCScript_ = %this;
+    state_ = "idle";
+  };
+
+  %npc.mountImage(LurkerWeaponImage, 0);
+  %npc.incInventory(LurkerAmmo, 2);
+
+  return %npc;
+}
+
 function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
 {
   %client = %data.getValue(%data.getIndexFromKey("client"));
@@ -70,22 +95,15 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
     %sizex = (getWord(%size, 3) - getWord(%size, 0)) * getWord(%scale, 0);
     %sizex *= 1.5;
 
-    /*%sizeTarget = %objTarget.getObjectBox();
-    %scaleTarget = %objTarget.getScale();
+    %toySoldier = %this.SpawnNPC(%client);
+    %toySoldier.rotation = %player.rotation;
+
+    %sizeTarget = %toySoldier.getObjectBox();
+    %scaleTarget = %toySoldier.getScale();
     %sizexTarget = (getWord(%sizeTarget, 3) - getWord(%sizeTarget, 0)) * getWord(%scaleTarget, 0);
-    %sizexTarget *= 1.5;*/
-    %sizexTarget = %sizex * 0.25;
+    %sizexTarget *= 1.5;
 
-    %finalPosition = VectorAdd( %pos, VectorScale(%teleDir, %sizex + %sizexTarget) );
-
-    %toySoldier = new AiPlayer()
-    {
-      dataBlock = DemoPlayer;
-      class = toySoldierDNCNPC;
-      position = %finalPosition;
-      rotation = %player.rotation;
-      scale = "0.25 0.25 0.25";
-    };
+    %toySoldier.position = VectorAdd( %pos, VectorScale(%teleDir, %sizex + %sizexTarget) );
 
     %this.npcArray_.setValue(%toySoldier, %index);
 
@@ -103,22 +121,15 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
   %sizex = (getWord(%size, 3) - getWord(%size, 0)) * getWord(%scale, 0);
   %sizex *= 1.5;
 
-  /*%sizeTarget = %objTarget.getObjectBox();
-  %scaleTarget = %objTarget.getScale();
+  %toySoldier = %this.SpawnNPC(%client);
+  %toySoldier.rotation = %player.rotation;
+
+  %sizeTarget = %toySoldier.getObjectBox();
+  %scaleTarget = %toySoldier.getScale();
   %sizexTarget = (getWord(%sizeTarget, 3) - getWord(%sizeTarget, 0)) * getWord(%scaleTarget, 0);
-  %sizexTarget *= 1.5;*/
-  %sizexTarget = %sizex * 0.25;
+  %sizexTarget *= 1.5;
 
-  %finalPosition = VectorAdd( %pos, VectorScale(%teleDir, %sizex + %sizexTarget) );
-
-  %toySoldier = new AiPlayer()
-  {
-    dataBlock = DemoPlayer;
-    class = toySoldierDNCNPC;
-    position = %finalPosition;
-    rotation = %player.rotation;
-    scale = "0.25 0.25 0.25";
-  };
+  %toySoldier.position = VectorAdd( %pos, VectorScale(%teleDir, %sizex + %sizexTarget) );
 
   %this.npcArray_.add(%client, %toySoldier);
 
@@ -127,13 +138,46 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
 
 function toySoldierScriptMsgListener::MoveNPC(%this, %npc, %player)
 {
+  if (strstr(%npc.state_, "dead") != -1)
+  {
+    return;
+  }
+
   %rayResult = %player.doRaycast(10000.0, %this.rayMask_);
 
   //%objTarget = firstWord(%rayResult);
   %objTargetPos = getWords(%rayResult, 1, 3);
   //%objTargetDir = getWords(%rayResult, 4, 6);
 
+  %npc.state_ = strreplace(%npc.state_, "idle", "");
+  %npc.state_ = %npc.state_ SPC "moving";
   %npc.setMoveDestination(%objTargetPos);
+}
+
+function toySoldierScriptMsgListener::NPCRangedAttack(%this, %npc, %player)
+{
+  if (%npc.state_ $= "dead")
+  {
+    return;
+  }
+
+  %rayResult = %player.doRaycast(10000.0, %this.rayMask_);
+
+  //%objTarget = firstWord(%rayResult);
+  %objTargetPos = getWords(%rayResult, 1, 3);
+  //%objTargetDir = getWords(%rayResult, 4, 6);
+
+  /*%size = %objTarget.getObjectBox();
+  %scale = %objTarget.getScale();
+  %sizex = (getWord(%size, 3) - getWord(%size, 0)) * getWord(%scale, 0);*/
+
+  //%npc.state_ = strreplace(%npc.state_, "idle", "");
+  //%npc.state_ = %npc.state_ SPC "rangedAttacking";//todo find finishedFiring callback so i can remove this state
+  //%npc.setAimObject(%objTarget, "0 0" SPC %sizex);
+  %npc.setAimLocation(%objTargetPos);
+  %npc.fire(true);
+  %npc.incInventory(LurkerAmmo, 1);
+  %npc.fire(false);
 }
 
 function toySoldierScriptMsgListener::CommandNPC(%this, %key, %npc, %player)
@@ -142,6 +186,23 @@ function toySoldierScriptMsgListener::CommandNPC(%this, %key, %npc, %player)
   {
     %this.MoveNPC(%npc, %player);
   }
+  else if (%key $= "numpad5")
+  {
+    %this.NPCRangedAttack(%npc, %player);
+  }
+}
+
+function toySoldierScriptMsgListener::onReachDestination(%this, %npc)
+{
+  if (strstr(%npc.state_, "moving") != -1)
+  {
+    %npc.state_ = %npc.state_ SPC "idle";
+  }
+}
+
+function ToySoldierAI::onReachDestination(%this, %npc)
+{
+  %npc.parentNPCScript_.onReachDestination(%npc);
 }
 
 function toySoldierScriptMsgListener::onNPCActionToySoldier(%this, %data)
