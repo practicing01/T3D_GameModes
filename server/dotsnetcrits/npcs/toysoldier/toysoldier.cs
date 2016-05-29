@@ -55,8 +55,8 @@ function toySoldierScriptMsgListener::SpawnNPC(%this, %client)
     state_ = "idle";
   };
 
-  %npc.mountImage(LurkerWeaponImage, 0);
-  %npc.incInventory(LurkerAmmo, 2);
+  %npc.mountImage(LurkerGrenadeLauncherImage, 0);
+  %npc.incInventory(LurkerGrenadeAmmo, 2);
 
   return %npc;
 }
@@ -150,7 +150,7 @@ function toySoldierScriptMsgListener::MoveNPC(%this, %npc, %player)
   //%objTargetDir = getWords(%rayResult, 4, 6);
 
   %npc.state_ = strreplace(%npc.state_, "idle", "");
-  %npc.state_ = %npc.state_ SPC "moving";
+  %npc.state_ = %npc.state_ @ "moving";
   %npc.setMoveDestination(%objTargetPos);
 }
 
@@ -172,11 +172,45 @@ function toySoldierScriptMsgListener::NPCRangedAttack(%this, %npc, %player)
   %sizex = (getWord(%size, 3) - getWord(%size, 0)) * getWord(%scale, 0);*/
 
   //%npc.state_ = strreplace(%npc.state_, "idle", "");
-  //%npc.state_ = %npc.state_ SPC "rangedAttacking";//todo find finishedFiring callback so i can remove this state
+  //%npc.state_ = %npc.state_ @ "rangedAttacking";//todo find finishedFiring callback so i can remove this state
   //%npc.setAimObject(%objTarget, "0 0" SPC %sizex);
+  %npc.mountImage(LurkerGrenadeLauncherImage, 0);
+  %npc.incInventory(LurkerGrenadeAmmo, 1);
   %npc.setAimLocation(%objTargetPos);
   %npc.fire(true);
-  %npc.incInventory(LurkerAmmo, 1);
+  %npc.incInventory(LurkerGrenadeAmmo, 1);
+  %npc.fire(false);
+}
+
+function toySoldierScriptMsgListener::NPCMeleeAttack(%this, %npc, %player)
+{
+  if (strstr(%npc.state_, "dead") != -1)
+  {
+    return;
+  }
+
+  %rayResult = %player.doRaycast(10000.0, %this.rayMask_);
+
+  //%objTarget = firstWord(%rayResult);
+  %objTargetPos = getWords(%rayResult, 1, 3);
+  //%objTargetDir = getWords(%rayResult, 4, 6);
+
+  %npc.state_ = strreplace(%npc.state_, "idle", "");
+  %npc.state_ = %npc.state_ @ "moving";
+  %npc.state_ = %npc.state_ @ "melee";
+  %npc.setMoveDestination(%objTargetPos);
+}
+
+function toySoldierScriptMsgListener::NPCExecuteMeleeAttack(%this, %npc)
+{
+  if (strstr(%npc.state_, "dead") != -1)
+  {
+    return;
+  }
+
+  %npc.mountImage(fistClubImage, 0);
+  %npc.setAimLocation(%objTargetPos);
+  %npc.fire(true);
   %npc.fire(false);
 }
 
@@ -190,13 +224,23 @@ function toySoldierScriptMsgListener::CommandNPC(%this, %key, %npc, %player)
   {
     %this.NPCRangedAttack(%npc, %player);
   }
+  else if (%key $= "numpad1")
+  {
+    %this.NPCMeleeAttack(%npc, %player);
+  }
 }
 
 function toySoldierScriptMsgListener::onReachDestination(%this, %npc)
 {
   if (strstr(%npc.state_, "moving") != -1)
   {
-    %npc.state_ = %npc.state_ SPC "idle";
+    %npc.state_ = %npc.state_ @ "idle";
+    %npc.state_ = strreplace(%npc.state_, "moving", "");
+  }
+  if (strstr(%npc.state_, "melee") != -1)
+  {
+    %npc.state_ = strreplace(%npc.state_, "melee", "");
+    %npc.parentNPCScript_.NPCExecuteMeleeAttack(%npc);
   }
 }
 
