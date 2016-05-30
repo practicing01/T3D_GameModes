@@ -81,7 +81,7 @@ function KOTHGMServer::Coronate(%this)
   if (%this.trigger_.getNumObjects())
   {
     %userper = %this.trigger_.getObject(0);
-    %userper.mountObject(%this.plunger_, GetMountIndexDNC(%userper, 0));
+    %userper.mountObject(%this.plunger_, 2, MatrixCreate("0 0 1", "1 0 0 0"));
   }
 }
 

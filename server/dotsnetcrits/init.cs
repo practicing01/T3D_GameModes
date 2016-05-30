@@ -245,36 +245,6 @@ function DotsNetCritsServer::onWeaponLoadRequest(%this, %data)
   }
 }
 
-function GetMountIndexDNC(%obj, %slot)
-{
-  %modelFile = %obj.getModelFile();
-
-  %shapeConstructor = "";
-
-  for (%x = 0; %x <  TSShapeConstructorGroup.getCount(); %x++)
-  {
-    %TSShapeConstructor = TSShapeConstructorGroup.getObject(%x);
-
-    if (%TSShapeConstructor.baseShape $= %modelFile)
-    {
-      %shapeConstructor = %TSShapeConstructor;
-      break;
-    }
-  }
-
-  %index = -1;
-
-  for (%x = 0; %x <  %shapeConstructor.	getNodeCount(); %x++)
-  {
-    if (strstr(%shapeConstructor.getNodeName(%x), "mount") != -1)
-    {
-      %index++;
-    }
-  }
-
-  return %index - %slot;
-}
-
 function DeathMatchGame::onClientLeaveGame(%game, %client)
 {
   if (!isObject(DNCServer))

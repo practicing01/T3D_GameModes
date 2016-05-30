@@ -185,13 +185,13 @@ function HydroballGMServer::BallAction(%this, %client)
     {
       if(%targetObject.getName() $= "hydroball")
       {
-        //%obj.mountObject(%targetObject, GetMountIndexDNC(%obj, 0));
+        //%obj.mountObject(%targetObject, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
         %this.ball_.reset();
         %this.ball_.freezeSim(true);
         %this.ball_.setHidden(true);
 
-        %obj.mountObject(%this.ballDummy_, GetMountIndexDNC(%obj, 0));
+        %obj.mountObject(%this.ballDummy_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
         %this.ballDummy_.setHidden(false);
         break;
       }

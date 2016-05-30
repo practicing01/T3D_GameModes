@@ -189,7 +189,7 @@ function CTFGMServer::CTFAction(%this, %client)
 
         %targetObject.capturer_ = %obj;
 
-        %obj.mountObject(%targetObject, GetMountIndexDNC(%obj, 0));
+        %obj.mountObject(%targetObject, 0, MatrixCreate("0 0 1", "1 0 0 0"));
       }
       else
       {

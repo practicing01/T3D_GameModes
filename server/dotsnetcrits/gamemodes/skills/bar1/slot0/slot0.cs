@@ -53,7 +53,7 @@ function CloakSkillsGM::Action(%this, %client, %guiSlot)
 
     %obj.setCloaked(true);
 
-    //%obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
+    //%obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 1", "1 0 0 0"));
 
     %obj.cloakSet_.add(%cloak);
 
@@ -70,7 +70,7 @@ function CloakSkillsGM::Action(%this, %client, %guiSlot)
       velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, GetMountIndexDNC(%player, 0));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 

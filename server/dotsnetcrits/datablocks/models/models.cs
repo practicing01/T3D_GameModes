@@ -59,3 +59,9 @@ datablock StaticShapeData(teleMirrorStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/weapons/teleMirror/teleMirror.cached.dts";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(catEarsStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/npcs/catEars/catEars.cached.dts";
+  isInvincible = "1";
+};

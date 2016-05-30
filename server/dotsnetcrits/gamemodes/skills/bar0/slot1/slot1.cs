@@ -50,7 +50,7 @@ function MeleeSkillsGM::Action(%this, %client, %guiSlot)
         emitterNode_ = %targetEmitterNode;
       };
 
-      %obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
+      %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 1", "1 0 0 0"));
 
       %obj.meleeSet_.add(%melee);
 
@@ -83,7 +83,7 @@ function MeleeSkillsGM::Action(%this, %client, %guiSlot)
     velocity = 0.0;
   };
 
-  %player.mountObject(%this.emitterNode_, GetMountIndexDNC(%player, 0));
+  %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 1", "1 0 0 0"));
 
   %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 

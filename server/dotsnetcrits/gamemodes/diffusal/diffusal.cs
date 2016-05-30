@@ -34,7 +34,7 @@ function DiffusalGMServer::onAdd(%this)
     team_ = -1;
   };
 
-  %obj.mountObject(%this.bomb_, GetMountIndexDNC(%obj, 0));
+  %obj.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
   %this.diffusalCandidates_ = new SimSet();
 
@@ -204,7 +204,7 @@ function DiffusalGMServer::Diffuse(%this)
   }
 
   %this.trigger_.enabled_ = false;
-  %this.diffuser_.mountObject(%this.bomb_, GetMountIndexDNC(%this.diffuser_, 0));
+  %this.diffuser_.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
   %this.diffuser_ = -1;
 
   cancel(%this.detonateSchedule_);
@@ -238,7 +238,7 @@ function DiffusalGMServer::Detonate(%this)
 
   %this.trigger_.enabled_ = false;
   %obj = ClientGroup.getObject(getRandom(0, ClientGroup.getCount() - 1)).getControlObject();
-  %obj.mountObject(%this.bomb_, GetMountIndexDNC(%obj, 0));
+  %obj.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
   %this.diffuser_ = -1;
 
   cancel(%this.diffuseSchedule_);
