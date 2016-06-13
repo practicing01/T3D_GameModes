@@ -57,7 +57,7 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
       scale = "0.3 0.3 0.3";
     };
 
-    %obj.mountObject(%targetEmitterNode, GetMountIndexDNC(%obj, 0));
+    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
     %obj.snareSet_.add(%snare);
 
@@ -74,7 +74,7 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
       velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, GetMountIndexDNC(%player, 0));
+    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 

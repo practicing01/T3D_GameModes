@@ -18,7 +18,9 @@ function DotsNetCritsServer::execDirScripts(%this, %dir, %exclusions)
 
 if (isObject(DNCServer))
 {
-  %this.execDirScripts("datablocks", "players");
+  DNCServer.SoftOnRemove();
+
+  DNCServer.execDirScripts("datablocks", "players");
 
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
   return;
@@ -93,6 +95,42 @@ function DotsNetCritsServer::onAdd(%this)
   %this.loadOutListeners_.add(%this.TeamChooser_);
 
   %this.execDirScripts("npcs", "");
+}
+
+function DotsNetCritsServer::SoftOnRemove(%this)
+{
+  if (isObject(%this.ClientLeaveCleanup_))
+  {
+    for (%x = 0; %x < DNCServer.ClientLeaveCleanup_.count(); %x++)
+    {
+      DNCServer.ClientLeaveCleanup_.getValue(%x).delete();
+    }
+  }
+
+  if (isObject(%this.ClientLeaveListeners_))
+  {
+    %this.ClientLeaveListeners_.deleteAllObjects();
+  }
+
+  if (isObject(%this.loadOutListeners_))
+  {
+    %this.loadOutListeners_.deleteAllObjects();
+  }
+
+  if (isObject(%this.loadedGamemodes_))
+  {
+    %this.loadedGamemodes_.deleteAllObjects();
+  }
+
+  if (isObject(%this.loadedWeapons_))
+  {
+    %this.loadedWeapons_.deleteAllObjects();
+  }
+
+  if (isObject(%this.loadedNPCs_))
+  {
+    %this.loadedNPCs_.deleteAllObjects();
+  }
 }
 
 function DotsNetCritsServer::onRemove(%this)
