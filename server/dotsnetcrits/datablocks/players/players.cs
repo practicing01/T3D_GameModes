@@ -1,4 +1,4 @@
-datablock PlayerData(QueChan : DefaultPlayerData)
+datablock PlayerData(quechan : DefaultPlayerData)
 {
-   shapeFile = "art/shapes/dotsnetcrits/actors/QueChan/QueChan.dae";
+   shapeFile = "art/shapes/dotsnetcrits/actors/quechan/quechan.dae";
 };

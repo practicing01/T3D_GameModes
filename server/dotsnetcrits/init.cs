@@ -34,6 +34,7 @@ function DotsNetCritsServer::onAdd(%this)
   %this.loadedGamemodes_ = new SimSet();
   %this.loadedWeapons_ = new SimSet();
   %this.loadedNPCs_ = new SimSet();
+  %this.clientModels_ = new ArrayObject();
 
   %this.execDirScripts("datablocks", "players");
 
@@ -44,6 +45,7 @@ function DotsNetCritsServer::onAdd(%this)
   exec("scripts/server/dotsnetcrits/rpc/serverCmdWeaponLoadDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdLevelVoteDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdNPCLoadDNC.cs");
+  exec("scripts/server/dotsnetcrits/rpc/serverCmdModelLoadDNC.cs");
   exec("scripts/server/dotsnetcrits/GamemodeVoteMachine.cs");
   exec("scripts/server/dotsnetcrits/TeamChooser.cs");
   exec("scripts/server/dotsnetcrits/LevelVoteMachine.cs");
@@ -66,11 +68,15 @@ function DotsNetCritsServer::onAdd(%this)
 
   %this.EventManager_.registerEvent("NPCLoadRequest");
 
+  %this.EventManager_.registerEvent("ModelLoadRequest");
+
   %this.EventManager_.subscribe(%this, "GamemodeVoteTallied");
 
   %this.EventManager_.subscribe(%this, "WeaponLoadRequest");
 
   %this.EventManager_.subscribe(%this, "LevelVoteTallied");
+
+  %this.EventManager_.subscribe(%this, "ModelLoadRequest");
 
   %this.GameModeVoteMachine_ = new ScriptObject()
   {
@@ -105,6 +111,11 @@ function DotsNetCritsServer::SoftOnRemove(%this)
     {
       DNCServer.ClientLeaveCleanup_.getValue(%x).delete();
     }
+  }
+
+  if (isObject(%this.clientModels_))
+  {
+    %this.clientModels_.empty();
   }
 
   if (isObject(%this.ClientLeaveListeners_))
@@ -163,6 +174,11 @@ function DotsNetCritsServer::onRemove(%this)
     }
 
     %this.ClientLeaveCleanup_.delete();
+  }
+
+  if (isObject(%this.clientModels_))
+  {
+    %this.clientModels_.delete();
   }
 
   if (isObject(%this.ClientLeaveListeners_))
@@ -283,6 +299,29 @@ function DotsNetCritsServer::onWeaponLoadRequest(%this, %data)
   }
 }
 
+function DotsNetCritsServer::onModelLoadRequest(%this, %data)
+{
+  %client = %data.getValue(%data.getIndexFromKey("client"));
+  %model = %data.getValue(%data.getIndexFromKey("model"));
+
+  %dirList = getDirectoryList("art/shapes/dotsnetcrits/actors/", 1);
+
+  for (%x = 0; %x < getFieldCount(%dirList); %x++)
+  {
+    if (strlwr(getField(%dirList, %x)) $= strlwr(%model))//Make sure the model exists.
+    {
+      %player = %client.getControlObject();
+
+      %index = %this.clientModels_.getIndexFromKey(%client);
+      %this.clientModels_.setValue(%model, %index);
+
+      %player.setDataBlock(%model);
+
+      break;
+    }
+  }
+}
+
 function DeathMatchGame::onClientLeaveGame(%game, %client)
 {
   if (!isObject(DNCServer))
@@ -302,6 +341,9 @@ function DeathMatchGame::onClientLeaveGame(%game, %client)
   {
     DNCServer.ClientLeaveListeners_.getValue(%x).onClientLeaveGame(%client);
   }
+
+  %index = DNCServer.clientModels_.getIndexFromKey(%client);
+  DNCServer.clientModels_.erase(%index);
 
   parent::onClientLeaveGame(%game, %client);
 }
@@ -337,7 +379,7 @@ function WeaponLoader::loadOut(%this, %player)
 
 function DeathMatchGame::onClientEnterGame(%game, %client)
 {
-   parent::onClientEnterGame(%game, %client);
+  parent::onClientEnterGame(%game, %client);
 
   if (isObject(DNCServer))
   {
@@ -350,170 +392,183 @@ function DeathMatchGame::onClientEnterGame(%game, %client)
 
 function DeathMatchGame::spawnPlayer(%game, %client, %spawnPoint, %noControl)
 {
-  $Game::DefaultPlayerDataBlock = "QueChan";
-   //echo (%game @"\c4 -> "@ %game.class @" -> GameCore::spawnPlayer");
+  %model = "quechan";
 
-   if (isObject(%client.player))
-   {
-      // The client should not already have a player. Assigning
-      // a new one could result in an uncontrolled player object.
-      error("Attempting to create a player for a client that already has one!");
-   }
+  %index = DNCServer.clientModels_.getIndexFromKey(%client);
 
-   // Attempt to treat %spawnPoint as an object
-   if (getWordCount(%spawnPoint) == 1 && isObject(%spawnPoint))
-   {
-      // Defaults
-      %spawnClass      = $Game::DefaultPlayerClass;
-      %spawnDataBlock  = $Game::DefaultPlayerDataBlock;
+  if (%index == -1)
+  {
+    DNCServer.clientModels_.add(%client, "quechan");
+  }
+  else
+  {
+    %model = DNCServer.clientModels_.getValue(%index);
+  }
 
-      // Overrides by the %spawnPoint
-      if (isDefined("%spawnPoint.spawnClass"))
+  $Game::DefaultPlayerDataBlock = %model;
+  //echo (%game @"\c4 -> "@ %game.class @" -> GameCore::spawnPlayer");
+
+  if (isObject(%client.player))
+  {
+    // The client should not already have a player. Assigning
+    // a new one could result in an uncontrolled player object.
+    error("Attempting to create a player for a client that already has one!");
+  }
+
+  // Attempt to treat %spawnPoint as an object
+  if (getWordCount(%spawnPoint) == 1 && isObject(%spawnPoint))
+  {
+    // Defaults
+    %spawnClass      = $Game::DefaultPlayerClass;
+    %spawnDataBlock  = $Game::DefaultPlayerDataBlock;
+
+    // Overrides by the %spawnPoint
+    if (isDefined("%spawnPoint.spawnClass"))
+    {
+      %spawnClass = %spawnPoint.spawnClass;
+      %spawnDataBlock = %spawnPoint.spawnDatablock;
+    }
+    else if (isDefined("%spawnPoint.spawnDatablock"))
+    {
+      // This may seem redundant given the above but it allows
+      // the SpawnSphere to override the datablock without
+      // overriding the default player class
+      %spawnDataBlock = %spawnPoint.spawnDatablock;
+    }
+
+    %spawnProperties = %spawnPoint.spawnProperties;
+    %spawnScript     = %spawnPoint.spawnScript;
+
+    // Spawn with the engine's Sim::spawnObject() function
+    %player = spawnObject(%spawnClass, %spawnDatablock, "",
+    %spawnProperties, %spawnScript);
+
+    // If we have an object do some initial setup
+    if (isObject(%player))
+    {
+      // Pick a location within the spawn sphere.
+      %spawnLocation = GameCore::pickPointInSpawnSphere(%player, %spawnPoint);
+      %player.setTransform(%spawnLocation);
+
+    }
+    else
+    {
+      // If we weren't able to create the player object then warn the user
+      // When the player clicks OK in one of these message boxes, we will fall through
+      // to the "if (!isObject(%player))" check below.
+      if (isDefined("%spawnDatablock"))
       {
-         %spawnClass = %spawnPoint.spawnClass;
-         %spawnDataBlock = %spawnPoint.spawnDatablock;
-      }
-      else if (isDefined("%spawnPoint.spawnDatablock"))
-      {
-         // This may seem redundant given the above but it allows
-         // the SpawnSphere to override the datablock without
-         // overriding the default player class
-         %spawnDataBlock = %spawnPoint.spawnDatablock;
-      }
-
-      %spawnProperties = %spawnPoint.spawnProperties;
-      %spawnScript     = %spawnPoint.spawnScript;
-
-      // Spawn with the engine's Sim::spawnObject() function
-      %player = spawnObject(%spawnClass, %spawnDatablock, "",
-                            %spawnProperties, %spawnScript);
-
-      // If we have an object do some initial setup
-      if (isObject(%player))
-      {
-         // Pick a location within the spawn sphere.
-         %spawnLocation = GameCore::pickPointInSpawnSphere(%player, %spawnPoint);
-         %player.setTransform(%spawnLocation);
-
+        MessageBoxOK("Spawn Player Failed",
+        "Unable to create a player with class " @ %spawnClass @
+        " and datablock " @ %spawnDatablock @ ".\n\nStarting as an Observer instead.",
+        "");
       }
       else
       {
-         // If we weren't able to create the player object then warn the user
-         // When the player clicks OK in one of these message boxes, we will fall through
-         // to the "if (!isObject(%player))" check below.
-         if (isDefined("%spawnDatablock"))
-         {
-               MessageBoxOK("Spawn Player Failed",
-                             "Unable to create a player with class " @ %spawnClass @
-                             " and datablock " @ %spawnDatablock @ ".\n\nStarting as an Observer instead.",
-                             "");
-         }
-         else
-         {
-               MessageBoxOK("Spawn Player Failed",
-                              "Unable to create a player with class " @ %spawnClass @
-                              ".\n\nStarting as an Observer instead.",
-                              "");
-         }
+        MessageBoxOK("Spawn Player Failed",
+        "Unable to create a player with class " @ %spawnClass @
+        ".\n\nStarting as an Observer instead.",
+        "");
       }
-   }
-   else
-   {
+    }
+  }
+  else
+  {
 
-      // Create a default player
-      %player = spawnObject($Game::DefaultPlayerClass, $Game::DefaultPlayerDataBlock);
+    // Create a default player
+    %player = spawnObject($Game::DefaultPlayerClass, $Game::DefaultPlayerDataBlock);
 
-      if (!%player.isMemberOfClass("Player"))
-         warn("Trying to spawn a class that does not derive from Player.");
+    if (!%player.isMemberOfClass("Player"))
+    warn("Trying to spawn a class that does not derive from Player.");
 
-      // Treat %spawnPoint as a transform
-      %player.setTransform(%spawnPoint);
-   }
+    // Treat %spawnPoint as a transform
+    %player.setTransform(%spawnPoint);
+  }
 
-   // If we didn't actually create a player object then bail
-   if (!isObject(%player))
-   {
-      // Make sure we at least have a camera
-      %client.spawnCamera(%spawnPoint);
+  // If we didn't actually create a player object then bail
+  if (!isObject(%player))
+  {
+    // Make sure we at least have a camera
+    %client.spawnCamera(%spawnPoint);
 
-      return;
-   }
+    return;
+  }
 
-   // Update the default camera to start with the player
-   if (isObject(%client.camera) && !isDefined("%noControl"))
-   {
-      if (%player.getClassname() $= "Player")
-         %client.camera.setTransform(%player.getEyeTransform());
-      else
-         %client.camera.setTransform(%player.getTransform());
-   }
+  // Update the default camera to start with the player
+  if (isObject(%client.camera) && !isDefined("%noControl"))
+  {
+    if (%player.getClassname() $= "Player")
+    %client.camera.setTransform(%player.getEyeTransform());
+    else
+    %client.camera.setTransform(%player.getTransform());
+  }
 
-   // Add the player object to MissionCleanup so that it
-   // won't get saved into the level files and will get
-   // cleaned up properly
-   MissionCleanup.add(%player);
+  // Add the player object to MissionCleanup so that it
+  // won't get saved into the level files and will get
+  // cleaned up properly
+  MissionCleanup.add(%player);
 
-   // Store the client object on the player object for
-   // future reference
-   %player.client = %client;
+  // Store the client object on the player object for
+  // future reference
+  %player.client = %client;
 
-   // If the player's client has some owned turrets, make sure we let them
-   // know that we're a friend too.
-   if (%client.ownedTurrets)
-   {
-      for (%i=0; %i<%client.ownedTurrets.getCount(); %i++)
+  // If the player's client has some owned turrets, make sure we let them
+  // know that we're a friend too.
+  if (%client.ownedTurrets)
+  {
+    for (%i=0; %i<%client.ownedTurrets.getCount(); %i++)
+    {
+      %turret = %client.ownedTurrets.getObject(%i);
+      %turret.addToIgnoreList(%player);
+    }
+  }
+
+  // Player setup...
+  if (%player.isMethod("setShapeName"))
+  %player.setShapeName(%client.playerName);
+
+  if (%player.isMethod("setEnergyLevel"))
+  %player.setEnergyLevel(%player.getDataBlock().maxEnergy);
+
+  if (!isDefined("%client.skin"))
+  {
+    // Determine which character skins are not already in use
+    %availableSkins = %player.getDatablock().availableSkins;             // TAB delimited list of skin names
+    %count = ClientGroup.getCount();
+    for (%cl = 0; %cl < %count; %cl++)
+    {
+      %other = ClientGroup.getObject(%cl);
+      if (%other != %client)
       {
-         %turret = %client.ownedTurrets.getObject(%i);
-         %turret.addToIgnoreList(%player);
+        %availableSkins = strreplace(%availableSkins, %other.skin, "");
+        %availableSkins = strreplace(%availableSkins, "\t\t", "");     // remove empty fields
       }
-   }
+    }
 
-   // Player setup...
-   if (%player.isMethod("setShapeName"))
-      %player.setShapeName(%client.playerName);
+    // Choose a random, unique skin for this client
+    %count = getFieldCount(%availableSkins);
+    %client.skin = addTaggedString( getField(%availableSkins, getRandom(%count)) );
+  }
 
-   if (%player.isMethod("setEnergyLevel"))
-      %player.setEnergyLevel(%player.getDataBlock().maxEnergy);
+  %player.setSkinName(%client.skin);
 
-   if (!isDefined("%client.skin"))
-   {
-      // Determine which character skins are not already in use
-      %availableSkins = %player.getDatablock().availableSkins;             // TAB delimited list of skin names
-      %count = ClientGroup.getCount();
-      for (%cl = 0; %cl < %count; %cl++)
-      {
-         %other = ClientGroup.getObject(%cl);
-         if (%other != %client)
-         {
-            %availableSkins = strreplace(%availableSkins, %other.skin, "");
-            %availableSkins = strreplace(%availableSkins, "\t\t", "");     // remove empty fields
-         }
-      }
+  // Give the client control of the player
+  %client.player = %player;
 
-      // Choose a random, unique skin for this client
-      %count = getFieldCount(%availableSkins);
-      %client.skin = addTaggedString( getField(%availableSkins, getRandom(%count)) );
-   }
+  // Give the client control of the camera if in the editor
+  if( $startWorldEditor )
+  {
+    %control = %client.camera;
+    %control.mode = "Fly";
+    EditorGui.syncCameraGui();
+  }
+  else
+  %control = %player;
 
-   %player.setSkinName(%client.skin);
-
-   // Give the client control of the player
-   %client.player = %player;
-
-   // Give the client control of the camera if in the editor
-   if( $startWorldEditor )
-   {
-      %control = %client.camera;
-      %control.mode = "Fly";
-      EditorGui.syncCameraGui();
-   }
-   else
-      %control = %player;
-
-   // Allow the player/camera to receive move data from the GameConnection.  Without this
-   // the user is unable to control the player/camera.
-   if (!isDefined("%noControl"))
-      %client.setControlObject(%control);
+  // Allow the player/camera to receive move data from the GameConnection.  Without this
+  // the user is unable to control the player/camera.
+  if (!isDefined("%noControl"))
+  %client.setControlObject(%control);
 }
 
 new ScriptObject(DNCServer)
@@ -529,4 +584,5 @@ new ScriptObject(DNCServer)
   loadedWeapons_ = "";
   LevelVoteMachine_ = "";
   loadedNPCs_ = "";
+  clientModels_ = "";
 };

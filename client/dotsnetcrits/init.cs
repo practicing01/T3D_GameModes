@@ -44,6 +44,7 @@ function DotsNetCritsClient::onAdd(%this)
   exec("scripts/client/dotsnetcrits/WeaponTab.cs");
   exec("scripts/client/dotsnetcrits/LevelsTab.cs");
   exec("scripts/client/dotsnetcrits/NPCTab.cs");
+  exec("scripts/client/dotsnetcrits/NodesTab.cs");
 
   if (isObject(%this.actionMap_))
   {

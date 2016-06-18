@@ -33,9 +33,9 @@ function DNCButt::onClick(%this)
   }
   else if (%this.getName() $= "NodesButt")
   {
-    //DNCMain.getObject(0).getObject(0).getObject(0).setVisible(true);
-    //DNCMain.getObject(0).getObject(0).getObject(4).setVisible(true);
-    //DNCMain.getObject(0).getObject(0).getObject(7).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(0).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(8).setVisible(true);
+    DNCMain.getObject(0).getObject(0).getObject(0).getObject(4).setVisible(true);
   }
   else if (%this.getName() $= "MiscellaneousButt")
   {
