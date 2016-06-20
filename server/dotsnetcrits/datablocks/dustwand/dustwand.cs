@@ -111,7 +111,7 @@ datablock ShapeBaseImageData(dustWandImage)
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
    stateSound[3]                    = dustWandFireSound;
-   stateShapeSequence[3]            = "Celebrate_01";
+   stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
    stateName[4]                     = "Reload";

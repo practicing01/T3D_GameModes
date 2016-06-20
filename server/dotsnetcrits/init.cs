@@ -571,6 +571,30 @@ function DeathMatchGame::spawnPlayer(%game, %client, %spawnPoint, %noControl)
   %client.setControlObject(%control);
 }
 
+function Player::playDeathCry(%this)
+{
+  %datablock = %this.getDataBlock();
+
+  if (!%datablock.isField("deathSound_"))
+  {
+    return;
+  }
+
+  %this.playAudio(0, %this.getDataBlock().getFieldValue("deathSound_"));
+}
+
+function Player::playPain(%this)
+{
+  %datablock = %this.getDataBlock();
+
+  if (!%datablock.isField("painSound_"))
+  {
+    return;
+  }
+
+  %this.playAudio(0, %this.getDataBlock().getFieldValue("painSound_"));
+}
+
 new ScriptObject(DNCServer)
 {
   class = "DotsNetCritsServer";

@@ -57,7 +57,7 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
       scale = "0.3 0.3 0.3";
     };
 
-    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.snareSet_.add(%snare);
 
@@ -68,13 +68,12 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = SnareEmitterNodeData;
-      emitter = SnareEmitter;
+      datablock = SummonCircle2EmitterNodeData;
+      emitter = SummonCircle2Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -85,7 +84,7 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
 
     %velocity = VectorScale(%obj.getVelocity(), -1);
     %obj.setVelocity(%velocity);

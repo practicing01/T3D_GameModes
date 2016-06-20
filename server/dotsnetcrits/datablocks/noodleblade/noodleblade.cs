@@ -111,7 +111,7 @@ datablock ShapeBaseImageData(noodleBladeImage)
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
    stateSound[3]                    = noodleBladeFireSound;
-   stateShapeSequence[3]            = "Celebrate_01";
+   //stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
    stateName[4]                     = "Reload";
@@ -168,6 +168,9 @@ function noodleBladeImage::onFire(%this, %obj, %slot)
       %targetObject.applyImpulse("0 0 0", VectorScale(%obj.getUpVector(), 5000.0));
      }
    }
+
+   //%obj.playThread(1, "shoot");
+   %obj.setActionThread("shoot", false, false);
 }
 
 DefaultPlayerData.maxInv[noodleBlade] = 1;

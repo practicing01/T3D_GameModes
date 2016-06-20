@@ -51,6 +51,7 @@ function toySoldierScriptMsgListenerClient::onNPCLoadRequest(%this, %data)
   {
     if (isObject(%this.actionMap_))
     {
+      %this.actionMap_.pop();
       %this.actionMap_.delete();
     }
   }

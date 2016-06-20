@@ -76,7 +76,7 @@ function toySoldierScriptMsgListener::onNPCLoadRequest(%this, %data)
 
   if (%index != -1)
   {
-    %npc = %this.npcArray_.getValue(%x);
+    %npc = %this.npcArray_.getValue(%index);
 
     //delete npc
     if (isObject(%npc))
@@ -259,7 +259,7 @@ function toySoldierScriptMsgListener::onNPCActionToySoldier(%this, %data)
 
   if (%index != -1)
   {
-    %npc = %this.npcArray_.getValue(%x);
+    %npc = %this.npcArray_.getValue(%index);
 
     if (isObject(%npc))
     {

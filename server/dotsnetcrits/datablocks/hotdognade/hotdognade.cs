@@ -127,7 +127,7 @@ datablock ShapeBaseImageData(hotdogNadeImage)
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
    stateSound[3]                    = hotdogNadeFireSound;
-   stateShapeSequence[3]            = "Celebrate_01";
+   stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
    stateName[4]                     = "Reload";

@@ -63,7 +63,7 @@ function AOESkillsGM::Action(%this, %client, %guiSlot)
       sphereCastRadius_ = %this.sphereCastRadius_;
     };
 
-    //%obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.aoeSet_.add(%aoe);
 
@@ -74,13 +74,12 @@ function AOESkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = AOEEmitterNodeData;
-      emitter = AOEEmitter;
+      datablock = SummonCircle1EmitterNodeData;
+      emitter = SummonCircle1Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -92,7 +91,7 @@ function AOESkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
   //}
 
 }

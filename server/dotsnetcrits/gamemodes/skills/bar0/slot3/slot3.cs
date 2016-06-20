@@ -50,7 +50,7 @@ function RangedSkillsGM::Action(%this, %client, %guiSlot)
       emitterNode_ = %targetEmitterNode;
     };
 
-    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.rangedSet_.add(%ranged);
 
@@ -61,13 +61,12 @@ function RangedSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = RangedEmitterNodeData;
-      emitter = RangedEmitter;
+      datablock = SummonCircle1EmitterNodeData;
+      emitter = SummonCircle1Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -78,7 +77,7 @@ function RangedSkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
 
     %projectileVelocity = VectorScale(%player.getEyeVector(), %this.velocityMagnitude_);
 

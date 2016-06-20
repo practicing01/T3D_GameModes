@@ -53,7 +53,7 @@ function HOTSkillsGM::Action(%this, %client, %guiSlot)
       power_ = 10.0;
     };
 
-    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.hotSet_.add(%hot);
 
@@ -64,13 +64,12 @@ function HOTSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = HOTEmitterNodeData;
-      emitter = HOTEmitter;
+      datablock = SummonCircle3EmitterNodeData;
+      emitter = SummonCircle3Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -82,7 +81,7 @@ function HOTSkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
   }
 
 }

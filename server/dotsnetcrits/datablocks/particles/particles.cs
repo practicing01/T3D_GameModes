@@ -1083,3 +1083,231 @@ if (!isObject(CleanseEmitter))
      softnessDistance = "1";
   };
 }
+
+datablock ParticleEmitterNodeData(SummonCircle0EmitterNodeData)
+{
+  timeMultiple = 10.0;
+};
+
+if (!isObject(SummonCircle0Particle))
+{
+  datablock ParticleData(SummonCircle0Particle)
+  {
+     textureName = "art/particles/dotsnetcrits/skills/circle4a.png";
+     dragCoefficient = "0";
+     gravityCoefficient = "0";
+     inheritedVelFactor = "0";
+     constantAcceleration = "0";
+     lifetimeMS = "1000";
+     lifetimeVarianceMS = "0";
+     useInvAlpha = true;
+     spinRandomMin = "1";
+     spinRandomMax = "1";
+     spinSpeed = "1";
+
+     colors[0] = "1 1 1 1";
+     colors[1] = "1 1 1 1";
+     colors[2] = "1 1 1 1";
+     colors[3] = "1 1 1 1";
+
+     sizes[0] = "1";
+     sizes[1] = "1";
+     sizes[2] = "1";
+     sizes[3] = "1";
+
+     times[0] = "1";
+     times[1] = "1";
+     times[2] = "1";
+     times[3] = "1";
+
+     animTexName = "art/particles/dotsnetcrits/skills/circle4a.png";
+  };
+}
+
+if (!isObject(SummonCircle0Emitter))
+{
+  datablock ParticleEmitterData(SummonCircle0Emitter)
+  {
+     ejectionPeriodMS = "1000";
+     ejectionVelocity = "0";
+     velocityVariance = "0";
+     ejectionOffset = "0";
+     particles = "SummonCircle0Particle";
+     blendStyle = "ADDITIVE";
+     softParticles = "0";
+     alignParticles = "1";
+     alignDirection = "0 0 1";
+     lifetimeVarianceMS = "0";
+  };
+}
+
+datablock ParticleEmitterNodeData(SummonCircle1EmitterNodeData)
+{
+  timeMultiple = 10.0;
+};
+
+if (!isObject(SummonCircle1Particle))
+{
+  datablock ParticleData(SummonCircle1Particle)
+  {
+     textureName = "art/particles/dotsnetcrits/skills/circle5a.png";
+     dragCoefficient = "0";
+     gravityCoefficient = "0";
+     inheritedVelFactor = "0";
+     constantAcceleration = "0";
+     lifetimeMS = "1000";
+     lifetimeVarianceMS = "0";
+     useInvAlpha = true;
+     spinRandomMin = "1";
+     spinRandomMax = "1";
+     spinSpeed = "1";
+
+     colors[0] = "1 1 1 1";
+     colors[1] = "1 1 1 1";
+     colors[2] = "1 1 1 1";
+     colors[3] = "1 1 1 1";
+
+     sizes[0] = "1";
+     sizes[1] = "1";
+     sizes[2] = "1";
+     sizes[3] = "1";
+
+     times[0] = "1";
+     times[1] = "1";
+     times[2] = "1";
+     times[3] = "1";
+
+     animTexName = "art/particles/dotsnetcrits/skills/circle5a.png";
+  };
+}
+
+if (!isObject(SummonCircle1Emitter))
+{
+  datablock ParticleEmitterData(SummonCircle1Emitter)
+  {
+     ejectionPeriodMS = "1000";
+     ejectionVelocity = "0";
+     velocityVariance = "0";
+     ejectionOffset = "0";
+     particles = "SummonCircle1Particle";
+     blendStyle = "ADDITIVE";
+     softParticles = "0";
+     alignParticles = "1";
+     alignDirection = "0 0 1";
+     lifetimeVarianceMS = "0";
+  };
+}
+
+datablock ParticleEmitterNodeData(SummonCircle2EmitterNodeData)
+{
+  timeMultiple = 10.0;
+};
+
+if (!isObject(SummonCircle2Particle))
+{
+  datablock ParticleData(SummonCircle2Particle)
+  {
+     textureName = "art/particles/dotsnetcrits/skills/circle6a.png";
+     dragCoefficient = "0";
+     gravityCoefficient = "0";
+     inheritedVelFactor = "0";
+     constantAcceleration = "0";
+     lifetimeMS = "1000";
+     lifetimeVarianceMS = "0";
+     useInvAlpha = true;
+     spinRandomMin = "1";
+     spinRandomMax = "1";
+     spinSpeed = "1";
+
+     colors[0] = "1 1 1 1";
+     colors[1] = "1 1 1 1";
+     colors[2] = "1 1 1 1";
+     colors[3] = "1 1 1 1";
+
+     sizes[0] = "1";
+     sizes[1] = "1";
+     sizes[2] = "1";
+     sizes[3] = "1";
+
+     times[0] = "1";
+     times[1] = "1";
+     times[2] = "1";
+     times[3] = "1";
+
+     animTexName = "art/particles/dotsnetcrits/skills/circle6a.png";
+  };
+}
+
+if (!isObject(SummonCircle2Emitter))
+{
+  datablock ParticleEmitterData(SummonCircle2Emitter)
+  {
+     ejectionPeriodMS = "1000";
+     ejectionVelocity = "0";
+     velocityVariance = "0";
+     ejectionOffset = "0";
+     particles = "SummonCircle2Particle";
+     blendStyle = "ADDITIVE";
+     softParticles = "0";
+     alignParticles = "1";
+     alignDirection = "0 0 1";
+     lifetimeVarianceMS = "0";
+  };
+}
+
+datablock ParticleEmitterNodeData(SummonCircle3EmitterNodeData)
+{
+  timeMultiple = 10.0;
+};
+
+if (!isObject(SummonCircle3Particle))
+{
+  datablock ParticleData(SummonCircle3Particle)
+  {
+     textureName = "art/particles/dotsnetcrits/skills/circle7a.png";
+     dragCoefficient = "0";
+     gravityCoefficient = "0";
+     inheritedVelFactor = "0";
+     constantAcceleration = "0";
+     lifetimeMS = "1000";
+     lifetimeVarianceMS = "0";
+     useInvAlpha = true;
+     spinRandomMin = "1";
+     spinRandomMax = "1";
+     spinSpeed = "1";
+
+     colors[0] = "1 1 1 1";
+     colors[1] = "1 1 1 1";
+     colors[2] = "1 1 1 1";
+     colors[3] = "1 1 1 1";
+
+     sizes[0] = "1";
+     sizes[1] = "1";
+     sizes[2] = "1";
+     sizes[3] = "1";
+
+     times[0] = "1";
+     times[1] = "1";
+     times[2] = "1";
+     times[3] = "1";
+
+     animTexName = "art/particles/dotsnetcrits/skills/circle7a.png";
+  };
+}
+
+if (!isObject(SummonCircle3Emitter))
+{
+  datablock ParticleEmitterData(SummonCircle3Emitter)
+  {
+     ejectionPeriodMS = "1000";
+     ejectionVelocity = "0";
+     velocityVariance = "0";
+     ejectionOffset = "0";
+     particles = "SummonCircle3Particle";
+     blendStyle = "ADDITIVE";
+     softParticles = "0";
+     alignParticles = "1";
+     alignDirection = "0 0 1";
+     lifetimeVarianceMS = "0";
+  };
+}

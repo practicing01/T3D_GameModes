@@ -92,7 +92,7 @@ function CritSkillsGM::Action(%this, %client, %guiSlot)
   %this.coolDownElapsedTime_ = 0.0;
   %this.schedule(1000, "CoolDown");
 
-  %player.setActionThread("Celebrate_01", false);
+  %player.setActionThread("shoot", false);
 }
 
 function CritInstanceSkillsGM::onRemove(%this)

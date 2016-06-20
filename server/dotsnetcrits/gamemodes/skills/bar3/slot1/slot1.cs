@@ -48,7 +48,7 @@ function BlindSkillsGM::Action(%this, %client, %guiSlot)
       emitterNode_ = %targetEmitterNode;
     };
 
-    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.blindSet_.add(%blind);
 
@@ -59,13 +59,12 @@ function BlindSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = BlindEmitterNodeData;
-      emitter = BlindEmitter;
+      datablock = SummonCircle2EmitterNodeData;
+      emitter = SummonCircle2Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -76,7 +75,7 @@ function BlindSkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
   }
 
 }

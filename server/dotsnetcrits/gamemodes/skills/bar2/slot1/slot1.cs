@@ -49,7 +49,7 @@ function ShieldSkillsGM::Action(%this, %client, %guiSlot)
       power_ = %this.power_;
     };
 
-    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %obj.mountObject(%targetEmitterNode, 0, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.shieldSet_.add(%shield);
 
@@ -60,13 +60,12 @@ function ShieldSkillsGM::Action(%this, %client, %guiSlot)
 
     %this.emitterNode_ = new ParticleEmitterNode()
     {
-      datablock = ShieldEmitterNodeData;
-      emitter = ShieldEmitter;
+      datablock = SummonCircle3EmitterNodeData;
+      emitter = SummonCircle3Emitter;
       active = true;
-      velocity = 0.0;
     };
 
-    %player.mountObject(%this.emitterNode_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+    %player.mountObject(%this.emitterNode_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %this.schedule(%this.emitterDuration_ * 1000, "RemoveEmitter");
 
@@ -77,7 +76,7 @@ function ShieldSkillsGM::Action(%this, %client, %guiSlot)
     %this.coolDownElapsedTime_ = 0.0;
     %this.schedule(1000, "CoolDown");
 
-    %player.setActionThread("Celebrate_01", false);
+    %player.setActionThread("shoot", false);
   }
 
 }
