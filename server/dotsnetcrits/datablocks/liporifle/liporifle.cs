@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// healerRifle weapon. This file contains all the items related to this weapon
+// lipoRifle weapon. This file contains all the items related to this weapon
 // including explosions, ammo, the item and the weapon item image.
 // These objects rely on the item & inventory support system defined
 // in item.cs and inventory.cs
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------
 // Weapon Item.  This is the item that exists in the world, i.e. when it's
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
-// is mounted onto a shape, the healerRifleImage is used.
+// is mounted onto a shape, the lipoRifleImage is used.
 
 /*
 datablock SFXProfile(WeaponTemplateFireSound)
@@ -54,17 +54,17 @@ datablock SFXProfile(WeaponTemplateMineSwitchinSound)
    preload = true;
 };
 
-datablock LightDescription( HealerRifleBulletProjectileLightDesc )
+datablock LightDescription( LipoRifleBulletProjectileLightDesc )
 {
    color  = "0.0 0.5 0.7";
    range = 3.0;
 };
 */
-datablock ProjectileData( HealerRifleBulletProjectile )
+datablock ProjectileData( LipoRifleBulletProjectile )
 {
    projectileShapeName = "";
 
-   directDamage        = 100;
+   directDamage        = 10;
    radiusDamage        = 0;
    damageRadius        = 0.5;
    areaImpulse         = 0.5;
@@ -85,21 +85,22 @@ datablock ProjectileData( HealerRifleBulletProjectile )
    gravityMod          = 1;
 };
 
-function HealerRifleBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal)
+function LipoRifleBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal)
 {
   if ( %col.getType() & $TypeMasks::ShapeBaseObjectType )
   {
-    if (%col.getDamageLevel() != 0 && %col.getState() !$= "Dead")
-    {
-      %col.applyRepair(%this.directDamage);
-    }
+    %col.damage(%obj, %pos, %this.directDamage, %this.damageType);
+
+    %col.scale = VectorScale(%col.scale, 0.9);
+
+    %obj.sourceObject.scale = VectorScale(%obj.sourceObject.scale, 1.1);
   }
 }
 
 //-----------------------------------------------------------------------------
 // Ammo Item
 //-----------------------------------------------------------------------------
-datablock ItemData(HealerRifleClip)
+datablock ItemData(LipoRifleClip)
 {
    // Mission editor category
    category = "AmmoClip";
@@ -120,7 +121,7 @@ datablock ItemData(HealerRifleClip)
    maxInventory = 10;
 };
 
-datablock ItemData(HealerRifleAmmo)
+datablock ItemData(LipoRifleAmmo)
 {
    // Mission editor category
    category                         = "Ammo";
@@ -138,10 +139,10 @@ datablock ItemData(HealerRifleAmmo)
    // Dynamic properties defined by the scripts
    pickUpName                       = "";
    maxInventory                     = 1000;
-   clip = HealerRifleClip;
+   clip = LipoRifleClip;
 };
 
-datablock ItemData(healerRifle)
+datablock ItemData(lipoRifle)
 {
    // Mission editor category
    category = "Weapon";
@@ -152,36 +153,36 @@ datablock ItemData(healerRifle)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/healerRifle/healerRifle.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/lipoRifle/lipoRifle.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
    emap = true;
 
     // Dynamic properties defined by the scripts
-    pickUpName = "a healerRifle";
-    description = "healerRifle";
-    image = healerRifleImage;
+    pickUpName = "a lipoRifle";
+    description = "lipoRifle";
+    image = lipoRifleImage;
     reticle = "crossHair";
     zoomReticle = "crossHairZoomed";
 };
 
 
 //--------------------------------------------------------------------------
-// healerRifle image which does all the work.  Images do not normally exist in
+// lipoRifle image which does all the work.  Images do not normally exist in
 // the world, they can only be mounted on ShapeBase objects.
 
-datablock ShapeBaseImageData(healerRifleImage)
+datablock ShapeBaseImageData(lipoRifleImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/healerRifle/healerRifle.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/healerRifle/healerRifle.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/lipoRifle/lipoRifle.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/lipoRifle/lipoRifle.cached.dts";
    emap = false;
 
-   item = healerRifle;
-   ammo = HealerRifleAmmo;
-   clip = HealerRifleClip;
-   projectile = HealerRifleBulletProjectile;
+   item = lipoRifle;
+   ammo = LipoRifleAmmo;
+   clip = LipoRifleClip;
+   projectile = LipoRifleBulletProjectile;
    projectileType = Projectile;
    projectileSpread = "0.0";
    useRemainderDT = true;
@@ -199,8 +200,8 @@ datablock ShapeBaseImageData(healerRifleImage)
    //camShakeFreq                   = "0 0 0";
    //camShakeAmp                    = "0 0 0";
 
-   //imageAnimPrefix = "healerRifle";
-   //imageAnimPrefixFP = "healerRifle";
+   //imageAnimPrefix = "lipoRifle";
+   //imageAnimPrefixFP = "lipoRifle";
 
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
@@ -253,7 +254,7 @@ datablock ShapeBaseImageData(healerRifleImage)
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = healerRifleFireSound;
+   stateSound[3]                    = lipoRifleFireSound;
    stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
@@ -264,7 +265,7 @@ datablock ShapeBaseImageData(healerRifleImage)
    stateAllowImageChange[4]         = false;
    stateSequence[4]                 = "Reload";
    //stateEjectShell[4]               = true;
-   //stateSound[4]                    = healerRifleReloadSound;
+   //stateSound[4]                    = lipoRifleReloadSound;
 
    // No ammo in the weapon, just idle until something
    // shows up. Play the dry fire sound if the trigger is
@@ -278,21 +279,21 @@ datablock ShapeBaseImageData(healerRifleImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = healerRifleFireEmptySound;
+   stateSound[6]                    = lipoRifleFireEmptySound;
 };
 
 
 //-----------------------------------------------------------------------------
 
-DefaultPlayerData.maxInv[healerRifle] = 1;
-DefaultPlayerData.maxInv[HealerRifleClip] = 10;
+DefaultPlayerData.maxInv[lipoRifle] = 1;
+DefaultPlayerData.maxInv[LipoRifleClip] = 10;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
-  weapon_ = healerRifle;
-  clip_ = HealerRifleClip;
-  ammo_ = HealerRifleAmmo;
+  weapon_ = lipoRifle;
+  clip_ = LipoRifleClip;
+  ammo_ = LipoRifleAmmo;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
