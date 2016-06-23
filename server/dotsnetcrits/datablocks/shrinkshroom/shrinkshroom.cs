@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the shrinkShroomImage is used.
 
+datablock SFXProfile(shrinkShroomFireSound)
+{
+   filename = "art/sound/dotsnetcrits/suntemple_retro-jump-sfx.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(shrinkShroom)
 {
    // Mission editor category

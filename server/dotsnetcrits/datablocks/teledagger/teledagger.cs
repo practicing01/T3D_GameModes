@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the teleDaggerImage is used.
 
+datablock SFXProfile(teleDaggerFireSound)
+{
+   filename = "art/sound/dotsnetcrits/vicces1212_item1.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(teleDagger)
 {
    // Mission editor category

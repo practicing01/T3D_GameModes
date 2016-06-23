@@ -11,11 +11,68 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the hotdogNadeImage is used.
 
+datablock SFXProfile(hotdogNadeExplosionSound)
+{
+   filename = "art/sound/dotsnetcrits/braqoon_arrow-damage.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(hotdogNadeFireSound)
+{
+   filename = "art/sound/dotsnetcrits/fins_button-6.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock ExplosionData(hotdogNadeExplosion)
+{
+   soundProfile = hotdogNadeExplosionSound;
+   lifeTimeMS = 400; // Quick flash, short burn, and moderate dispersal
+
+   // Volume particles
+   particleEmitter = GrenadeExpFireEmitter;
+   particleDensity = 75;
+   particleRadius = 2.25;
+
+   // Point emission
+   emitter[0] = GrenadeExpDustEmitter;
+   emitter[1] = GrenadeExpSparksEmitter;
+   emitter[2] = GrenadeExpSmokeEmitter;
+
+   // Sub explosion objects
+   subExplosion[0] = GrenadeSubExplosion;
+
+   // Camera Shaking
+   shakeCamera = true;
+   camShakeFreq = "10.0 11.0 9.0";
+   camShakeAmp = "15.0 15.0 15.0";
+   camShakeDuration = 1.5;
+   camShakeRadius = 20;
+
+   // Exploding debris
+   debris = GrenadeDebris;
+   debrisThetaMin = 10;
+   debrisThetaMax = 60;
+   debrisNum = 4;
+   debrisNumVariance = 2;
+   debrisVelocity = 25;
+   debrisVelocityVariance = 5;
+
+   lightStartRadius = 4.0;
+   lightEndRadius = 0.0;
+   lightStartColor = "1.0 1.0 1.0";
+   lightEndColor = "1.0 1.0 1.0";
+   lightStartBrightness = 4.0;
+   lightEndBrightness = 0.0;
+   lightNormalOffset = 2.0;
+};
+
 datablock ProximityMineData(hotdogNade)
 {
    // Mission editor category
    category = "Weapon";
-   explosion = "";
+   explosion = hotdogNadeExplosion;
 
    // Hook into Item Weapon class hierarchy. The weapon namespace
    // provides common weapon handling functions in addition to hooks

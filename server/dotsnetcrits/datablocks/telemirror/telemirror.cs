@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the teleMirrorImage is used.
 
+datablock SFXProfile(teleMirrorFireSound)
+{
+   filename = "art/sound/dotsnetcrits/manuts_click-3a.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(teleMirror)
 {
    // Mission editor category

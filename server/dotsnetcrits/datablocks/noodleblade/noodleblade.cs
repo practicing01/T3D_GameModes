@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the noodleBladeImage is used.
 
+datablock SFXProfile(noodleBladeFireSound)
+{
+   filename = "art/sound/dotsnetcrits/farbin_drop-cardboard-box.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(noodleBlade)
 {
    // Mission editor category

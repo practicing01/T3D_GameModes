@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the pogoBladeImage is used.
 
+datablock SFXProfile(pogoBladeFireSound)
+{
+   filename = "art/sound/dotsnetcrits/cusconauta_blop.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(pogoBlade)
 {
    // Mission editor category

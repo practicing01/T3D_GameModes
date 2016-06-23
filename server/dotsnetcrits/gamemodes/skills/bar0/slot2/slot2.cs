@@ -95,6 +95,7 @@ function KnockbackSkillsGM::Action(%this, %client, %guiSlot)
   %this.schedule(1000, "CoolDown");
 
   %player.setActionThread("shoot", false);
+  %player.playAudio(0, knockbackSpellSound);
 }
 
 function KnockbackInstanceSkillsGM::onRemove(%this)

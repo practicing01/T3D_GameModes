@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the fistClubImage is used.
 
+datablock SFXProfile(fistClubFireSound)
+{
+   filename = "art/sound/dotsnetcrits/wdfourtee_mxl993-yarstick-swoosh-5.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(fistClub)
 {
    // Mission editor category

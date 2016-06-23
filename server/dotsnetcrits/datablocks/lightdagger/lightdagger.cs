@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the lightDaggerImage is used.
 
+datablock SFXProfile(lightDaggerFireSound)
+{
+   filename = "art/sound/dotsnetcrits/fins_game-teleport.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(lightDagger)
 {
    // Mission editor category

@@ -11,14 +11,14 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the healerRifleImage is used.
 
-/*
-datablock SFXProfile(WeaponTemplateFireSound)
+
+datablock SFXProfile(healerRifleFireSound)
 {
-   filename = "art/sound/weapons/wpn_fire";
+   filename = "art/sound/dotsnetcrits/oceanictrancer_bird-chirp-click-thing-hi-bip-thing-thinger.ogg";
    description = AudioClose3D;
    preload = true;
 };
-
+/*
 datablock SFXProfile(WeaponTemplateReloadSound)
 {
    filename = "art/sound/weapons/wpn_reload";

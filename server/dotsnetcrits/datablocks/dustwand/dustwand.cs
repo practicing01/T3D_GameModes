@@ -11,6 +11,13 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the dustWandImage is used.
 
+datablock SFXProfile(dustWandFireSound)
+{
+   filename = "art/sound/dotsnetcrits/maxdemianagl_dices-throw.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 datablock ItemData(dustWand)
 {
    // Mission editor category

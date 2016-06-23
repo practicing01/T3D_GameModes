@@ -11,14 +11,14 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the lipoRifleImage is used.
 
-/*
-datablock SFXProfile(WeaponTemplateFireSound)
+datablock SFXProfile(lipoRifleFireSound)
 {
-   filename = "art/sound/weapons/wpn_fire";
-   description = AudioClose3D;
+   filename = "art/sound/dotsnetcrits/movingplaid_staple-gun-02.ogg";
+   description = AudioDefault3d;
    preload = true;
 };
 
+/*
 datablock SFXProfile(WeaponTemplateReloadSound)
 {
    filename = "art/sound/weapons/wpn_reload";
@@ -54,13 +54,13 @@ datablock SFXProfile(WeaponTemplateMineSwitchinSound)
    preload = true;
 };
 
-datablock LightDescription( LipoRifleBulletProjectileLightDesc )
+datablock LightDescription( lipoRifleBulletProjectileLightDesc )
 {
    color  = "0.0 0.5 0.7";
    range = 3.0;
 };
 */
-datablock ProjectileData( LipoRifleBulletProjectile )
+datablock ProjectileData( lipoRifleBulletProjectile )
 {
    projectileShapeName = "";
 
@@ -85,7 +85,7 @@ datablock ProjectileData( LipoRifleBulletProjectile )
    gravityMod          = 1;
 };
 
-function LipoRifleBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal)
+function lipoRifleBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal)
 {
   if ( %col.getType() & $TypeMasks::ShapeBaseObjectType )
   {
@@ -100,7 +100,7 @@ function LipoRifleBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%norm
 //-----------------------------------------------------------------------------
 // Ammo Item
 //-----------------------------------------------------------------------------
-datablock ItemData(LipoRifleClip)
+datablock ItemData(lipoRifleClip)
 {
    // Mission editor category
    category = "AmmoClip";
@@ -121,7 +121,7 @@ datablock ItemData(LipoRifleClip)
    maxInventory = 10;
 };
 
-datablock ItemData(LipoRifleAmmo)
+datablock ItemData(lipoRifleAmmo)
 {
    // Mission editor category
    category                         = "Ammo";
@@ -139,7 +139,7 @@ datablock ItemData(LipoRifleAmmo)
    // Dynamic properties defined by the scripts
    pickUpName                       = "";
    maxInventory                     = 1000;
-   clip = LipoRifleClip;
+   clip = lipoRifleClip;
 };
 
 datablock ItemData(lipoRifle)
@@ -180,9 +180,9 @@ datablock ShapeBaseImageData(lipoRifleImage)
    emap = false;
 
    item = lipoRifle;
-   ammo = LipoRifleAmmo;
-   clip = LipoRifleClip;
-   projectile = LipoRifleBulletProjectile;
+   ammo = lipoRifleAmmo;
+   clip = lipoRifleClip;
+   projectile = lipoRifleBulletProjectile;
    projectileType = Projectile;
    projectileSpread = "0.0";
    useRemainderDT = true;
@@ -286,14 +286,14 @@ datablock ShapeBaseImageData(lipoRifleImage)
 //-----------------------------------------------------------------------------
 
 DefaultPlayerData.maxInv[lipoRifle] = 1;
-DefaultPlayerData.maxInv[LipoRifleClip] = 10;
+DefaultPlayerData.maxInv[lipoRifleClip] = 10;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
   weapon_ = lipoRifle;
-  clip_ = LipoRifleClip;
-  ammo_ = LipoRifleAmmo;
+  clip_ = lipoRifleClip;
+  ammo_ = lipoRifleAmmo;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
