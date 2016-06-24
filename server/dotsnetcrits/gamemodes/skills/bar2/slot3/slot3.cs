@@ -92,6 +92,7 @@ function AOEHealSkillsGM::Action(%this, %client, %guiSlot)
     %this.schedule(1000, "CoolDown");
 
     %player.setActionThread("shoot", false);
+    %player.playAudio(0, aoehealSpellSound);
   //}
 
 }

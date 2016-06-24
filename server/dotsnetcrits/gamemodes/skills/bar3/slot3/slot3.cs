@@ -85,6 +85,7 @@ function SnareSkillsGM::Action(%this, %client, %guiSlot)
     %this.schedule(1000, "CoolDown");
 
     %player.setActionThread("shoot", false);
+    %player.playAudio(0, snareSpellSound);
 
     %velocity = VectorScale(%obj.getVelocity(), -1);
     %obj.setVelocity(%velocity);
