@@ -21,10 +21,10 @@
 //-----------------------------------------------------------------------------
 
 // Game duration in secs, no limit if the duration is set to 0
-$Game::Duration = 20 * 60;
+$Game::Duration = 0;//20 * 60;
 
 // When a client score reaches this value, the game is ended.
-$Game::EndGameScore = 30;
+$Game::EndGameScore = 0;//30;
 
 // Pause while looking over the end game screen (in secs)
 $Game::EndGamePause = 10;
@@ -50,13 +50,13 @@ function onServerCreated()
 
    // Load up any objects or datablocks saved to the editor managed scripts
    %datablockFiles = new ArrayObject();
-   %datablockFiles.add( "art/ribbons/ribbonExec.cs" );   
+   %datablockFiles.add( "art/ribbons/ribbonExec.cs" );
    %datablockFiles.add( "art/particles/managedParticleData.cs" );
    %datablockFiles.add( "art/particles/managedParticleEmitterData.cs" );
    %datablockFiles.add( "art/decals/managedDecalData.cs" );
    %datablockFiles.add( "art/datablocks/managedDatablocks.cs" );
    %datablockFiles.add( "art/forest/managedItemData.cs" );
-   %datablockFiles.add( "art/datablocks/datablockExec.cs" );   
+   %datablockFiles.add( "art/datablocks/datablockExec.cs" );
    loadDatablockFiles( %datablockFiles, true );
 
    // Run the other gameplay scripts in this folder
@@ -126,7 +126,7 @@ function onCyclePauseEnd()
 
    %search = $Server::MissionFileSpec;
    %oldMissionFile = makeRelativePath( $Server::MissionFile );
-      
+
    for( %file = findFirstFile( %search ); %file !$= ""; %file = findNextFile( %search ) )
    {
       if( %file $= %oldMissionFile )

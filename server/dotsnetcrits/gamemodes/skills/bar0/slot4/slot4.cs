@@ -63,7 +63,7 @@ function AOESkillsGM::Action(%this, %client, %guiSlot)
       sphereCastRadius_ = %this.sphereCastRadius_;
     };
 
-    %obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+    //%obj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
 
     %obj.aoeSet_.add(%aoe);
 

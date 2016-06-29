@@ -101,6 +101,13 @@ function DotsNetCritsServer::onAdd(%this)
   %this.loadOutListeners_.add(%this.TeamChooser_);
 
   %this.execDirScripts("npcs", "");
+
+  if (!isObject(DNCCrosshair))
+  {
+    exec("art/gui/dotsnetcrits/crosshair.gui");
+  }
+
+  PlayGui.add(DNCCrosshair);
 }
 
 function DotsNetCritsServer::SoftOnRemove(%this)
@@ -207,6 +214,12 @@ function DotsNetCritsServer::onRemove(%this)
   {
     %this.loadedNPCs_.deleteAllObjects();
     %this.loadedNPCs_.delete();
+  }
+
+  if (isObject(DNCCrosshair))
+  {
+    PlayGui.remove(DNCCrosshair);
+    DNCCrosshair.delete();
   }
 
   echo("dnc server go bye bye");
@@ -592,7 +605,31 @@ function Player::playPain(%this)
     return;
   }
 
-  %this.playAudio(0, %this.getDataBlock().getFieldValue("painSound_"));
+  %this.playAudio(0, %datablock.getFieldValue("painSound_"));
+}
+
+function PlayerData::onDamage(%this, %obj, %delta)
+{
+   // This method is invoked by the ShapeBase code whenever the
+   // object's damage level changes.
+   if (%delta > 0 && %obj.getState() !$= "Dead")
+   {
+      // Apply a damage flash
+      %obj.setDamageFlash(1);
+
+      // If the pain is excessive, let's hear about it.
+      if (%delta > 10)
+      {
+        %datablock = %obj.getDataBlock();
+
+        if (!%datablock.isField("painSound_"))
+        {
+          return;
+        }
+
+        %obj.playAudio(0, %datablock.getFieldValue("painSound_"));
+      }
+   }
 }
 
 new ScriptObject(DNCServer)
