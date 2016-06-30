@@ -170,7 +170,7 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 
-  %obj.setActionThread("Celebrate_01", false);
+  %obj.setActionThread("melee", false);
 }
 
 if (isObject(ZombieWavesGMServerSO))

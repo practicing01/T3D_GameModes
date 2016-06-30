@@ -13,7 +13,7 @@
 
 datablock SFXProfile(lightDaggerFireSound)
 {
-   filename = "art/sound/dotsnetcrits/fins_game-teleport.ogg";
+   filename = "art/sound/dotsnetcrits/cameronmusic_pulse-1.ogg";
    description = AudioDefault3d;
    preload = true;
 };
