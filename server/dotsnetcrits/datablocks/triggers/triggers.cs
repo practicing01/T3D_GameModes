@@ -22,3 +22,8 @@ datablock TriggerData(CTFGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(GlassPitTrigger)
+{
+  tickPeriodMS = 1000;
+};

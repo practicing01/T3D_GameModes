@@ -26,6 +26,14 @@ if (isObject(DNCServer))
   return;
 }
 
+if (!isObject(GuiModelessControlProfile))
+{
+  new GuiControlProfile( GuiModelessControlProfile : GuiDefaultProfile )
+  {
+    modal = false;
+  };
+}
+
 function DotsNetCritsServer::onAdd(%this)
 {
   %this.ClientLeaveCleanup_ = new ArrayObject();
