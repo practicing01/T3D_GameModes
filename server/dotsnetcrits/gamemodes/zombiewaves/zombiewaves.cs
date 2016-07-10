@@ -1,3 +1,10 @@
+datablock SFXProfile(chickenCluckSound)
+{
+   filename = "art/sound/dotsnetcrits/jarredgibb_chicken-buck-96khz.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
 function ZombieWavesGMServer::onAdd(%this)
 {
   MissionCleanup.add(%this);
@@ -122,13 +129,15 @@ function ZombieZombieWavesGM::onMoveStuck(%this, %ai)
 
 function ZombieZombieWavesGM::onDisabled(%this, %obj, %state)
 {
-  parent::onDisabled(%this, %obj, %state);
-
   if (isObject(ZombieWavesGMServerSO))
   {
     ZombieWavesGMServerSO.Zombies_.remove(%obj);
     ZombieWavesGMServerSO.zombieCount_--;
   }
+
+  %obj.playAudio(0, chickenCluckSound);
+  //parent::onDisabled(%this, %obj, %state);
+  %obj.schedule(500, "delete");
 }
 
 function ZombieClassZombieWavesGM::AttackCD(%this)

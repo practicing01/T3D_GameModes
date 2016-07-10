@@ -27,3 +27,8 @@ datablock TriggerData(GlassPitTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(SuburbTileTrigger)
+{
+  tickPeriodMS = 1000;
+};
