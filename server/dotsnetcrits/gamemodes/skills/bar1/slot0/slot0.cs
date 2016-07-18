@@ -154,7 +154,7 @@ if (isObject(SkillsGMServerSO))
     coolDownTime_ = 5.0;
     coolDownElapsedTime_ = 0.0;
     cooling_ = false;
-    duration_ = 5.0;
+    duration_ = 10.0;
     cloakSets_ = "";
     cdSchedule_ = "";
     emitterNode_ = "";

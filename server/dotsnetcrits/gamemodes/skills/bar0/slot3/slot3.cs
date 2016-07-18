@@ -160,6 +160,6 @@ if (isObject(SkillsGMServerSO))
     emitterNode_ = "";
     emitterDuration_ = 1.0;
     emitterSchedule_ = "";
-    velocityMagnitude_ = 2.0;
+    velocityMagnitude_ = 6.0;
   };
 }

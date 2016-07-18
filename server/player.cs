@@ -397,7 +397,7 @@ function Player::playCelAnimation(%this, %anim)
 
 
 //----------------------------------------------------------------------------
-
+/*
 function Player::playDeathCry(%this)
 {
    %this.playAudio(0, DeathCrySound);
@@ -407,7 +407,7 @@ function Player::playPain(%this)
 {
    %this.playAudio(0, PainCrySound);
 }
-
+*/
 // ----------------------------------------------------------------------------
 
 function Player::setDamageDirection(%player, %sourceObject, %damagePos)
