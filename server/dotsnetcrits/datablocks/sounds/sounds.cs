@@ -116,3 +116,24 @@ datablock SFXProfile(snareSpellSound)
    description = AudioDefault3d;
    preload = true;
 };
+
+datablock SFXProfile(detonateBombSound)
+{
+   filename = "art/sound/dotsnetcrits/severaltimes_bit-cannon.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(diffuseBombSound)
+{
+   filename = "art/sound/dotsnetcrits/lloydevans09_space-blast-wave-picture.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(plantBombSound)
+{
+   filename = "art/sound/dotsnetcrits/yugi16dm_no-iie.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};

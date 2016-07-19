@@ -188,6 +188,7 @@ function DiffusalGMServer::Diffuse(%this)
       {
         %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
         Game.incScore(%client, 1, false);
+        centerPrintAll("Team B Diffused!", 3, 1);
       }
     }
   }
@@ -199,9 +200,20 @@ function DiffusalGMServer::Diffuse(%this)
       {
         %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
         Game.incScore(%client, 1, false);
+        centerPrintAll("Team A Diffused!", 3, 1);
       }
     }
   }
+  else if (%diffuserTeam == %this.bomb_.team_)
+  {
+    centerPrintAll("Detonation Cancelled!", 3, 1);
+  }
+  else
+  {
+    centerPrintAll("Anon Diffused!", 3, 1);
+  }
+
+  ServerPlay2D(diffuseBombSound);
 
   %this.trigger_.enabled_ = false;
   %this.diffuser_.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
@@ -221,6 +233,7 @@ function DiffusalGMServer::Detonate(%this)
       {
         %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
         Game.incScore(%client, 1, false);
+        centerPrintAll("Team A Detonated!", 3, 1);
       }
     }
   }
@@ -232,17 +245,30 @@ function DiffusalGMServer::Detonate(%this)
       {
         %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
         Game.incScore(%client, 1, false);
+        centerPrintAll("Team B Detonated!", 3, 1);
       }
     }
   }
+  else
+  {
+    centerPrintAll("Anon Detonated!", 3, 1);
+  }
+
+  ServerPlay2D(detonateBombSound);
 
   %this.trigger_.enabled_ = false;
-  %obj = ClientGroup.getObject(getRandom(0, ClientGroup.getCount() - 1)).getControlObject();
-  %obj.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
+  //%obj = ClientGroup.getObject(getRandom(0, ClientGroup.getCount() - 1)).getControlObject();
+  //%obj.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
   %this.diffuser_ = -1;
 
   cancel(%this.diffuseSchedule_);
 
+  for (%x = 0; %x < ClientGroup.getCount(); %x++)
+  {
+    %client = ClientGroup.getObject(%x);
+    %player = %client.getControlObject();
+    %player.damage(%this, "0 0 0", 1000, "bomb");
+  }
 }
 
 function DiffusalGMServer::BombAction(%this, %client)
@@ -269,6 +295,9 @@ function DiffusalGMServer::BombAction(%this, %client)
         {
           %this.bomb_.team_ = 0;//team A
           %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
+
+          centerPrintAll("Team A Planted!", 3, 1);
+          ServerPlay2D(plantBombSound);
           return;
         }
       }
@@ -281,15 +310,22 @@ function DiffusalGMServer::BombAction(%this, %client)
         {
           %this.bomb_.team_ = 1;//team B
           %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
+
+          centerPrintAll("Team B Planted!", 3, 1);
+          ServerPlay2D(plantBombSound);
           return;
         }
       }
 
       %this.bomb_.team_ = -1;
       %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
+
+      centerPrintAll("Anon Planted!", 3, 1);
+
+      ServerPlay2D(plantBombSound);
     }
   }
-  else if (%parentObj == 0)//diffuse
+  else if (%parentObj == 0)//diffuse or pickup
   {
     %pos = %obj.getPosition();
 
@@ -299,11 +335,18 @@ function DiffusalGMServer::BombAction(%this, %client)
     {
       if(%targetObject.getName() $= "bomb")
       {
-        if (%this.diffusalCandidates_.isMember(%obj))
+        if (isEventPending(%this.detonateSchedule_))//diffuse
         {
-          %this.diffuser_ = %obj;
+          if (%this.diffusalCandidates_.isMember(%obj))
+          {
+            %this.diffuser_ = %obj;
 
-          %this.diffuseSchedule_ = %this.schedule(%this.castingTime_ * 1000, "Diffuse");
+            %this.diffuseSchedule_ = %this.schedule(%this.castingTime_ * 1000, "Diffuse");
+          }
+        }
+        else
+        {
+          %obj.mountObject(%this.bomb_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
         }
 
         break;
