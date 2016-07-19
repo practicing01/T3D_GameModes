@@ -80,7 +80,15 @@ function KOTHGMServer::Coronate(%this)
 {
   if (%this.trigger_.getNumObjects())
   {
+    %king = %this.plunger_.getObjectMount();
+
     %userper = %this.trigger_.getObject(0);
+
+    if (%king == %userper)
+    {
+      return;
+    }
+
     %userper.mountObject(%this.plunger_, 2, MatrixCreate("0 0 1", "1 0 0 0"));
 
     ServerPlay2D(kothCoronateSound);
