@@ -4,7 +4,7 @@ function DiffusalGMServer::onAdd(%this)
 
   %this.castingTime_ = 5.0;
 
-  %this.detonationDelay_ = 10.0;
+  %this.detonationDelay_ = 30.0;
 
   MissionCleanup.add(%this);
 
@@ -188,7 +188,7 @@ function DiffusalGMServer::Diffuse(%this)
       {
         %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
         Game.incScore(%client, 1, false);
-        centerPrintAll("Team B Diffused!", 3, 1);
+        //centerPrintAll("Team B Diffused!", 3, 1);
       }
     }
   }
@@ -200,17 +200,17 @@ function DiffusalGMServer::Diffuse(%this)
       {
         %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
         Game.incScore(%client, 1, false);
-        centerPrintAll("Team A Diffused!", 3, 1);
+        //centerPrintAll("Team A Diffused!", 3, 1);
       }
     }
   }
   else if (%diffuserTeam == %this.bomb_.team_)
   {
-    centerPrintAll("Detonation Cancelled!", 3, 1);
+    //centerPrintAll("Detonation Cancelled!", 3, 1);
   }
   else
   {
-    centerPrintAll("Anon Diffused!", 3, 1);
+    //centerPrintAll("Anon Diffused!", 3, 1);
   }
 
   ServerPlay2D(diffuseBombSound);
@@ -233,7 +233,7 @@ function DiffusalGMServer::Detonate(%this)
       {
         %client = DNCServer.TeamChooser_.teamA_.getObject(%x);
         Game.incScore(%client, 1, false);
-        centerPrintAll("Team A Detonated!", 3, 1);
+        //centerPrintAll("Team A Detonated!", 3, 1);
       }
     }
   }
@@ -245,13 +245,13 @@ function DiffusalGMServer::Detonate(%this)
       {
         %client = DNCServer.TeamChooser_.teamB_.getObject(%x);
         Game.incScore(%client, 1, false);
-        centerPrintAll("Team B Detonated!", 3, 1);
+        //centerPrintAll("Team B Detonated!", 3, 1);
       }
     }
   }
   else
   {
-    centerPrintAll("Anon Detonated!", 3, 1);
+    //centerPrintAll("Anon Detonated!", 3, 1);
   }
 
   ServerPlay2D(detonateBombSound);
@@ -296,7 +296,7 @@ function DiffusalGMServer::BombAction(%this, %client)
           %this.bomb_.team_ = 0;//team A
           %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
 
-          centerPrintAll("Team A Planted!", 3, 1);
+          //centerPrintAll("Team A Planted!", 3, 1);
           ServerPlay2D(plantBombSound);
           return;
         }
@@ -311,7 +311,7 @@ function DiffusalGMServer::BombAction(%this, %client)
           %this.bomb_.team_ = 1;//team B
           %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
 
-          centerPrintAll("Team B Planted!", 3, 1);
+          //centerPrintAll("Team B Planted!", 3, 1);
           ServerPlay2D(plantBombSound);
           return;
         }
@@ -320,7 +320,7 @@ function DiffusalGMServer::BombAction(%this, %client)
       %this.bomb_.team_ = -1;
       %this.detonateSchedule_ = %this.schedule(%this.detonationDelay_ * 1000, "Detonate");
 
-      centerPrintAll("Anon Planted!", 3, 1);
+      //centerPrintAll("Anon Planted!", 3, 1);
 
       ServerPlay2D(plantBombSound);
     }

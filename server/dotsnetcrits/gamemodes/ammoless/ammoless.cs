@@ -98,6 +98,8 @@ function toiletPaperAmmolessGM::onCollision(%this, %obj, %collObj, %vec, %len)
       %collObj.setInventory(%image.getFieldValue("clip"), 1);
     }
 
+    %collObj.playAudio(0, ammolessRechargeSound);
+
   }
 
   if (isObject(AmmolessGMServerSO))

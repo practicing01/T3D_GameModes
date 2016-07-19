@@ -137,3 +137,66 @@ datablock SFXProfile(plantBombSound)
    description = AudioDefault3d;
    preload = true;
 };
+
+datablock SFXProfile(ammolessRechargeSound)
+{
+   filename = "art/sound/dotsnetcrits/bychop_shield-recharging.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(ctfScoreSound)
+{
+   filename = "art/sound/dotsnetcrits/audiosmedia_party-horn.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(hostageRescuedSound)
+{
+   filename = "art/sound/dotsnetcrits/cabeeno-rossley_level-up.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(hydroballScoreSound)
+{
+   filename = "art/sound/dotsnetcrits/oceanictrancer_happy-effect.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(hydroballGrabSound)
+{
+   filename = "art/sound/dotsnetcrits/lloydevans09_jump2.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(hydroballThrowSound)
+{
+   filename = "art/sound/dotsnetcrits/fins_menu-button.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(kothCoronateSound)
+{
+   filename = "art/sound/dotsnetcrits/kyles_kitten-meow-not-cute-purr.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(tagOneChosenSound)
+{
+   filename = "art/sound/dotsnetcrits/reitanna_japanese-stop.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};
+
+datablock SFXProfile(tagTouchSound)
+{
+   filename = "art/sound/dotsnetcrits/reitanna_giggle9.ogg";
+   description = AudioDefault3d;
+   preload = true;
+};

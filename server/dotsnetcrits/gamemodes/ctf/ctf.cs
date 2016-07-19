@@ -155,6 +155,8 @@ function CTFGMTrigger::onEnterTrigger(%this, %trigger, %obj)
           }
         }
 
+        ServerPlay2D(ctfScoreSound);
+
       }
 
       /*%obj.unmount();

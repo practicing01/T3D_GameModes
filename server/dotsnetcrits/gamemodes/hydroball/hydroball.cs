@@ -122,6 +122,8 @@ function HydroballGMTrigger::onEnterTrigger(%this, %trigger, %obj)
           }
         }
       }
+
+      ServerPlay2D(hydroballScoreSound);
     }
   }
 }
@@ -174,6 +176,8 @@ function HydroballGMServer::BallAction(%this, %client)
 
     %this.ballDummy_.unmount();
     %this.ballDummy_.setHidden(true);
+
+    ServerPlay2D(hydroballThrowSound);
   }
   else if (%parentObj == 0)//grab
   {
@@ -193,6 +197,8 @@ function HydroballGMServer::BallAction(%this, %client)
 
         %obj.mountObject(%this.ballDummy_, 0, MatrixCreate("0 0 1", "1 0 0 0"));
         %this.ballDummy_.setHidden(false);
+
+        ServerPlay2D(hydroballGrabSound);
         break;
       }
     }

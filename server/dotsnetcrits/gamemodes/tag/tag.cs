@@ -39,7 +39,7 @@ function TagGMServer::SetTheOne(%this)
 
   %data.delete();
 
-  DNCServer.loadOutListeners_.add(%this);
+  %theOne.getControlObject().playAudio(0, tagOneChosenSound);
 }
 
 function TagGMServer::onAdd(%this)
@@ -53,6 +53,8 @@ function TagGMServer::onAdd(%this)
   %this.EventManager_.queue = "TagGMServerQueue";
 
   %this.SetTheOne();
+
+  DNCServer.loadOutListeners_.add(%this);
 }
 
 function TagGMServer::onRemove(%this)
@@ -84,6 +86,8 @@ function TagGMServer::TagAction(%this, %client)
       {
         if (DNCServer.TeamChooser_.teamA_.isMember(%targetObject.client))
         {
+          %obj.playAudio(0, tagTouchSound);
+
           if (DNCServer.TeamChooser_.teamA_.getCount() == 1)
           {
             %this.SetTheOne();

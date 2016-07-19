@@ -155,6 +155,8 @@ function HostageRescueGMTrigger::onEnterTrigger(%this, %trigger, %obj)
         }
       }
 
+      ServerPlay2D(hostageRescuedSound);
+
       %obj.stop();
       %obj.following_ = false;
       %obj.rescuer_ = "";
