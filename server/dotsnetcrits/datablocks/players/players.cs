@@ -17,7 +17,7 @@ datablock PlayerData(quechan : DefaultPlayerData)
    shapeFile = "art/shapes/dotsnetcrits/actors/quechan/quechan.dae";
    painSound_ = quechanPainCrySound;
    deathSound_ = quechanDeathCrySound;
-   availableSkins =  "base  Black";
+   availableSkins =  "base Black";
 };
 
 datablock PlayerData(quechanhoodie : DefaultPlayerData)

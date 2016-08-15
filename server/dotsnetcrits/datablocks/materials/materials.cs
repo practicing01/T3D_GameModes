@@ -1,4 +1,3 @@
-
 singleton Material(floor)
 {
    mapTo = "unmapped_mat";
@@ -19,7 +18,6 @@ singleton Material(archedRoomConnector)
    mapTo = "unmapped_mat";
    diffuseMap[0] = "art/shapes/dotsnetcrits/levels/garage/archedRoomConnector.png";
 };
-
 
 singleton Material(face_mat)
 {
