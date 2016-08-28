@@ -44,6 +44,13 @@ function DotsNetCritsServer::onAdd(%this)
   %this.loadedNPCs_ = new SimSet();
   %this.clientModels_ = new ArrayObject();
 
+  %this.dummyCam_ = new Camera()
+  {
+    datablock = "Observer";
+  };
+
+  MissionCleanup.add(%this.dummyCam_);
+
   %this.execDirScripts("datablocks", "players");
 
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
@@ -179,6 +186,11 @@ function DotsNetCritsServer::onRemove(%this)
   if (isObject(%this.TeamChooser_))
   {
     %this.TeamChooser_.delete();
+  }
+
+  if (isObject(%this.dummyCam_))
+  {
+    %this.dummyCam_.delete();
   }
 
   if (isObject(%this.ClientLeaveCleanup_))
@@ -654,4 +666,5 @@ new ScriptObject(DNCServer)
   LevelVoteMachine_ = "";
   loadedNPCs_ = "";
   clientModels_ = "";
+  dummyCam_ = "";
 };
