@@ -29,7 +29,7 @@ function gameboardScriptMsgListenerClient::PopulateDeckList(%this)
 
 function gameboardScriptMsgListenerClient::PopulateFieldList(%this)
 {
-  if (isObject(tcgdeck))
+  if (isObject(tcgfield))
   {
     tcgfield.clear();
     tcgfieldimage.setBitmap("");
@@ -44,6 +44,8 @@ function gameboardScriptMsgListenerClient::PopulateFieldList(%this)
     {
       tcgfield.addRow(%x, %this.fieldList_.getValue(%x));
     }
+
+    tcgfieldScroller.computeSizes();
   }
 
 }
