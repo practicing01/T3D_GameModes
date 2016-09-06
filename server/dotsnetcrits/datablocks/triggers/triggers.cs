@@ -32,3 +32,8 @@ datablock TriggerData(SuburbTileTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(DungeonTileTrigger)
+{
+  tickPeriodMS = 1000;
+};

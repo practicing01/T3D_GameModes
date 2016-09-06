@@ -84,6 +84,7 @@ function ZombieWavesGMServer::SpawnZombie(%this)
     dataBlock = ZombieZombieWavesGM;
     class = ZombieClassZombieWavesGM;
     //mMoveTolerance = 1.0;
+    //moveStuckTolerance = 1.0;
     position = %zombieSpawn.getPosition();
     rotation = %zombieSpawn.rotation;
     target_ = "";
@@ -96,9 +97,13 @@ function ZombieWavesGMServer::SpawnZombie(%this)
 
   %zombie.target_ = %randyTarget.getControlObject();
 
-  %pos = %zombie.target_.getPosition();
+  %targPos = %zombie.target_.getPosition();
 
-  %zombie.setMoveDestination(%pos);
+  //setField(%targPos, 1, getField(%zombie.getPosition(), 1));
+
+  %zombie.setMoveDestination(%targPos);
+
+  %zombie.setAimObject(%zombie.target_);
 
   %this.zombieCount_++;
 
@@ -112,7 +117,13 @@ function ZombieZombieWavesGM::onReachDestination(%this, %ai)
     %ai.target_ = ClientGroup.getRandom().getControlObject();
   }
 
-  %ai.setMoveDestination(VectorAdd(%ai.target_.getPosition(), %forwardVector));
+  %targPos = %ai.target_.getPosition();
+
+  //setField(%targPos, 1, getField(%ai.getPosition(), 1));
+
+  %ai.setMoveDestination(%targPos);
+
+  %ai.setAimObject(%ai.target_);
 
 }
 
@@ -123,7 +134,13 @@ function ZombieZombieWavesGM::onMoveStuck(%this, %ai)
     %ai.target_ = ClientGroup.getRandom().getControlObject();
   }
 
-  %ai.setMoveDestination(VectorAdd(%ai.target_.getPosition(), %forwardVector));
+  %targPos = %ai.target_.getPosition();
+
+  //setField(%targPos, 1, getField(%ai.getPosition(), 1));
+
+  %ai.setMoveDestination(%targPos);
+
+  %ai.setAimObject(%ai.target_);
 
 }
 
@@ -154,7 +171,8 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
     return;
   }
 
-  if (!(%collObj.getType() & ($TypeMasks::ShapeBaseObjectType)))
+  if (%collObj.getClassName() !$= "Player")// && %collObj.getClassName() !$= "AIPlayer")
+  //if (!(%collObj.getType() & ($TypeMasks::ShapeBaseObjectType)))
   {
     return;
   }
@@ -194,7 +212,7 @@ else
     EventManager_ = "";
     Zombies_ = "";
     ZombieSpawns_ = "";
-    maxZombies_ = 20;
+    maxZombies_ = 10;
     zombieCount_ = 0;
     zombieSpawnSchedule_ = 0;
     zombieSpawnInterval_ = 5;
