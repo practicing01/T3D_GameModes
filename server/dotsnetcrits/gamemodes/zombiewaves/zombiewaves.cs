@@ -99,7 +99,7 @@ function ZombieWavesGMServer::SpawnZombie(%this)
 
   %targPos = %zombie.target_.getPosition();
 
-  //setField(%targPos, 1, getField(%zombie.getPosition(), 1));
+  //setField(%targPos, 2, getField(%zombie.getPosition(), 2));
 
   %zombie.setMoveDestination(%targPos);
 
@@ -119,7 +119,7 @@ function ZombieZombieWavesGM::onReachDestination(%this, %ai)
 
   %targPos = %ai.target_.getPosition();
 
-  //setField(%targPos, 1, getField(%ai.getPosition(), 1));
+  //setField(%targPos, 2, getField(%ai.getPosition(), 2));
 
   %ai.setMoveDestination(%targPos);
 
@@ -136,7 +136,7 @@ function ZombieZombieWavesGM::onMoveStuck(%this, %ai)
 
   %targPos = %ai.target_.getPosition();
 
-  //setField(%targPos, 1, getField(%ai.getPosition(), 1));
+  //setField(%targPos, 2, getField(%ai.getPosition(), 2));
 
   %ai.setMoveDestination(%targPos);
 
@@ -197,7 +197,7 @@ function ZombieZombieWavesGM::onCollision(%this, %obj, %collObj, %vec, %len)
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 
-  %obj.setActionThread("melee", false);
+  %obj.setActionThread("melee");
 }
 
 if (isObject(ZombieWavesGMServerSO))
