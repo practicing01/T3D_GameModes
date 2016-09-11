@@ -21,6 +21,7 @@ function DungeonLevel::onAdd(%this)
 
 function DungeonLevel::onDungeonLevelShapeSpawn(%this, %data)
 {
+  %degrees = "0 90 180 270";
   %position = %data.getValue(%data.getIndexFromKey("position"));
 
   for (%x = 0; %x < 4; %x++)
@@ -38,7 +39,30 @@ function DungeonLevel::onDungeonLevelShapeSpawn(%this, %data)
       decalType = "Visible Mesh";
       allowPlayerStep = "1";
     };
+
+    %objTransform = %prop.getTransform();
+    %tryRotation = "0 0 0 0 0 1 " @ mDegToRad(getWord(%degrees, getRandom(0, 3)));
+    %newTransform = matrixMultiply(%objTransform, %tryRotation);
+    %prop.setTransform(%newTransform);
+
+    %randyOffset = getRandom(-9, 9) SPC getRandom(-9, 9) SPC 0;
+    %randyPos = VectorAdd(%position, %randyOffset);
+
+    %wall = new TSStatic()
+    {
+      shapeName = "art/shapes/dotsnetcrits/levels/dungeon/wall/wall.cached.dts";
+      position = %randyPos;
+      collisionType = "Visible Mesh";
+      decalType = "Visible Mesh";
+      allowPlayerStep = "1";
+    };
+
+    %objTransform = %wall.getTransform();
+    %tryRotation = "0 0 0 0 0 1 " @ mDegToRad(getWord(%degrees, getRandom(0, 3)));
+    %newTransform = matrixMultiply(%objTransform, %tryRotation);
+    %wall.setTransform(%newTransform);
   }
+
 }
 
 function DungeonLevel::onRemove(%this)
