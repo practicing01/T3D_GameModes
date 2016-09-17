@@ -1,6 +1,11 @@
+exec("./ai.cs");
+
 function DungeonLevel::onAdd(%this)
 {
   %this.shapePaths_ = new ArrayObject();
+  %this.shapeAIStrings_ = new ArrayObject();
+
+  DNCServer.execDirScripts("datablocks/dungeonlevel/ai", "");
 
   %count = 0;
 
@@ -63,11 +68,38 @@ function DungeonLevel::onDungeonLevelShapeSpawn(%this, %data)
     %wall.setTransform(%newTransform);
   }
 
+  %string = DungeonLevelHandle.shapeAIStrings_.getValue(getRandom(0, %this.shapeAIStrings_.count() - 1));
+
+  %npc = new AiPlayer()
+  {
+    dataBlock = getWord(%string, 0);
+    class = getWord(%string, 1);
+    //mMoveTolerance = 1.0;
+    //moveStuckTolerance = 1.0;
+    position = %position;
+    //rotation = %zombieSpawn.rotation;
+    target_ = "";
+    canAttack_ = true;
+  };
+
+  %randyTarget = ClientGroup.getRandom();
+
+  %npc.target_ = %randyTarget.getControlObject();
+
+  %targPos = %npc.target_.getPosition();
+
+  //setField(%targPos, 2, getField(%zombie.getPosition(), 2));
+
+  %npc.setMoveDestination(%targPos);
+
+  %npc.setAimObject(%npc.target_);
+
 }
 
 function DungeonLevel::onRemove(%this)
 {
   %this.shapePaths_.delete();
+  %this.shapeAIStrings_.delete();
 }
 
 function DungeonTileTrigger::onEnterTrigger(%this, %trigger, %obj)
