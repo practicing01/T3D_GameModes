@@ -1,11 +1,11 @@
 if (isObject(DungeonLevelHandle))
 {
   %count = DungeonLevelHandle.shapeAIStrings_.count();
-  %string = "UndeadZombieDungeonLevel" SPC "UndeadZombieClassDungeonLevel";
+  %string = "UndeadDeathknightDungeonLevel" SPC "UndeadDeathknightClassDungeonLevel";
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
-function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
+function UndeadDeathknightDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -22,7 +22,7 @@ function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
+function UndeadDeathknightDungeonLevel::onMoveStuck(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -39,19 +39,19 @@ function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onDisabled(%this, %obj, %state)
+function UndeadDeathknightDungeonLevel::onDisabled(%this, %obj, %state)
 {
   %obj.playAudio(0, chickenCluckSound);
   //parent::onDisabled(%this, %obj, %state);
   %obj.schedule(500, "delete");
 }
 
-function UndeadZombieClassDungeonLevel::AttackCD(%this)
+function UndeadDeathknightClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
 }
 
-function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
+function UndeadDeathknightDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 

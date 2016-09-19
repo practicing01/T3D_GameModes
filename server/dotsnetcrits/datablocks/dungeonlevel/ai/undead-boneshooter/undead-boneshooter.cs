@@ -1,11 +1,11 @@
 if (isObject(DungeonLevelHandle))
 {
   %count = DungeonLevelHandle.shapeAIStrings_.count();
-  %string = "UndeadZombieDungeonLevel" SPC "UndeadZombieClassDungeonLevel";
+  %string = "UndeadBoneshooterDungeonLevel" SPC "UndeadBoneshooterClassDungeonLevel";
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
-function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
+function UndeadBoneshooterDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -22,7 +22,7 @@ function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
+function UndeadBoneshooterDungeonLevel::onMoveStuck(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -39,19 +39,56 @@ function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onDisabled(%this, %obj, %state)
+function UndeadBoneshooterDungeonLevel::onDisabled(%this, %obj, %state)
 {
   %obj.playAudio(0, chickenCluckSound);
   //parent::onDisabled(%this, %obj, %state);
   %obj.schedule(500, "delete");
 }
 
-function UndeadZombieClassDungeonLevel::AttackCD(%this)
+function UndeadBoneshooterClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
 }
 
-function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
+function UndeadBoneshooterDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.projectileSchedule_ = 0;
+}
+
+function UndeadBoneshooterDungeonLevel::onTargetEnterLOS(%this, %obj)
+{
+  if (isEventPending(%obj.projectileSchedule_))
+  {
+    return;
+  }
+
+  if (!isObject(%obj))
+  {
+    return;
+  }
+
+  %projectileVelocity = VectorScale(%obj.getEyeVector(), 10.0);
+
+  %projectile = new Projectile()
+  {
+    datablock = RangedSkillsGMProjectile;
+    initialPosition = %obj.getEyePoint();
+    initialVelocity = %projectileVelocity;
+    sourceObject = %obj;
+    sourceSlot = 0;
+    client = %obj.client;
+  };
+
+  %obj.projectileSchedule_ = %this.schedule(4000, "onTargetEnterLOS", %obj);
+}
+
+function UndeadBoneshooterDungeonLevel::onTargetExitLOS(%this, %obj)
+{
+  //cancelAll(%this);
+}
+
+function UndeadBoneshooterDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 

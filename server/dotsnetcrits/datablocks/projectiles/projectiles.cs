@@ -1,3 +1,8 @@
+datablock ExplosionData(RangedSkillsGMExplosion : GrenadeLauncherExplosion)
+{
+  shakeCamera = false;
+};
+
 datablock ProjectileData(RangedSkillsGMProjectile)
 {
    projectileShapeName = "art/shapes/weapons/shared/rocket.dts";
@@ -6,7 +11,7 @@ datablock ProjectileData(RangedSkillsGMProjectile)
    damageRadius = 5;
    areaImpulse = 2000;
 
-   explosion = GrenadeLauncherExplosion;
+   explosion = RangedSkillsGMExplosion;
    waterExplosion = GrenadeLauncherWaterExplosion;
 
    decal = ScorchRXDecal;

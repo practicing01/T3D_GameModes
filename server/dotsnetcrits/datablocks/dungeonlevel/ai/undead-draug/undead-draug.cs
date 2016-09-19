@@ -1,11 +1,11 @@
 if (isObject(DungeonLevelHandle))
 {
   %count = DungeonLevelHandle.shapeAIStrings_.count();
-  %string = "UndeadZombieDungeonLevel" SPC "UndeadZombieClassDungeonLevel";
+  %string = "UndeadDraugDungeonLevel" SPC "UndeadDraugClassDungeonLevel";
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
-function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
+function UndeadDraugDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -22,7 +22,7 @@ function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
+function UndeadDraugDungeonLevel::onMoveStuck(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -39,19 +39,54 @@ function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onDisabled(%this, %obj, %state)
+function UndeadDraugDungeonLevel::onDisabled(%this, %obj, %state)
 {
   %obj.playAudio(0, chickenCluckSound);
   //parent::onDisabled(%this, %obj, %state);
   %obj.schedule(500, "delete");
 }
 
-function UndeadZombieClassDungeonLevel::AttackCD(%this)
+function UndeadDraugClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
 }
 
-function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
+function UndeadDraugDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.schedule(5000, "SpawnNPC");
+}
+
+function UndeadDraugClassDungeonLevel::SpawnNPC(%this)
+{
+  %string = "UndeadSkeletonDungeonLevel" SPC "UndeadSkeletonClassDungeonLevel";
+
+  %npc = new AiPlayer()
+  {
+    dataBlock = getWord(%string, 0);
+    class = getWord(%string, 1);
+    //mMoveTolerance = 1.0;
+    //moveStuckTolerance = 1.0;
+    //moveStuckTestDelay = 1.0;
+    position = %this.position;
+    //rotation = %zombieSpawn.rotation;
+    target_ = "";
+    canAttack_ = true;
+  };
+
+  %npc.target_ = %this.target_;
+
+  %targPos = %npc.target_.getPosition();
+
+  //setField(%targPos, 2, getField(%zombie.getPosition(), 2));
+
+  %npc.setMoveDestination(%targPos);
+
+  %npc.setAimObject(%npc.target_);
+
+  %this.schedule(5000, "SpawnNPC");
+}
+
+function UndeadDraugDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 

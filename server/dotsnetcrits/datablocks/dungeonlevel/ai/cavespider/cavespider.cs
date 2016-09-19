@@ -1,11 +1,11 @@
 if (isObject(DungeonLevelHandle))
 {
   %count = DungeonLevelHandle.shapeAIStrings_.count();
-  %string = "UndeadZombieDungeonLevel" SPC "UndeadZombieClassDungeonLevel";
+  %string = "CaveSpiderDungeonLevel" SPC "CaveSpiderClassDungeonLevel";
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
-function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
+function CaveSpiderDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -22,7 +22,7 @@ function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
+function CaveSpiderDungeonLevel::onMoveStuck(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -39,19 +39,19 @@ function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
 
 }
 
-function UndeadZombieDungeonLevel::onDisabled(%this, %obj, %state)
+function CaveSpiderDungeonLevel::onDisabled(%this, %obj, %state)
 {
   %obj.playAudio(0, chickenCluckSound);
   //parent::onDisabled(%this, %obj, %state);
   %obj.schedule(500, "delete");
 }
 
-function UndeadZombieClassDungeonLevel::AttackCD(%this)
+function CaveSpiderClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
 }
 
-function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
+function CaveSpiderDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 
@@ -83,6 +83,33 @@ function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len
   }
 
   %collObj.damage(%obj, %vec, 10, "melee");
+
+  %targetEmitterNode = new ParticleEmitterNode()
+  {
+    datablock = PoisonEmitterNodeData;
+    emitter = PoisonEmitter;
+    active = true;
+    velocity = 0.0;
+  };
+
+  %poison = new ScriptObject()
+  {
+    class = "PoisonInstanceSkillsGM";
+    emitterNode_ = %targetEmitterNode;
+    pulseInterval_ = 1.0;
+    pulseIntervalCount_ = 0;
+    pulseDuration_ = 10000;
+    target_ = %collObj;
+    power_ = 10.0;
+  };
+
+  %collObj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+
+  %targetEmitterNode.schedule(10000, "delete");
+
+  %poison.schedule(0, "Pulse");
+  %poison.schedule(10000, "delete");
+
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 

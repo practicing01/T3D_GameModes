@@ -1,11 +1,11 @@
 if (isObject(DungeonLevelHandle))
 {
   %count = DungeonLevelHandle.shapeAIStrings_.count();
-  %string = "UndeadZombieDungeonLevel" SPC "UndeadZombieClassDungeonLevel";
+  %string = "UndeadSoulshooterDungeonLevel" SPC "UndeadSoulshooterClassDungeonLevel";
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
-function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
+function UndeadSoulshooterDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -16,13 +16,13 @@ function UndeadZombieDungeonLevel::onReachDestination(%this, %ai)
 
   //setField(%targPos, 2, getField(%ai.getPosition(), 2));
 
-  %ai.setMoveDestination(%targPos);
+  //%ai.setMoveDestination(%targPos);
 
   %ai.setAimObject(%ai.target_);
 
 }
 
-function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
+function UndeadSoulshooterDungeonLevel::onMoveStuck(%this, %ai)
 {
   if (!isObject(%ai.target_))
   {
@@ -33,25 +33,62 @@ function UndeadZombieDungeonLevel::onMoveStuck(%this, %ai)
 
   //setField(%targPos, 2, getField(%ai.getPosition(), 2));
 
-  %ai.setMoveDestination(%targPos);
+  //%ai.setMoveDestination(%targPos);
 
   %ai.setAimObject(%ai.target_);
 
 }
 
-function UndeadZombieDungeonLevel::onDisabled(%this, %obj, %state)
+function UndeadSoulshooterDungeonLevel::onDisabled(%this, %obj, %state)
 {
   %obj.playAudio(0, chickenCluckSound);
   //parent::onDisabled(%this, %obj, %state);
   %obj.schedule(500, "delete");
 }
 
-function UndeadZombieClassDungeonLevel::AttackCD(%this)
+function UndeadSoulshooterClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
 }
 
-function UndeadZombieDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
+function UndeadSoulshooterDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.projectileSchedule_ = 0;
+}
+
+function UndeadSoulshooterDungeonLevel::onTargetEnterLOS(%this, %obj)
+{
+  if (isEventPending(%obj.projectileSchedule_))
+  {
+    return;
+  }
+
+  if (!isObject(%obj))
+  {
+    return;
+  }
+
+  %projectileVelocity = VectorScale(%obj.getEyeVector(), 10.0);
+
+  %projectile = new Projectile()
+  {
+    datablock = RangedSkillsGMProjectile;
+    initialPosition = %obj.getEyePoint();
+    initialVelocity = %projectileVelocity;
+    sourceObject = %obj;
+    sourceSlot = 0;
+    client = %obj.client;
+  };
+
+  %obj.projectileSchedule_ = %this.schedule(1000, "onTargetEnterLOS", %obj);
+}
+
+function UndeadSoulshooterDungeonLevel::onTargetExitLOS(%this, %obj)
+{
+  //cancelAll(%this);
+}
+
+function UndeadSoulshooterDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 

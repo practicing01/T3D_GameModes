@@ -76,6 +76,7 @@ function DungeonLevel::onDungeonLevelShapeSpawn(%this, %data)
     class = getWord(%string, 1);
     //mMoveTolerance = 1.0;
     //moveStuckTolerance = 1.0;
+    //moveStuckTestDelay = 1.0;
     position = %position;
     //rotation = %zombieSpawn.rotation;
     target_ = "";
