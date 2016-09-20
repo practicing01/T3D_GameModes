@@ -5,6 +5,18 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function UndeadGhostDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.setCloaked(true);
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-ghost/undeadghost.cached.dts";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
 function UndeadGhostDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -83,6 +95,7 @@ function UndeadGhostDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
   }
 
   %collObj.damage(%obj, %vec, 10, "melee");
+  %obj.applyImpulse("0 0 0", VectorScale(%obj.getUpVector(), 2000.0));
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 

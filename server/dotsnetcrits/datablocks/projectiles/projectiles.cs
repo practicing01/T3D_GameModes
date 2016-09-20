@@ -12,13 +12,13 @@ datablock ProjectileData(RangedSkillsGMProjectile)
    areaImpulse = 2000;
 
    explosion = RangedSkillsGMExplosion;
-   waterExplosion = GrenadeLauncherWaterExplosion;
+   waterExplosion = "";//GrenadeLauncherWaterExplosion;
 
-   decal = ScorchRXDecal;
-   splash = GrenadeSplash;
+   decal = "";//ScorchRXDecal;
+   splash = "";//GrenadeSplash;
 
-   particleEmitter = GrenadeProjSmokeTrailEmitter;
-   particleWaterEmitter = GrenadeTrailWaterEmitter;
+   particleEmitter = "";//GrenadeProjSmokeTrailEmitter;
+   particleWaterEmitter = "";//GrenadeTrailWaterEmitter;
 
    muzzleVelocity = 1;
    velInheritFactor = 0.3;
@@ -32,7 +32,7 @@ datablock ProjectileData(RangedSkillsGMProjectile)
    isBallistic = true;
    gravityMod = 0;
 
-   lightDesc = GrenadeLauncherLightDesc;
+   lightDesc = "";//GrenadeLauncherLightDesc;
 
    damageType = "RangedSkillsGM";
 };

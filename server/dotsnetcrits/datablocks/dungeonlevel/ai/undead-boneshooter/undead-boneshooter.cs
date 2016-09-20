@@ -5,6 +5,18 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function UndeadBoneshooterDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.setCloaked(true);
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-boneshooter/undeadboneshooter.cached.dts";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
 function UndeadBoneshooterDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -85,7 +97,7 @@ function UndeadBoneshooterDungeonLevel::onTargetEnterLOS(%this, %obj)
 
 function UndeadBoneshooterDungeonLevel::onTargetExitLOS(%this, %obj)
 {
-  //cancelAll(%this);
+  cancelAll(%this);
 }
 
 function UndeadBoneshooterDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)

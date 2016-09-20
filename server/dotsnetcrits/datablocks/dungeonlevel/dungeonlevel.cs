@@ -1,3 +1,4 @@
+exec("scripts/server/dotsnetcrits/gamemodes/skills/bar3/slot2/slot2.cs");
 exec("./ai.cs");
 
 function DungeonLevel::onAdd(%this)
@@ -69,6 +70,7 @@ function DungeonLevel::onDungeonLevelShapeSpawn(%this, %data)
   }
 
   %string = DungeonLevelHandle.shapeAIStrings_.getValue(getRandom(0, %this.shapeAIStrings_.count() - 1));
+  %string = "SkeletalDragonDungeonLevel" SPC "SkeletalDragonClassDungeonLevel";
 
   %npc = new AiPlayer()
   {

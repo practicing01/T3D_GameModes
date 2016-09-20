@@ -5,6 +5,18 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function UndeadDeathknightDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.setCloaked(true);
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-deathknight/undeaddeathknight.cached.dts";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
 function UndeadDeathknightDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -82,7 +94,7 @@ function UndeadDeathknightDungeonLevel::onCollision(%this, %obj, %collObj, %vec,
     return;
   }
 
-  %collObj.damage(%obj, %vec, 10, "melee");
+  %collObj.damage(%obj, %vec, 1000, "melee");
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 

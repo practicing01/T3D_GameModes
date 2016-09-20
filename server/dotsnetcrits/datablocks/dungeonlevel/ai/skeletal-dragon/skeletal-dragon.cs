@@ -5,6 +5,54 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function SkeletalDragonDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.projectileSchedule_ = 0;
+
+  %obj.setCloaked(true);
+  %obj.scale = "5 5 5";
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/skeletal-dragon/skeletal-dragon.cached.dts";
+    collisionType = "none";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function SkeletalDragonDungeonLevel::onTargetEnterLOS(%this, %obj)
+{
+  if (isEventPending(%obj.projectileSchedule_))
+  {
+    return;
+  }
+
+  if (!isObject(%obj))
+  {
+    return;
+  }
+
+  %projectileVelocity = VectorScale(%obj.getEyeVector(), 10.0);
+
+  %projectile = new Projectile()
+  {
+    datablock = RangedSkillsGMProjectile;
+    initialPosition = %obj.getEyePoint();
+    initialVelocity = %projectileVelocity;
+    sourceObject = %obj;
+    sourceSlot = 0;
+    client = %obj.client;
+  };
+
+  %obj.projectileSchedule_ = %this.schedule(4000, "onTargetEnterLOS", %obj);
+}
+
+function SkeletalDragonDungeonLevel::onTargetExitLOS(%this, %obj)
+{
+  cancelAll(%this);
+}
+
 function SkeletalDragonDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -82,7 +130,36 @@ function SkeletalDragonDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %l
     return;
   }
 
-  %collObj.damage(%obj, %vec, 10, "melee");
+  %collObj.damage(%obj, %vec, 50, "melee");
+
+  %targetEmitterNode = new ParticleEmitterNode()
+  {
+    datablock = PoisonEmitterNodeData;
+    emitter = PoisonEmitter;
+    active = true;
+    velocity = 0.0;
+  };
+
+  %poison = new ScriptObject()
+  {
+    class = "PoisonInstanceSkillsGM";
+    emitterNode_ = %targetEmitterNode;
+    pulseInterval_ = 1.0;
+    pulseIntervalCount_ = 0;
+    pulseDuration_ = 10000;
+    target_ = %collObj;
+    power_ = 10.0;
+  };
+
+  %collObj.mountObject(%targetEmitterNode, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+
+  %targetEmitterNode.schedule(10000, "delete");
+
+  %poison.schedule(0, "Pulse");
+  %poison.schedule(10000, "delete");
+
+  %obj.applyRepair(100);
+
   %obj.canAttack_ = false;
   %obj.schedule(1000, "AttackCD");
 

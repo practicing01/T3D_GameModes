@@ -5,6 +5,20 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function UndeadBatDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.setCloaked(true);
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-bat/undeadbat.cached.dts";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+
+  %this.schedule(1000, "onTargetExitLOS", %obj);
+}
+
 function UndeadBatDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -54,6 +68,8 @@ function UndeadBatClassDungeonLevel::AttackCD(%this)
 function UndeadBatDungeonLevel::onTargetExitLOS(%this, %obj)
 {
   %obj.applyImpulse("0 0 0", VectorScale(%obj.getUpVector(), 1000.0));
+
+  %this.schedule(1000, "onTargetExitLOS", %obj);
 }
 
 function UndeadBatDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)

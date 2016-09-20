@@ -5,6 +5,18 @@ if (isObject(DungeonLevelHandle))
   DungeonLevelHandle.shapeAIStrings_.add(%count, %string);
 }
 
+function UndeadSoulshooterDungeonLevel::onAdd(%this, %obj)
+{
+  %obj.setCloaked(true);
+
+  %sprite = new TSStatic()
+  {
+    shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-soulshooter/undeadsoulshooter.cached.dts";
+  };
+
+  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
 function UndeadSoulshooterDungeonLevel::onReachDestination(%this, %ai)
 {
   if (!isObject(%ai.target_))
@@ -85,7 +97,7 @@ function UndeadSoulshooterDungeonLevel::onTargetEnterLOS(%this, %obj)
 
 function UndeadSoulshooterDungeonLevel::onTargetExitLOS(%this, %obj)
 {
-  //cancelAll(%this);
+  cancelAll(%this);
 }
 
 function UndeadSoulshooterDungeonLevel::onCollision(%this, %obj, %collObj, %vec, %len)
