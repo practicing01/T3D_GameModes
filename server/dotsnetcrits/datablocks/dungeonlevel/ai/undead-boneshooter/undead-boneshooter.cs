@@ -7,14 +7,22 @@ if (isObject(DungeonLevelHandle))
 
 function UndeadBoneshooterDungeonLevel::onAdd(%this, %obj)
 {
+  %obj.projectileSchedule_ = 0;
+
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-boneshooter/undeadboneshooter.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadBoneshooterDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadBoneshooterDungeonLevel::onReachDestination(%this, %ai)
@@ -61,11 +69,6 @@ function UndeadBoneshooterDungeonLevel::onDisabled(%this, %obj, %state)
 function UndeadBoneshooterClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
-}
-
-function UndeadBoneshooterDungeonLevel::onAdd(%this, %obj)
-{
-  %obj.projectileSchedule_ = 0;
 }
 
 function UndeadBoneshooterDungeonLevel::onTargetEnterLOS(%this, %obj)

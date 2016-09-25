@@ -7,14 +7,24 @@ if (isObject(DungeonLevelHandle))
 
 function UndeadDraugDungeonLevel::onAdd(%this, %obj)
 {
+  %obj.schedule(5000, "SpawnNPC");
+
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.scale = "2.5 2.5 2.5";
+
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-draug/undeaddraug.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadDraugDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadDraugDungeonLevel::onReachDestination(%this, %ai)
@@ -61,11 +71,6 @@ function UndeadDraugDungeonLevel::onDisabled(%this, %obj, %state)
 function UndeadDraugClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
-}
-
-function UndeadDraugDungeonLevel::onAdd(%this, %obj)
-{
-  %obj.schedule(5000, "SpawnNPC");
 }
 
 function UndeadDraugClassDungeonLevel::SpawnNPC(%this)

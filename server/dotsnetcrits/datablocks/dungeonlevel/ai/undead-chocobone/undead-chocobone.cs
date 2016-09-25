@@ -8,13 +8,20 @@ if (isObject(DungeonLevelHandle))
 function UndeadChocoboneDungeonLevel::onAdd(%this, %obj)
 {
   %obj.setCloaked(true);
+  %obj.scale = "2.5 2.5 2.5";
 
-  %sprite = new TSStatic()
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-chocobone/undeadchocobone.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadChocoboneDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadChocoboneDungeonLevel::onReachDestination(%this, %ai)

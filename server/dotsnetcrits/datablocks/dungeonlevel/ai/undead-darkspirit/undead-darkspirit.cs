@@ -17,12 +17,23 @@ function UndeadDarkspiritDungeonLevel::onAdd(%this, %obj)
 
   %obj.mountObject(%obj.aura_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));*/
 
-  %sprite = new TSStatic()
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-darkspirit/undead-darkspirit.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadDarkspiritDungeonLevel::onRemove(%this, %obj)
+{
+  if (isObject(%obj.aura_))
+  {
+    %obj.aura_.delete();
+  }
+
+  %obj.sprite_.delete();
 }
 
 function UndeadDarkspiritDungeonLevel::onReachDestination(%this, %ai)
@@ -92,7 +103,7 @@ function UndeadDarkspiritDungeonLevel::onCollision(%this, %obj, %collObj, %vec, 
     return;
   }
 
-  if (%collObj.getClassName() !$= "AIPlayer")
+  if (%collObj.getClassName() $= "AIPlayer")
   {
     %obj.applyRepair(100);
     %collObj.applyRepair(100);
@@ -114,14 +125,6 @@ function UndeadDarkspiritDungeonLevel::onCollision(%this, %obj, %collObj, %vec, 
   %obj.schedule(1000, "AttackCD");
 
   //%obj.setActionThread("melee");
-}
-
-function UndeadDarkspiritDungeonLevel::onRemove(%this, %obj)
-{
-  if (isObject(%obj.aura_))
-  {
-    %obj.aura_.delete();
-  }
 }
 
 function UndeadDarkspiritTrigger::onEnterTrigger(%this, %trigger, %obj)

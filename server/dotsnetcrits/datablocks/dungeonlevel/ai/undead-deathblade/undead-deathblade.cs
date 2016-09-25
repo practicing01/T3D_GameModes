@@ -9,12 +9,18 @@ function UndeadDeathbladeDungeonLevel::onAdd(%this, %obj)
 {
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-deathblade/undeaddeathblade.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadDeathbladeDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadDeathbladeDungeonLevel::onReachDestination(%this, %ai)

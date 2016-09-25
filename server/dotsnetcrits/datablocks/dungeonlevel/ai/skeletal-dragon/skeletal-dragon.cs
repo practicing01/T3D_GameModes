@@ -12,13 +12,18 @@ function SkeletalDragonDungeonLevel::onAdd(%this, %obj)
   %obj.setCloaked(true);
   %obj.scale = "5 5 5";
 
-  %sprite = new TSStatic()
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/skeletal-dragon/skeletal-dragon.cached.dts";
     collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function SkeletalDragonDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function SkeletalDragonDungeonLevel::onTargetEnterLOS(%this, %obj)
@@ -37,7 +42,7 @@ function SkeletalDragonDungeonLevel::onTargetEnterLOS(%this, %obj)
 
   %projectile = new Projectile()
   {
-    datablock = RangedSkillsGMProjectile;
+    datablock = SkeletalDragonDungeonLevelProjectile;
     initialPosition = %obj.getEyePoint();
     initialVelocity = %projectileVelocity;
     sourceObject = %obj;

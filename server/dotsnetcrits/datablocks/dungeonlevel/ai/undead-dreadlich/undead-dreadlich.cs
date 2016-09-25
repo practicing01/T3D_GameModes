@@ -7,14 +7,24 @@ if (isObject(DungeonLevelHandle))
 
 function UndeadDreadlichDungeonLevel::onAdd(%this, %obj)
 {
+  %obj.schedule(3000, "SpawnNPC");
+
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.scale = "2 2 2";
+
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-dreadlich/undeaddreadlich.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadDreadlichDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadDreadlichDungeonLevel::onReachDestination(%this, %ai)
@@ -61,11 +71,6 @@ function UndeadDreadlichDungeonLevel::onDisabled(%this, %obj, %state)
 function UndeadDreadlichClassDungeonLevel::AttackCD(%this)
 {
   %this.canAttack_ = true;
-}
-
-function UndeadDreadlichDungeonLevel::onAdd(%this, %obj)
-{
-  %obj.schedule(5000, "SpawnNPC");
 }
 
 function UndeadDreadlichClassDungeonLevel::SpawnNPC(%this)

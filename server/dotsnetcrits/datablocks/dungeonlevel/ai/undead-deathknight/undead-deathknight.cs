@@ -9,12 +9,20 @@ function UndeadDeathknightDungeonLevel::onAdd(%this, %obj)
 {
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.scale = "2.5 2.5 2.5";
+
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-deathknight/undeaddeathknight.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadDeathknightDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadDeathknightDungeonLevel::onReachDestination(%this, %ai)

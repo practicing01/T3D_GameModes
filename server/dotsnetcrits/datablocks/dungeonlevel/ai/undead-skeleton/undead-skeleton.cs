@@ -9,12 +9,20 @@ function UndeadSkeletonDungeonLevel::onAdd(%this, %obj)
 {
   %obj.setCloaked(true);
 
-  %sprite = new TSStatic()
+  %obj.scale = "0.6 0.6 0.6";
+
+  %obj.sprite_ = new TSStatic()
   {
     shapeName = "art/shapes/dotsnetcrits/levels/dungeonunits/undead-skeleton/undeadskeleton.cached.dts";
+    collisionType = "none";
   };
 
-  %obj.mountObject(%sprite, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+  %obj.mountObject(%obj.sprite_, 1, MatrixCreate("0 0 0.1", "1 0 0 0"));
+}
+
+function UndeadSkeletonDungeonLevel::onRemove(%this, %obj)
+{
+  %obj.sprite_.delete();
 }
 
 function UndeadSkeletonDungeonLevel::onReachDestination(%this, %ai)

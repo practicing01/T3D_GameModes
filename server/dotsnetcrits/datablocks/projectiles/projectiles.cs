@@ -1,6 +1,12 @@
 datablock ExplosionData(RangedSkillsGMExplosion : GrenadeLauncherExplosion)
 {
   shakeCamera = false;
+  debris = "";
+  emitter[0] = "";
+  emitter[1] = "";
+  emitter[2] = "";
+  ParticleEmitter = "";
+  subExplosion[0] = "";
 };
 
 datablock ProjectileData(RangedSkillsGMProjectile)
@@ -17,7 +23,7 @@ datablock ProjectileData(RangedSkillsGMProjectile)
    decal = "";//ScorchRXDecal;
    splash = "";//GrenadeSplash;
 
-   particleEmitter = "";//GrenadeProjSmokeTrailEmitter;
+   particleEmitter = GrenadeProjSmokeTrailEmitter;
    particleWaterEmitter = "";//GrenadeTrailWaterEmitter;
 
    muzzleVelocity = 1;
@@ -35,4 +41,9 @@ datablock ProjectileData(RangedSkillsGMProjectile)
    lightDesc = "";//GrenadeLauncherLightDesc;
 
    damageType = "RangedSkillsGM";
+};
+
+datablock ProjectileData(SkeletalDragonDungeonLevelProjectile : RangedSkillsGMProjectile)
+{
+  armingDelay = 1000;
 };
