@@ -102,3 +102,8 @@ datablock PlayerData(CambangerAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/weapons/cambanger/speaker.dae";
 };
+
+datablock PlayerData(MommaBirdAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/levels/garage/easter_egg.dae";
+};

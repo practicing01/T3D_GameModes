@@ -68,8 +68,6 @@ function PeekabooGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "PeekabooGMServerQueue";
 
-  %spawnPoint = PlayerDropPoints.getRandom();
-
   %this.npc_ = new AiPlayer()
   {
     dataBlock = PeekabooAI;
