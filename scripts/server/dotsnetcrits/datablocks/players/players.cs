@@ -299,3 +299,10 @@ datablock PlayerData(panda : DefaultPlayerData)
    painSound_ = quechanPainCrySound;
    deathSound_ = quechanDeathCrySound;
 };
+
+datablock PlayerData(scarecrow : DefaultPlayerData)
+{
+   shapeFile = "art/shapes/dotsnetcrits/npcs/scarecrow/scarecrow.dae";
+   painSound_ = quechanPainCrySound;
+   deathSound_ = quechanDeathCrySound;
+};

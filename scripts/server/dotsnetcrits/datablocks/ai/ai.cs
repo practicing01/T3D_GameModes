@@ -107,3 +107,8 @@ datablock PlayerData(MommaBirdAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/levels/garage/easter_egg.dae";
 };
+
+datablock PlayerData(scarecrowAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/npcs/scarecrow/scarecrow.dae";
+};
