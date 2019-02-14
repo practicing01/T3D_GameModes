@@ -30,6 +30,8 @@ function InstaboneGMServer::SpawnNPC(%this)
      parent_ = %this;
   };
 
+  MissionCleanup.add(%npc);
+
   %spawnPoint = PlayerDropPoints.getRandom();
 
   %transform = GameCore::pickPointInSpawnSphere(%npc, %spawnPoint);
@@ -41,8 +43,6 @@ function InstaboneGMServer::SpawnNPC(%this)
 
 function InstaboneGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "InstaboneGMServerQueue";
@@ -103,4 +103,6 @@ else
     EventManager_ = "";
     npcMax_ = 16;
   };
+
+  MissionCleanup.add(InstaboneGMServerSO);
 }

@@ -73,8 +73,6 @@ function PizzaDeliveryGMServer::RandySpawnTrans(%this, %obj)
 
 function PizzaDeliveryGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "PizzaDeliveryGMServerQueue";

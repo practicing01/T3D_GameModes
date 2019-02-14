@@ -37,8 +37,6 @@ function AmmolessGMServer::ReduceAmmo(%this, %player)
 
 function AmmolessGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "AmmolessGMServerQueue";

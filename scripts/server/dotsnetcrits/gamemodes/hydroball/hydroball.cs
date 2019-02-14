@@ -4,8 +4,6 @@ function HydroballGMServer::onAdd(%this)
 
   %this.throwMagnitude_ = 20.0;
 
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "HydroballGMServerQueue";
@@ -240,4 +238,6 @@ else
     teamBTrigger_ = "";
     ballSpawn_ = "";
   };
+
+  MissionCleanup.add(HydroballGMServerSO);
 }

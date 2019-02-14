@@ -112,3 +112,8 @@ datablock PlayerData(scarecrowAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/npcs/scarecrow/scarecrow.dae";
 };
+
+datablock PlayerData(BloodFlowersAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/bloodflowers/cactus.dae";
+};

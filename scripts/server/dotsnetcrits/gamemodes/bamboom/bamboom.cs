@@ -136,8 +136,6 @@ function BamboomGMServer::SpawnNPC(%this)
 
 function BamboomGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "BamboomGMServerQueue";
@@ -209,4 +207,6 @@ else
     planter_ = "";
     bamboom_ = "";
   };
+
+  MissionCleanup.add(BamboomGMServerSO);
 }

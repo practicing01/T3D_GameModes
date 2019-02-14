@@ -11,8 +11,6 @@ function C_C_OGMServer::Promote(%this)
 
 function C_C_OGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "C_C_OGMServerQueue";

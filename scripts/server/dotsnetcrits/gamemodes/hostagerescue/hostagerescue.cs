@@ -36,8 +36,6 @@ function HostageRescueGMServer::onAdd(%this)
 {
   %this.sphereCastRadius_ = 3.0;
 
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "HostageRescueGMServerQueue";
@@ -249,4 +247,6 @@ else
     rescueTrigger_ = "";
     hostageSpawn_ = "";
   };
+
+  MissionCleanup.add(HostageRescueGMServerSO);
 }

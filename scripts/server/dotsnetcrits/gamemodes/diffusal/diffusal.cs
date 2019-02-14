@@ -6,8 +6,6 @@ function DiffusalGMServer::onAdd(%this)
 
   %this.detonationDelay_ = 30.0;
 
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "DiffusalGMServerQueue";
@@ -390,4 +388,6 @@ else
     detonationDelay_ = "";
     detonateSchedule_ = "";
   };
+
+  MissionCleanup.add(DiffusalGMServerSO);
 }

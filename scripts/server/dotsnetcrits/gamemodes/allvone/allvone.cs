@@ -42,8 +42,6 @@ function AllvOneGMServer::SetTheOne(%this)
 
 function AllvOneGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "AllvOneGMServerQueue";

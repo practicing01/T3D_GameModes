@@ -19,8 +19,6 @@ function PredatorGMServer::SetTheOne(%this)
 
 function PredatorGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "PredatorGMServerQueue";

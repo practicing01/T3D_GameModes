@@ -1,7 +1,5 @@
 function KOTHGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "KOTHGMServerQueue";
@@ -139,4 +137,6 @@ else
     trigger_ = "";
     userpers_ = "";
   };
+
+  MissionCleanup.add(KOTHGMServerSO);
 }

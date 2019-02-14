@@ -1,7 +1,5 @@
 function FuzzHellGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "FuzzHellGMServerQueue";
@@ -134,4 +132,6 @@ else
     npc_ = "";
     trigger_ = "";
   };
+
+  MissionCleanup.add(FuzzHellGMServerSO);
 }

@@ -54,7 +54,7 @@ function RoyalEscortCarAI::onCollision(%this, %obj, %collObj, %vec, %len)
 
 function RoyalEscortGMServer::SpawnCar(%this)
 {
-  %car = new AiPlayer()
+  %this.car_ = new AiPlayer()
   {
      dataBlock = "RoyalEscortCarAI";
      class = "RoyalEscortCarAIClass";
@@ -64,8 +64,8 @@ function RoyalEscortGMServer::SpawnCar(%this)
   };
 
   %spawnPoint = PlayerDropPoints.getRandom();
-  %transform = GameCore::pickPointInSpawnSphere(%car, %spawnPoint);
-  %car.setTransform(%transform);
+  %transform = GameCore::pickPointInSpawnSphere(%this.car_, %spawnPoint);
+  %this.car_.setTransform(%transform);
 }
 
 function RoyalEscortGMServer::SpawnPaparazzi(%this)
@@ -111,8 +111,6 @@ function RoyalEscortGMServer::SpawnPrincess(%this)
 
 function RoyalEscortGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "RoyalEscortGMServerQueue";

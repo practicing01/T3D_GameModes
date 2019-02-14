@@ -10,8 +10,6 @@ function GhostsGMServer::UnGhostify(%this, %player)
 
 function GhostsGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "GhostsGMServerQueue";

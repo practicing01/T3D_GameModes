@@ -160,8 +160,6 @@ CandyHellAI.maxInv[candyhellgm_Bomb] = 1;
 
 function CandyHellGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "CandyHellGMServerQueue";
@@ -245,4 +243,6 @@ else
     EventManager_ = "";
     npc_ = "";
   };
+
+  MissionCleanup.add(CandyHellGMServerSO);
 }

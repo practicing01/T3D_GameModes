@@ -86,8 +86,6 @@ function RandiconGMServer::SpawnRandicon(%this)
 
 function RandiconGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "RandiconGMServerQueue";

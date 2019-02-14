@@ -46,8 +46,6 @@ function TagGMServer::onAdd(%this)
 {
   %this.sphereCastRadius_ = 3.0;
 
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "TagGMServerQueue";
@@ -133,4 +131,6 @@ else
     actionMap_ = "";
     sphereCastRadius_ = "";
   };
+
+  MissionCleanup.add(TagGMServerSO);
 }

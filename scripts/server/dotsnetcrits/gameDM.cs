@@ -47,6 +47,16 @@ function DeathMatchGame::onMissionLoaded(%game)
    }
 }
 
+function DeathMatchGame::onDeath(%game, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
+{
+  for (%x = 0; %x < DNCServer.deathListeners_.getCount(); %x++)
+  {
+    DNCServer.deathListeners_.getObject(%x).onDeath(%game, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
+  }
+
+  parent::onDeath(%game, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
+}
+
 function DeathMatchGame::incKills(%game, %client, %kill, %dontMessageAll)
 {
   parent::incKills(%game, %client, %kill, %dontMessageAll);

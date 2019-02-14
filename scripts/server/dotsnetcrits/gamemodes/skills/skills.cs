@@ -1,7 +1,5 @@
 function SkillsGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "SkillsGMServerQueue";
@@ -125,4 +123,6 @@ else
     EventManager_ = "";
     skillbars_ = "";
   };
+
+  MissionCleanup.add(SkillsGMServerSO);
 }

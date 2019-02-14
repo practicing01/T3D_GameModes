@@ -2,8 +2,6 @@ function CTFGMServer::onAdd(%this)
 {
   %this.sphereCastRadius_ = 3.0;
 
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "CTFGMServerQueue";
@@ -236,4 +234,6 @@ else
     captureBTrigger_ = "";
     FlagSpawn_ = "";
   };
+
+  MissionCleanup.add(CTFGMServerSO);
 }

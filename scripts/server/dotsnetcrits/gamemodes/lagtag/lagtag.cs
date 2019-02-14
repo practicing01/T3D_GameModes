@@ -55,8 +55,6 @@ function LagTagAI::onMoveStuck(%this, %ai)
 
 function LagTagGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "LagTagGMServerQueue";

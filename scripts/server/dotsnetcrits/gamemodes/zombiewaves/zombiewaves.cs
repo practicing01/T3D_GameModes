@@ -1,7 +1,5 @@
 function ZombieWavesGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "ZombieWavesGMServerQueue";
@@ -227,4 +225,6 @@ else
     zombieSpawnSchedule_ = 0;
     zombieSpawnInterval_ = 5;
   };
+
+  MissionCleanup.add(ZombieWavesGMServerSO);
 }

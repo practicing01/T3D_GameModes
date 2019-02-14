@@ -75,6 +75,8 @@ function SupplyRunPrinterAIClass::SpawnAirplane(%this)
        parentPrinter_ = %this;
     };
 
+    MissionCleanup.add(%airplane);
+
     %pos = %this.getPosition();
     %teleDir = %this.getForwardVector();
 
@@ -126,6 +128,7 @@ function SupplyRunGMServer::SpawnPrinters(%this)
      followTarget_ = "";
      creepsToSpawn_ = 0;
      spawnSchedule_ = "";
+     emitter_ = "";
   };
 
   %spawnPoint = PlayerDropPoints.getRandom();
@@ -143,6 +146,8 @@ function SupplyRunGMServer::SpawnPrinters(%this)
     active = true;
   };
 
+  %this.SupplyRunPrinterA_.emitter_ = %emitter;
+
   %this.SupplyRunPrinterA_.mountObject(%emitter, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
   %this.SupplyRunPrinterB_ = new AiPlayer()
@@ -153,6 +158,7 @@ function SupplyRunGMServer::SpawnPrinters(%this)
     followTarget_ = "";
     creepsToSpawn_ = 0;
     spawnSchedule_ = "";
+    emitter_ = "";
   };
 
   %spawnPoint = PlayerDropPoints.getRandom();
@@ -170,14 +176,14 @@ function SupplyRunGMServer::SpawnPrinters(%this)
     active = true;
   };
 
+  %this.SupplyRunPrinterB_.emitter_ = %emitter;
+
   %this.SupplyRunPrinterB_.mountObject(%emitter, 0, MatrixCreate("0 0 1", "1 0 0 0"));
 
 }
 
 function SupplyRunGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "SupplyRunGMServerQueue";
@@ -195,11 +201,13 @@ function SupplyRunGMServer::onRemove(%this)
   if (isObject(%this.SupplyRunPrinterA_))
   {
     cancel(%this.SupplyRunPrinterA_.spawnSchedule_);
+    %this.SupplyRunPrinterA_.emitter_.delete();
     %this.SupplyRunPrinterA_.delete();
   }
   if (isObject(%this.SupplyRunPrinterB_))
   {
     cancel(%this.SupplyRunPrinterB_.spawnSchedule_);
+    %this.SupplyRunPrinterB_.emitter_.delete();
     %this.SupplyRunPrinterB_.delete();
   }
   if (isObject(%this.paper_))

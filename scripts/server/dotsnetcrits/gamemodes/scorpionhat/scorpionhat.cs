@@ -44,8 +44,6 @@ function ScorpionHatPyramidClass::UseObject(%this, %player)
 
 function ScorpionHatGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "ScorpionHatGMServerQueue";

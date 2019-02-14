@@ -33,8 +33,6 @@ function MommaBirdGMServer::TransformNPC(%this, %player, %npc)
 
 function MommaBirdGMServer::onAdd(%this)
 {
-  MissionCleanup.add(%this);
-
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "MommaBirdGMServerQueue";
