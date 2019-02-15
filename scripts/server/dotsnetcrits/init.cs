@@ -202,6 +202,14 @@ function DotsNetCritsServer::SoftOnRemove(%this)
   {
     %this.loadedNPCs_.deleteAllObjects();
   }
+
+  %this.TeamChooser_ = new ScriptObject()
+  {
+    class = "TeamChooser";
+  };
+
+  %this.EventManager_.subscribe(%this.TeamChooser_, "TeamJoinRequest");
+  %this.loadOutListeners_.add(%this.TeamChooser_);
 }
 
 function DotsNetCritsServer::onRemove(%this)
