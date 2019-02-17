@@ -202,3 +202,9 @@ datablock StaticShapeData(HexagonSwitchStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/hexagon/switch.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(HydrobubbleGoalStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/bubbleball/goalpost.dae";
+  isInvincible = "1";
+};

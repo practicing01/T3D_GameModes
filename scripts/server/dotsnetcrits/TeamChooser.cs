@@ -4,7 +4,6 @@ function TeamChooser::onAdd(%this)//todo: use 2d simset for arbitrary team count
   %this.teamAParticleEmitters_ = new SimSet();
   %this.teamB_ = new SimSet();
   %this.teamBParticleEmitters_ = new SimSet();
-
 }
 
 function TeamChooser::onRemove(%this)
