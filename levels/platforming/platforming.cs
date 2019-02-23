@@ -26,6 +26,7 @@ function PathCamSpawner::onRemove(%this)
 
 function PathCamSpawner::onAdd(%this)
 {
+  return;//all bugged, need to redo it all.
   %crate = "";
   %camPath = "";
 
@@ -50,6 +51,8 @@ function PathCamSpawner::onAdd(%this)
     position = %crate.position;
     path = %camPath;
   };
+
+  //MissionCleanup.add(%pathCam);//MissionCleanup not yet available at this phase, need to redo
 
   %this.pathCam_ = %pathCam;
 

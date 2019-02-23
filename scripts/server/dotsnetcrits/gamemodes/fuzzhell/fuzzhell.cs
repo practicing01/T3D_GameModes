@@ -72,6 +72,11 @@ function FuzzHellGMTrigger::onTickTrigger(%this, %trigger)
   }
 }
 
+function FuzzHellGMProjectile::damage(%this, %sourceObject, %position, %damage, %damageType)
+{
+  //
+}
+
 function FuzzHellGMProjectile::onCollision(%this, %proj, %col, %fade, %pos, %normal)
 {
   if (%col.getClassName() !$= "Player")

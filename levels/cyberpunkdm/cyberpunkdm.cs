@@ -66,8 +66,8 @@ function CyberpunkDMAI::Spawn(%this)
 
   MissionCleanup.add(%npc);
 
-  %npc.mountImage(LurkerWeaponImage, 0);
-  %npc.incInventory(LurkerAmmo, 100);
+  %npc.mountImage(staplerImage, 0);
+  %npc.incInventory(staplerAmmo, 100);
 
   %marker = %npc.path_.getObject(0);
 
@@ -112,7 +112,7 @@ function CyberpunkDMAI::onDisabled(%this, %obj, %state)
 function CyberpunkDMAI::onTargetEnterLOS(%this, %ai)
 {
   %ai.fire(true);
-  %ai.incInventory(LurkerAmmo, 1);
+  %ai.incInventory(staplerAmmo, 1);
 }
 
 function CyberpunkDMAI::onTargetExitLOS(%this, %ai)

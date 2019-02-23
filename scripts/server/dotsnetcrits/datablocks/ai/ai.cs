@@ -1,6 +1,6 @@
 datablock PlayerData(HostieHostageRescueGM : DemoPlayer)
 {
-  //
+  shapeFile = "art/shapes/dotsnetcrits/actors/angel/angel.dae";
 };
 
 datablock PlayerData(ZombieZombieWavesGM : DemoPlayer)
@@ -10,7 +10,7 @@ datablock PlayerData(ZombieZombieWavesGM : DemoPlayer)
 
 datablock PlayerData(ToySoldierAI : DemoPlayer)
 {
-  //
+  shapeFile = "art/shapes/dotsnetcrits/actors/angel/angel.dae";
 };
 
 datablock PlayerData(ZombieMummyAI : DemoPlayer)

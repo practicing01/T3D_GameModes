@@ -248,11 +248,11 @@ function clownScriptMsgListener::NPCRangedAttack(%this, %npc, %player)
   //%npc.state_ = strreplace(%npc.state_, "idle", "");
   //%npc.state_ = %npc.state_ @ "rangedAttacking";//todo find finishedFiring callback so i can remove this state
   //%npc.setAimObject(%objTarget, "0 0" SPC %sizex);
-  %npc.mountImage(LurkerGrenadeLauncherImage, 0);
-  %npc.incInventory(LurkerGrenadeAmmo, 1);
+  %npc.mountImage(staplerImage, 0);
+  %npc.incInventory(staplerAmmo, 1);
   %npc.setAimLocation(%objTargetPos);
   %npc.fire(true);
-  %npc.incInventory(LurkerGrenadeAmmo, 1);
+  %npc.incInventory(staplerAmmo, 1);
   %npc.fire(false);
 }
 

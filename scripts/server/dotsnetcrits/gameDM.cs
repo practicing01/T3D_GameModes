@@ -26,7 +26,14 @@ function DeathMatchGame::onClientLeaveGame(%game, %client)
 
 function DeathMatchGame::loadOut(%game, %player)
 {
-  parent::loadOut(%game, %player);
+  //parent::loadOut(%game, %player);
+
+  %player.clearWeaponCycle();
+
+  if (%player.getDatablock().mainWeapon.image !$= "")
+  {
+     %player.mountImage(%player.getDatablock().mainWeapon.image, 0);
+  }
 
   for (%x = 0; %x < DNCServer.loadOutListeners_.getCount(); %x++)
   {

@@ -104,7 +104,7 @@ function movebackward(%val)
 function moveup(%val)
 {
    %object = ServerConnection.getControlObject();
-
+   
    if(%object.isInNamespaceHierarchy("Camera"))
       $mvUpAction = %val * $movementSpeed;
 }
@@ -112,7 +112,7 @@ function moveup(%val)
 function movedown(%val)
 {
    %object = ServerConnection.getControlObject();
-
+   
    if(%object.isInNamespaceHierarchy("Camera"))
       $mvDownAction = %val * $movementSpeed;
 }
@@ -584,7 +584,7 @@ moveMap.bind( keyboard, F3, startRecordingDemo );
 moveMap.bind( keyboard, F4, stopRecordingDemo );
 
 //------------------------------------------------------------------------------
-// Theora Video Capture (Records a movie file)
+// Theora Video Capture (Records a movie file)  
 //------------------------------------------------------------------------------
 
 function toggleMovieRecording(%val)
@@ -592,9 +592,9 @@ function toggleMovieRecording(%val)
    if (!%val)
       return;
 
-   %movieEncodingType = "THEORA";  // Valid encoder values are "PNG" and "THEORA" (default).
+   %movieEncodingType = "THEORA";  // Valid encoder values are "PNG" and "THEORA" (default). 
    %movieFPS = 30;  // video capture frame rate.
-
+   
    if (!$RecordingMovie)
    {
        // locate a non-existent filename to use
@@ -605,7 +605,7 @@ function toggleMovieRecording(%val)
              %num = "0" @ %num;
           if(%num < 100)
              %num = "0" @ %num;
-
+       
           %filePath = "movies/movie" @ %num;
           if(!isfile(%filePath))
              break;
@@ -615,7 +615,7 @@ function toggleMovieRecording(%val)
 
       // Start the movie recording
       recordMovie(%filePath, %movieFPS, %movieEncodingType);
-
+      
    }
    else
    {

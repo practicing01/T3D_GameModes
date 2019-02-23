@@ -1,6 +1,6 @@
 function TrenchesLevel::onAdd(%this)
 {
-  DNCServer.loadOutListeners_.add(%this);
+  //DNCServer.loadOutListeners_.add(%this);
 }
 
 /*function TrenchesLevel::onRemove(%this)
