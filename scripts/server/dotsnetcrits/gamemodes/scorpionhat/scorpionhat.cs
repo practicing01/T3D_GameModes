@@ -35,8 +35,7 @@ function ScorpionHatPyramidClass::UseObject(%this, %player)
         continue;
       }
 
-      %score = Game.getScore(%client);
-      %score = %score * -1;
+      %score = %client.score * -1;
 
       Game.incScore(%client, %score, false);
     }
@@ -94,8 +93,7 @@ function ScorpionHatGMServer::loadOut(%this, %player)
 {
   if (%player.client == %this.theOne_)
   {
-    %score = Game.getScore(%player.client);
-    %score = %score * -1;
+    %score = %player.client.score * -1;
     Game.incScore(%player.client, %score, false);
 
     for (%x = 0; %x < ClientGroup.getCount(); %x++)
@@ -106,7 +104,7 @@ function ScorpionHatGMServer::loadOut(%this, %player)
       {
         continue;
       }
-      
+
       Game.incScore(%client, 10, false);
     }
 
