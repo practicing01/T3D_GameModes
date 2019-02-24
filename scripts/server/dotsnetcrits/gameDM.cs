@@ -45,6 +45,11 @@ function DeathMatchGame::loadOut(%game, %player)
 
 function DeathMatchGame::onMissionLoaded(%game)
 {
+  $Pref::Server::TimeLimit = 0;
+  $Game::Duration = 0;
+  $Game::EndGameScore = 0;
+  $Game::Cycling = false;
+  
    $Server::MissionType = "DeathMatch";
    parent::onMissionLoaded(%game);
 

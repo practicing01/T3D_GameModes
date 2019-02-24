@@ -105,9 +105,9 @@ function GameBase::damage(%this, %sourceObject, %position, %damage, %damageType)
    // processing damage values and types.  As opposed to having weapons call
    // ShapeBase::applyDamage directly. Damage is redirected to the datablock,
    // this is standard procedure for many built in callbacks.
-      
+
    %datablock = %this.getDataBlock();
-   if ( isObject( %datablock ) && %datablock.isMethod("damage"))
+   if ( isObject( %datablock ) && %datablock.isMethod("damage") )
       %datablock.damage(%this, %sourceObject, %position, %damage, %damageType);
 }
 

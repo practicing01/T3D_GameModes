@@ -30,6 +30,11 @@ function ScorpionHatPyramidClass::UseObject(%this, %player)
     {
       %client = ClientGroup.getObject(%x);
 
+      if (%client == %player.client)
+      {
+        continue;
+      }
+
       %score = Game.getScore(%client);
       %score = %score * -1;
 
@@ -96,6 +101,12 @@ function ScorpionHatGMServer::loadOut(%this, %player)
     for (%x = 0; %x < ClientGroup.getCount(); %x++)
     {
       %client = ClientGroup.getObject(%x);
+
+      if (%client == %player.client)
+      {
+        continue;
+      }
+      
       Game.incScore(%client, 10, false);
     }
 
