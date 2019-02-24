@@ -176,7 +176,7 @@ function phoneShieldImage::onMount( %this, %obj, %slot )
      allowPlayerStep = "1";
    };
 
-   %obj.mountObject(%phoneShield, 1, MatrixCreate("0 1 0", "1 0 0 0"));
+   %obj.mountObject(%phoneShield, 1, MatrixCreate("0 2 0", "1 0 0 0"));
 
    %obj.client.phoneShield_ = %phoneShield;
 
