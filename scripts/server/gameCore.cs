@@ -401,8 +401,8 @@ function GameCore::startGame(%game)
    }
 
    // Start the game timer
-   if ($Game::Duration)
-      $Game::Schedule = %game.schedule($Game::Duration * 1000, "onGameDurationEnd");
+   //if ($Game::Duration)
+      //$Game::Schedule = %game.schedule($Game::Duration * 1000, "onGameDurationEnd");
    $Game::Running = true;
 
 //    // Start the AI on the specified path
