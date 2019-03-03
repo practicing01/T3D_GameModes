@@ -90,7 +90,7 @@ function bubbleballBulletProjectile::onCollision(%this,%obj,%col,%fade,%pos,%nor
   if (%col.isMethod("onCollision"))
   {
     %col.onCollision(%obj, %pos, %normal);
-  }  
+  }
 
   %size = %obj.getObjectBox();
   %scale = %obj.getScale();
@@ -315,7 +315,7 @@ datablock ShapeBaseImageData(bubbleballImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = bubbleballFireEmptySound;
+   //stateSound[6]                    = bubbleballFireEmptySound;
 };
 
 

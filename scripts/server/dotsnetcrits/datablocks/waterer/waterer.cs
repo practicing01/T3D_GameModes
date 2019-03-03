@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// watchDagger weapon. This file contains all the items related to this weapon
+// waterer weapon. This file contains all the items related to this weapon
 // including explosions, ammo, the item and the weapon item image.
 // These objects rely on the item & inventory support system defined
 // in item.cs and inventory.cs
@@ -9,16 +9,16 @@
 //--------------------------------------------------------------------------
 // Weapon Item.  This is the item that exists in the world, i.e. when it's
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
-// is mounted onto a shape, the watchDaggerImage is used.
+// is mounted onto a shape, the watererImage is used.
 
-datablock SFXProfile(watchDaggerFireSound)
+datablock SFXProfile(watererFireSound)
 {
-   filename = "art/sound/dotsnetcrits/littlerobotsoundfactory_stab-knife-00.ogg";
+   filename = "art/sound/dotsnetcrits/water-pour06-BloodDrips.ogg";
    description = AudioDefault3d;
    preload = true;
 };
 
-datablock ItemData(watchDagger)
+datablock ItemData(waterer)
 {
    // Mission editor category
    category = "Weapon";
@@ -29,42 +29,42 @@ datablock ItemData(watchDagger)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/watchDagger/watchDagger.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/waterer/waterer.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
    emap = true;
 
     // Dynamic properties defined by the scripts
-    pickUpName = "a watchDagger";
-    description = "watchDagger";
+    pickUpName = "a waterer";
+    description = "waterer";
     maxInventory = 1;
     damageType = "meleeDamage";
-    damageRadius = 2;
-    directDamage = 10;
-    image = watchDaggerImage;
+    damageRadius = 10;
+    directDamage = 20;
+    image = watererImage;
     reticle = "crossHair";
     zoomReticle = "crossHairZoomed";
 };
 
 
 //--------------------------------------------------------------------------
-// watchDagger image which does all the work.  Images do not normally exist in
+// waterer image which does all the work.  Images do not normally exist in
 // the world, they can only be mounted on ShapeBase objects.
 
-datablock ShapeBaseImageData(watchDaggerImage)
+datablock ShapeBaseImageData(watererImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/watchDagger/watchDagger.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/watchDagger/watchDagger.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/waterer/waterer.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/waterer/waterer.cached.dts";
    emap = false;
 
-   item = watchDagger;
+   item = waterer;
 
    infiniteAmmo = true;
 
-   //imageAnimPrefix = "watchDagger";
-   //imageAnimPrefixFP = "watchDagger";
+   //imageAnimPrefix = "waterer";
+   //imageAnimPrefixFP = "waterer";
 
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
@@ -117,8 +117,10 @@ datablock ShapeBaseImageData(watchDaggerImage)
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = watchDaggerFireSound;
-   //stateShapeSequence[3]            = "shoot";
+   stateSound[3]                    = watererFireSound;
+   stateShapeSequence[3]            = "shoot";
+   stateEmitter[3]                  = WatererEmitter;
+   stateEmitterTime[3]              = 1;
 
    // Play the reload animation, and transition into
    stateName[4]                     = "Reload";
@@ -128,7 +130,7 @@ datablock ShapeBaseImageData(watchDaggerImage)
    stateAllowImageChange[4]         = false;
    stateSequence[4]                 = "Reload";
    //stateEjectShell[4]               = true;
-   //stateSound[4]                    = watchDaggerReloadSound;
+   //stateSound[4]                    = watererReloadSound;
 
    // No ammo in the weapon, just idle until something
    // shows up. Play the dry fire sound if the trigger is
@@ -142,13 +144,21 @@ datablock ShapeBaseImageData(watchDaggerImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   //stateSound[6]                    = watchDaggerFireEmptySound;
+   //stateSound[6]                    = watererFireEmptySound;
 };
 
 
 //-----------------------------------------------------------------------------
 
-function watchDaggerImage::onMount( %this, %obj, %slot )
+function watererImage::RemoveEmitter(%this, %emitter)
+{
+  if (isObject(%emitter))
+  {
+    %emitter.delete();
+  }
+}
+
+function watererImage::onMount( %this, %obj, %slot )
 {
    // The mine doesn't use ammo from a player's perspective.
    %obj.setImageAmmo( %slot, true );
@@ -156,36 +166,55 @@ function watchDaggerImage::onMount( %this, %obj, %slot )
    %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numMines  );
 }
 
-function watchDaggerImage::onUnmount( %this, %obj, %slot )
+function watererImage::onUnmount( %this, %obj, %slot )
 {
    %obj.client.RefreshWeaponHud( 0, "", "" );
 }
 
-function watchDaggerImage::onFire(%this, %obj, %slot)
+function watererImage::onFire(%this, %obj, %slot)
 {
    %pos = %obj.getPosition();
+
+   /*%emitter = new ParticleEmitterNode()
+   {
+     datablock = WatererEmitterNodeData;
+     emitter = WatererEmitter;
+     active = true;
+   };
+
+   %obj.mountObject(%emitter, 0, MatrixCreate("0 0 0", "1 0 0 0"));
+
+   %this.schedule(500, "RemoveEmitter", %emitter);*/
 
    initContainerRadiusSearch(%pos, %this.item.damageRadius, $TypeMasks::ShapeBaseObjectType);
 
    while ( (%targetObject = containerSearchNext()) != 0 )
    {
-     if(%targetObject != %obj)
-     {
-      %targetObject.damage(%obj, %pos, %this.item.directDamage, "watchDagger");
-      %obj.applyRepair(%this.item.directDamage);
-     }
-   }
+     //if(%targetObject != %obj)
+     //{
+      //%targetObject.damage(%obj, %pos, %this.item.directDamage, "waterer");
+      %targetObject.applyRepair(%this.item.directDamage);
 
-   //%obj.playThread(1, "shoot");
-   %obj.setActionThread("shoot", false, false);
+      /*%targetEmitter = new ParticleEmitterNode()
+      {
+        datablock = FireNode;
+        emitter = FireEmitter;
+        active = true;
+      };
+
+      %targetObject.mountObject(%targetEmitter, 1, MatrixCreate("0 0 1", "1 0 0 0"));
+
+      %this.schedule(500, "RemoveEmitter", %targetEmitter);*/
+     //}
+   }
 }
 
-DefaultPlayerData.maxInv[watchDagger] = 1;
+DefaultPlayerData.maxInv[waterer] = 1;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
-  weapon_ = watchDagger;
+  weapon_ = waterer;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);

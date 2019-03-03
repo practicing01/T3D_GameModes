@@ -276,7 +276,7 @@ datablock ShapeBaseImageData(basketballImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = basketballFireEmptySound;
+   //stateSound[6]                    = basketballFireEmptySound;
 };
 
 

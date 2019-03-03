@@ -9,7 +9,7 @@ vehicleMap.bind(keyboard, "down", movebackward);
 vehicleMap.bindCmd(keyboard, "ctrl f", "getout();", "");
 vehicleMap.bind(keyboard, "space", brake);
 vehicleMap.bindCmd(keyboard, "l", "brakeLights();", "");
-vehicleMap.bindCmd(keyboard, "escape", "", "handleEscape();");
+vehicleMap.bindCmd(keyboard, "escape", "", "escapeFromGameDNC();");
 vehicleMap.bind(keyboard, "v", toggleFreeLook);
 vehicleMap.bind(keyboard, "alt c", toggleCamera);
 vehicleMap.bind(mouse0, "xaxis", yaw);

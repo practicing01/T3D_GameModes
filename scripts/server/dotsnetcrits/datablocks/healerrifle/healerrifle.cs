@@ -278,7 +278,7 @@ datablock ShapeBaseImageData(healerRifleImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = healerRifleFireEmptySound;
+   //stateSound[6]                    = healerRifleFireEmptySound;
 };
 
 

@@ -142,7 +142,7 @@ datablock ShapeBaseImageData(noodleBladeImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = noodleBladeFireEmptySound;
+   //stateSound[6]                    = noodleBladeFireEmptySound;
 };
 
 

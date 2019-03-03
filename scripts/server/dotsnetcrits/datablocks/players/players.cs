@@ -306,3 +306,10 @@ datablock PlayerData(scarecrow : DefaultPlayerData)
    painSound_ = quechanPainCrySound;
    deathSound_ = quechanDeathCrySound;
 };
+
+datablock PlayerData(kork : DefaultPlayerData)
+{
+   shapeFile = "art/shapes/dotsnetcrits/actors/kork/kork.dae";
+   painSound_ = quechanPainCrySound;
+   deathSound_ = quechanDeathCrySound;
+};

@@ -1438,3 +1438,64 @@ if (!isObject(Flame0Emitter))
      originalName = "Flame0Emitter";
   };
 }
+
+datablock ParticleEmitterNodeData(WatererEmitterNodeData)
+{
+  timeMultiple = 1.0;
+};
+
+if (!isObject(WatererParticle))
+{
+  datablock ParticleData(WatererParticle)
+  {
+     textureName = "art/particles/bubble.png";
+     dragCoefficient = "0";
+     gravityCoefficient = "1";
+     inheritedVelFactor = "1";
+     constantAcceleration = "1";
+     lifetimeMS = "1000";
+     lifetimeVarianceMS = "0";
+     useInvAlpha = true;
+     spinRandomMin = "1";
+     spinRandomMax = "1";
+     spinSpeed = "1";
+
+     colors[0] = "1 0.888 0.008 1";
+     colors[1] = "1 0.888 0.008 1";
+     colors[2] = "1 0.888 0.008 1";
+     colors[3] = "1 0.888 0.008 1";
+
+     sizes[0] = "0.5";
+     sizes[1] = "0.5";
+     sizes[2] = "0.5";
+     sizes[3] = "0.5";
+
+     times[0] = "1";
+     times[1] = "1";
+     times[2] = "1";
+     times[3] = "1";
+  };
+}
+
+if (!isObject(WatererEmitter))
+{
+  datablock ParticleEmitterData(WatererEmitter)
+  {
+     ejectionPeriodMS = "1";
+     ejectionVelocity = "5";
+     velocityVariance = "0";
+     ejectionOffset = "0";
+     particles = "WatererParticle";
+     blendStyle = "ADDITIVE";
+     softParticles = "0";
+     //alignParticles = "1";
+     //alignDirection = "0 1 0";
+     lifetimeVarianceMS = "0";
+     //orientParticles = true;
+     //orientOnVelocity = true;
+     thetaMin = "0";
+     thetaMax = "0";
+     phiVariance = "0";
+     originalName = "WatererEmitter";
+  };
+}

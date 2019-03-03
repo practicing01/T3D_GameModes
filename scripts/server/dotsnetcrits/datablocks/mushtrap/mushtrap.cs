@@ -213,7 +213,7 @@ datablock ShapeBaseImageData(mushtrapImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = mushtrapFireEmptySound;
+   //stateSound[6]                    = mushtrapFireEmptySound;
 };
 
 

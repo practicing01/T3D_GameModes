@@ -148,7 +148,7 @@ datablock ShapeBaseImageData(crayonImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   stateSound[6]                    = crayonFireEmptySound;
+   //stateSound[6]                    = crayonFireEmptySound;
 };
 
 
@@ -174,7 +174,7 @@ function crayonImage::onFire(%this, %obj, %slot)
    %rayResult = %obj.doRaycast(1000.0, $TypeMasks::ShapeBaseObjectType);
 
    %objTarget = firstWord(%rayResult);
-   
+
    if (!isObject(%objTarget))
    {
      return;
