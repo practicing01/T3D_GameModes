@@ -47,3 +47,8 @@ datablock TriggerData(FuzzHellGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(PumptreeGMTrigger)
+{
+  tickPeriodMS = 1000;
+};

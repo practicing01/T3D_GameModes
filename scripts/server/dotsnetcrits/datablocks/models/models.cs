@@ -208,3 +208,13 @@ datablock StaticShapeData(HydrobubbleGoalStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/bubbleball/goalpost.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(PumptreeStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/pumptree/pumptree.dae";
+  isInvincible = "0";
+  maxDamage = 50;
+  destroyedLevel = 100;
+  disabledLevel = 50;
+  renderWhenDestroyed = 1;
+};
