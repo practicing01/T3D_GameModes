@@ -96,6 +96,7 @@ function DotsNetCritsClient::onAdd(%this)
 
   %this.execDirScripts("datablocks", "");
   %this.execDirScripts("npcs", "");
+  %this.execDirScripts("weapons", "");
 
   if (isObject(playGui))
   {

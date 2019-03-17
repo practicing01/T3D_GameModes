@@ -123,3 +123,8 @@ datablock PlayerData(GooshballAI : DemoPlayer)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/gooshball/gooshball.dae";
   boundingBox = "4 4 4";
 };
+
+datablock PlayerData(SensitiveSnakeAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/weapons/sensitivesnake/sensitivesnake.dae";
+};
