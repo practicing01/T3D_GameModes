@@ -117,3 +117,9 @@ datablock PlayerData(BloodFlowersAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/bloodflowers/cactus.dae";
 };
+
+datablock PlayerData(GooshballAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/gooshball/gooshball.dae";
+  boundingBox = "4 4 4";
+};

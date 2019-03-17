@@ -7,3 +7,4 @@ exec("art/shapes/dotsnetcrits/gamemodes/randicon/materials.cs");
 exec("levels/cyberpunk0/cyberpunk0.cs");
 exec("levels/seabits/seabits.cs");
 exec("levels/pyramidinterior0/pyramidinterior0.cs");
+exec("levels/rustybeams/rustybeams.cs");

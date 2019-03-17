@@ -218,3 +218,10 @@ datablock StaticShapeData(PumptreeStaticShapeData)
   disabledLevel = 50;
   renderWhenDestroyed = 1;
 };
+
+datablock ItemData(GooshballItemData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/gooshball/gooshball.dae";
+  isInvincible = "1";
+  pickupName = "gooshball";
+};
