@@ -128,3 +128,8 @@ datablock PlayerData(SensitiveSnakeAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/weapons/sensitivesnake/sensitivesnake.dae";
 };
+
+datablock PlayerData(octonanaAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/npcs/octonana/octonana.dae";
+};
