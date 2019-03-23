@@ -22,6 +22,8 @@ if (isObject(DNCServer))
 
   DNCServer.execDirScripts("datablocks", "players");
 
+  exec("scripts/server/dotsnetcrits/gameDM.cs");
+  exec("scripts/server/dotsnetcrits/player.cs");
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
 
   DNCServer.execDirScripts("npcs", "");

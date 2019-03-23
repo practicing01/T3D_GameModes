@@ -49,7 +49,7 @@ function DeathMatchGame::onMissionLoaded(%game)
   $Game::Duration = 0;
   $Game::EndGameScore = 0;
   $Game::Cycling = false;
-  
+
    $Server::MissionType = "DeathMatch";
    parent::onMissionLoaded(%game);
 

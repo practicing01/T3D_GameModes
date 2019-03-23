@@ -133,3 +133,8 @@ datablock PlayerData(octonanaAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/npcs/octonana/octonana.dae";
 };
+
+datablock PlayerData(lobsterAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/weapons/lobster/lobster.dae";
+};
