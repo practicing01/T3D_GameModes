@@ -138,3 +138,13 @@ datablock PlayerData(lobsterAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/weapons/lobster/lobster.dae";
 };
+
+datablock PlayerData(bathnukeAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/weapons/bathnuke/bathnuke.dae";
+};
+
+datablock PlayerData(singlecellAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/weapons/singlecell/singlecell.dae";
+};
