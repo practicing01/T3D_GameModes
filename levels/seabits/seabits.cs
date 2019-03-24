@@ -11,8 +11,8 @@ new TerrainMaterial()
 {
    internalName = "floor0seabits";
    diffuseMap = "art/shapes/dotsnetcrits/levels/seabits/floor0.png";
-   //detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor0.png";
-   //normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor0_n.png";
+   detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor0_d.png";
+   normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor0_n.png";
    detailSize = "1";
    isManaged = "1";
    detailBrightness = "1";
@@ -33,8 +33,8 @@ new TerrainMaterial()
 {
    internalName = "floor1seabits";
    diffuseMap = "art/shapes/dotsnetcrits/levels/seabits/floor1.png";
-   //detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor1.png";
-   //normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor1_n.png";
+   detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor1_d.png";
+   normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor1_n.png";
    detailSize = "1";
    isManaged = "1";
    detailBrightness = "1";
@@ -55,8 +55,8 @@ new TerrainMaterial()
 {
    internalName = "floor2seabits";
    diffuseMap = "art/shapes/dotsnetcrits/levels/seabits/floor2.png";
-   //detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor2.png";
-   //normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor2_n.png";
+   detailMap = "art/shapes/dotsnetcrits/levels/seabits/floor2_d.png";
+   normalMap = "art/shapes/dotsnetcrits/levels/seabits/floor2_n.png";
    detailSize = "1";
    isManaged = "1";
    detailBrightness = "1";

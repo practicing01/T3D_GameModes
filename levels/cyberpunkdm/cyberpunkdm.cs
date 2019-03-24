@@ -1,3 +1,4 @@
+return;
 datablock PlayerData(CyberpunkDMAI : DemoPlayer)
 {
   //
@@ -8,7 +9,7 @@ datablock TriggerData(CyberpunkDMAITrigger)
   tickPeriodMS = 1000;
 };
 
-function CyberpunkDMLevel::onAdd(%this)
+function CyberpunkDMLevel::onAdd(%this)//should be using onMissionLoaded, need to redo.
 {
   CyberpunkDMAI.Spawn();
 }

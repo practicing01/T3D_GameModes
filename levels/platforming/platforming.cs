@@ -177,7 +177,7 @@ function clientCmdLadderIOToggle(%state)
 
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
-    %obj = MissionGroup.getObject(%x);
+    %obj = MissionGroup.getObject(%x);//todo: client can't access MissionGroup, redo everything.
 
     if (%obj.class $= "PlatformingLadderTriggerClass")
     {
