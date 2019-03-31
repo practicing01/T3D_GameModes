@@ -12,7 +12,7 @@
 // is mounted onto a shape, the makeupkitImage is used.
 datablock SFXProfile(makeupkitFireSound)
 {
-   filename = "art/sound/dotsnetcrits/wdfourtee_mxl993-yarstick-swoosh-5.ogg";
+   filename = "art/sound/dotsnetcrits/item-spray05.ogg";
    description = AudioDefault3d;
    preload = true;
 };

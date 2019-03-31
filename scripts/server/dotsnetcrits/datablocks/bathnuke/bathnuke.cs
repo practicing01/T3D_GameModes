@@ -13,7 +13,7 @@
 
 datablock SFXProfile(bathnukeFireSound)
 {
-   filename = "art/sound/dotsnetcrits/water-splash34-v05.ogg";
+   filename = "art/sound/dotsnetcrits/trip03.ogg";
    description = AudioDefault3d;
    preload = true;
 };

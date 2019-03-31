@@ -13,7 +13,7 @@
 
 datablock SFXProfile(scissorsFireSound)
 {
-   filename = "art/sound/dotsnetcrits/wdfourtee_mxl993-yarstick-swoosh-5.ogg";
+   filename = "art/sound/dotsnetcrits/item-knife10-blade_01.ogg";
    description = AudioDefault3d;
    preload = true;
 };

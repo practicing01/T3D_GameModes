@@ -13,7 +13,7 @@
 
 datablock SFXProfile(crayonFireSound)
 {
-   filename = "art/sound/dotsnetcrits/wdfourtee_mxl993-yarstick-swoosh-5.ogg";
+   filename = "art/sound/dotsnetcrits/cartoon-pop05-bubble.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -123,7 +123,7 @@ datablock ShapeBaseImageData(crayonImage)
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = crayonFireSound;
+   //stateSound[3]                    = crayonFireSound;
    stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
@@ -201,6 +201,8 @@ function crayonImage::onFire(%this, %obj, %slot)
    %crayonBeam.setTransform(%eyeTrans);
    %crayonBeam.scale = "1.0" SPC (%distance * 10.0) SPC "1.0";
    %crayonBeam.position = VectorAdd(%eyePos, VectorScale(%eyeVec, %halfDist));
+
+   %obj.playAudio(0, crayonFireSound);
 
    %crayonBeam.schedule(1000, "delete");
 }

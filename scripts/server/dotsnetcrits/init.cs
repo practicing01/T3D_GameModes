@@ -20,13 +20,13 @@ if (isObject(DNCServer))
 {
   DNCServer.SoftOnRemove();
 
-  DNCServer.execDirScripts("datablocks", "players");
-
   exec("scripts/server/dotsnetcrits/gameDM.cs");
   exec("scripts/server/dotsnetcrits/player.cs");
+  DNCServer.execDirScripts("datablocks", "players misc");
   exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
-
+  exec("scripts/server/dotsnetcrits/datablocks/misc/misc.cs");
   DNCServer.execDirScripts("npcs", "");
+  DNCServer.execDirScripts("utilities", "");
   return;
 }
 
@@ -72,10 +72,6 @@ function DotsNetCritsServer::onAdd(%this)
   %this.loadedNPCs_ = new SimSet();
   %this.clientModels_ = new ArrayObject();
 
-  %this.execDirScripts("datablocks", "players");
-
-  exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
-
   exec("scripts/server/dotsnetcrits/rpc/serverCmdGamemodeVoteDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdJoinTeamDNC.cs");
   exec("scripts/server/dotsnetcrits/rpc/serverCmdWeaponLoadDNC.cs");
@@ -89,6 +85,11 @@ function DotsNetCritsServer::onAdd(%this)
   exec("scripts/server/dotsnetcrits/LevelVoteMachine.cs");
   exec("scripts/server/dotsnetcrits/gameDM.cs");
   exec("scripts/server/dotsnetcrits/player.cs");
+
+  %this.execDirScripts("datablocks", "players misc");
+  exec("scripts/server/dotsnetcrits/datablocks/players/players.cs");
+  exec("scripts/server/dotsnetcrits/datablocks/misc/misc.cs");
+  %this.execDirScripts("utilities", "");
 
   %this.EventManager_ = new EventManager();
 

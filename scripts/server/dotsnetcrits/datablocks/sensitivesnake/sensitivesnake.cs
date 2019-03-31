@@ -13,7 +13,7 @@
 
 datablock SFXProfile(sensitivesnakeFireSound)
 {
-   filename = "art/sound/dotsnetcrits/jamius_potiondrinklong.ogg";
+   filename = "art/sound/dotsnetcrits/monster-snake05-weird_03.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -213,6 +213,8 @@ function sensitivesnakeImage::SpawnSensitiveSnake( %this, %obj, %slot )
 
   %snake.setMoveDestination(%objTarget.getPosition());
   %snake.setAimObject(%snake.target_);
+
+  %snake.playAudio(0, sensitivesnakeFireSound);
 
   %snake.aiSchedule_ = %snake.schedule(1 * 1000, "ProcessAI");
 }

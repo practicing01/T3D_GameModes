@@ -11,12 +11,12 @@
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
 // is mounted onto a shape, the cambangerImage is used.
 
-/*datablock SFXProfile(cambangerFireSound)
+datablock SFXProfile(cambangerFireSound)
 {
-   filename = "art/sound/dotsnetcrits/jamius_potiondrinklong.ogg";
+   filename = "art/sound/dotsnetcrits/8bit-pickup2.ogg";
    description = AudioDefault3d;
    preload = true;
-};*/
+};
 
 datablock ItemData(cambanger)
 {
@@ -118,7 +118,7 @@ datablock ShapeBaseImageData(cambangerImage)
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   //stateSound[3]                    = cambangerFireSound;
+   stateSound[3]                    = cambangerFireSound;
    stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into

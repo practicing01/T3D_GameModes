@@ -13,7 +13,7 @@
 
 datablock SFXProfile(poisonLizardFireSound)
 {
-   filename = "art/sound/dotsnetcrits/wdfourtee_mxl993-yarstick-swoosh-5.ogg";
+   filename = "art/sound/dotsnetcrits/cartoon-boing02.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -123,7 +123,7 @@ datablock ShapeBaseImageData(poisonLizardImage)
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = poisonLizardFireSound;
+   //stateSound[3]                    = poisonLizardFireSound;
    stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
@@ -222,6 +222,8 @@ function poisonLizardImage::onFire(%this, %obj, %slot)
    %poisonLizardBeam.position = VectorAdd(%eyePos, VectorScale(%eyeVec, %halfDist));
 
    %obj.mountObject(%poisonLizardBeam, 0);
+
+   %obj.playAudio(0, poisonLizardFireSound);
 
    %poisonLizardBeam.schedule(1000, "delete");
 

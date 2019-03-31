@@ -13,14 +13,14 @@
 
 datablock SFXProfile(slipMineExplosionSound)
 {
-   filename = "art/sound/dotsnetcrits/braqoon_arrow-damage.ogg";
+   filename = "art/sound/dotsnetcrits/cartoon-fast-move04-wee.ogg";
    description = AudioDefault3d;
    preload = true;
 };
 
 datablock SFXProfile(slipMineFireSound)
 {
-   filename = "art/sound/dotsnetcrits/fins_button-6.ogg";
+   filename = "art/sound/dotsnetcrits/cartoon-fast-move04-wee.ogg";
    description = AudioDefault3d;
    preload = true;
 };

@@ -13,7 +13,7 @@
 
 datablock SFXProfile(bookofthedeadFireSound)
 {
-   filename = "art/sound/dotsnetcrits/jamius_potiondrinklong.ogg";
+   filename = "art/sound/dotsnetcrits/chant9.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -213,6 +213,8 @@ function bookofthedeadImage::SpawnMummy( %this, %obj, %slot )
 
   %zombie.setMoveDestination(%objTarget.getPosition());
   %zombie.setAimObject(%zombie.target_);
+
+  %zombie.playAudio(0, bookofthedeadFireSound);
 
   %zombie.aiSchedule_ = %zombie.schedule(1 * 1000, "ProcessAI");
 }

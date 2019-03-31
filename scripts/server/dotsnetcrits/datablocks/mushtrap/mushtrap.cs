@@ -25,7 +25,7 @@ datablock StaticShapeData(MushtrapStaticShapeData)
 
 datablock SFXProfile(mushtrapFireSound)
 {
-   filename = "art/sound/dotsnetcrits/Drink_01.ogg";
+   filename = "art/sound/dotsnetcrits/step075-mud02.ogg";
    description = AudioDefault3d;
    preload = true;
 };

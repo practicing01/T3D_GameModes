@@ -13,7 +13,7 @@
 
 datablock SFXProfile(singlecellFireSound)
 {
-   filename = "art/sound/dotsnetcrits/jamius_potiondrinklong.ogg";
+   filename = "art/sound/dotsnetcrits/ui-ack022-squishy.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -213,6 +213,8 @@ function singlecellImage::Spawnsinglecell( %this, %obj, %slot )
 
   %singlecell.setMoveDestination(%objTarget.getPosition());
   %singlecell.setAimObject(%singlecell.target_);
+
+  %singlecell.playAudio(0, singlecellFireSound);
 
   %singlecell.aiSchedule_ = %singlecell.schedule(1 * 1000, "ProcessAI");
 }

@@ -13,7 +13,7 @@
 
 datablock SFXProfile(lobsterFireSound)
 {
-   filename = "art/sound/dotsnetcrits/jamius_potiondrinklong.ogg";
+   filename = "art/sound/dotsnetcrits/bodily-eating04-eating_chips_1.ogg";
    description = AudioDefault3d;
    preload = true;
 };
@@ -213,6 +213,8 @@ function lobsterImage::SpawnLobster( %this, %obj, %slot )
 
   %lobster.setMoveDestination(%objTarget.getPosition());
   %lobster.setAimObject(%lobster.target_);
+
+  %lobster.playAudio(0, lobsterFireSound);
 
   %lobster.aiSchedule_ = %lobster.schedule(1 * 1000, "ProcessAI");
 }
