@@ -9,3 +9,4 @@ exec("levels/seabits/seabits.cs");
 exec("levels/pyramidinterior0/pyramidinterior0.cs");
 exec("levels/rustybeams/rustybeams.cs");
 exec("levels/deadpixelmarsh/deadpixelmarsh.cs");
+exec("scripts/server/dotsnetcrits/gamemodes/noirbird/datablocks.cs");

@@ -92,7 +92,7 @@ function ItemData::onThrow(%this, %user, %amount)
       rotation = "0 0 1 "@ (getRandom() * 360);
       count = %amount;
    };
-   MissionGroup.add(%obj);
+   getRootScene().add(%obj);
    %obj.schedulePop();
    return %obj;
 }
@@ -122,7 +122,7 @@ function ItemData::onPickup(%this, %obj, %user, %amount)
              %count = 1;
        }
     }
-    
+
     %user.incInventory(%this, %count);
 
     // Inform the client what they got.

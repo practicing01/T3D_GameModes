@@ -53,7 +53,7 @@ function TurretShapeData::onAdd(%this, %obj)
       // Handle inventory
       %obj.incInventory(%this.weapon[%i], 1);
       %obj.incInventory(%this.weaponAmmo[%i], %this.weaponAmmoAmount[%i]);
-      
+
       // Mount the image
       %obj.mountImage(%this.weapon[%i].image, %i, %this.startLoaded);
       %obj.setImageGenericTrigger(%i, 0, false); // Used to indicate the turret is destroyed
@@ -86,8 +86,8 @@ function TurretShapeData::onRemove(%this, %obj)
    }
 }
 
-// This is on MissionGroup so it doesn't happen when the mission has ended
-function MissionGroup::respawnTurret(%this, %datablock, %className, %transform, %static, %respawn)
+// This is on Scene so it doesn't happen when the mission has ended
+function Scene::respawnTurret(%this, %datablock, %className, %transform, %static, %respawn)
 {
    %turret = new (%className)()
    {
@@ -97,7 +97,7 @@ function MissionGroup::respawnTurret(%this, %datablock, %className, %transform, 
    };
 
    %turret.setTransform(%transform);
-   MissionGroup.add(%turret);
+   getRootScene().add(%turret);
    return %turret;
 }
 
@@ -149,7 +149,7 @@ function TurretShapeData::onDestroyed(%this, %obj, %lastState)
 
    if (%obj.doRespawn())
    {
-      MissionGroup.schedule($TurretShape::RespawnTime, "respawnTurret", %this, %obj.getClassName(), %obj.getTransform(), true, true);
+      getRootScene().schedule($TurretShape::RespawnTime, "respawnTurret", %this, %obj.getClassName(), %obj.getTransform(), true, true);
    }
 }
 
@@ -331,8 +331,8 @@ function AITurretShapeData::onThrow(%this, %user, %amount)
       client = %user.client;
       isAiControlled = true;
    };
-   MissionGroup.add(%obj);
-   
+   getRootScene().add(%obj);
+
    // Let the turret know that we're a firend
    %obj.addToIgnoreList(%user);
 
@@ -345,7 +345,7 @@ function AITurretShapeData::onThrow(%this, %user, %amount)
       {
          %client.ownedTurrets = new SimSet();
       }
-      
+
       // Go through the client's owned turret list.  Make sure we're
       // a friend of every turret and every turret is a friend of ours.
       // Commence hugging!
@@ -355,11 +355,11 @@ function AITurretShapeData::onThrow(%this, %user, %amount)
          %turret.addToIgnoreList(%obj);
          %obj.addToIgnoreList(%turret);
       }
-      
+
       // Add ourselves to the client's owned list.
       %client.ownedTurrets.add(%obj);
    }
-   
+
    return %obj;
 }
 
@@ -430,7 +430,7 @@ function AITurretShapeData::OnDeploy(%this, %turret)
    {
       %turret.setImageLoaded(%i, true);
    }
-   
+
    %turret.playAudio(0, TurretActivatedSound);
 }
 
@@ -469,7 +469,7 @@ function DeployableTurretWeaponImage::onMount(%this, %obj, %slot)
    // The turret doesn't use ammo from a player's perspective.
    %obj.setImageAmmo(%slot, true);
    %numTurrets = %obj.getInventory(%this.item);
-   
+
    if (%obj.client !$= "" && !%obj.isAiControlled)
       %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numTurrets);
 }

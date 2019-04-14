@@ -42,3 +42,26 @@ singleton Material( cyberpunk0SkyMat )
    materialTag0 = "Skies";
    isSky = true;
 };
+
+singleton Material(poopMatnoirbird)
+{
+   diffuseMap[0] = "art/shapes/dotsnetcrits/gamemodes/noirbird/poopdecal.png";
+   //detailMap[0] = "art/shapes/dotsnetcrits/levels/seabits/barnacle.png";
+   //normalMap[0] = "art/shapes/dotsnetcrits/levels/seabits/barnacle_n.png";
+   translucent = false;
+   mapTo = "poopdecal.png";
+   castShadows = "0";
+   alphaTest = "1";
+   alphaRef = "255";
+};
+
+datablock DecalData(poopDecalnoirbird)
+{
+   material = poopMatnoirbird;
+   lifeSpan = -1;
+   fadeTime = -1;
+   size = 1.0;
+   texCols = 1;
+   texRows = 1;
+   textureCoordCount = 1;
+};

@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// phoneShield weapon. This file contains all the items related to this weapon
+// squeegee weapon. This file contains all the items related to this weapon
 // including explosions, ammo, the item and the weapon item image.
 // These objects rely on the item & inventory support system defined
 // in item.cs and inventory.cs
@@ -9,22 +9,16 @@
 //--------------------------------------------------------------------------
 // Weapon Item.  This is the item that exists in the world, i.e. when it's
 // been dropped, thrown or is acting as re-spawnable item.  When the weapon
-// is mounted onto a shape, the phoneShieldImage is used.
+// is mounted onto a shape, the squeegeeImage is used.
 
-/*datablock StaticShapeData(phoneShieldStaticShapeData)
+datablock SFXProfile(squeegeeFireSound)
 {
-  shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
-  isInvincible = "1";
-};*/
-
-datablock SFXProfile(phoneShieldFireSound)
-{
-   filename = "art/sound/dotsnetcrits/Phone1.ogg";
+   filename = "art/sound/dotsnetcrits/item-misc41-Stationery_37.ogg";
    description = AudioDefault3d;
    preload = true;
 };
 
-datablock ItemData(phoneShield)
+datablock ItemData(squeegee)
 {
    // Mission editor category
    category = "Weapon";
@@ -35,46 +29,47 @@ datablock ItemData(phoneShield)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/gamemodes/noirbird/squeegee.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
    emap = true;
 
     // Dynamic properties defined by the scripts
-    pickUpName = "a phoneShield";
-    description = "phoneShield";
+    pickUpName = "a squeegee";
+    description = "squeegee";
     maxInventory = 1;
     damageType = "meleeDamage";
     damageRadius = 2;
-    directDamage = 20;
-    image = phoneShieldImage;
+    directDamage = 1000;
+    image = squeegeeImage;
     reticle = "crossHair";
     zoomReticle = "crossHairZoomed";
 };
 
 
 //--------------------------------------------------------------------------
-// phoneShield image which does all the work.  Images do not normally exist in
+// squeegee image which does all the work.  Images do not normally exist in
 // the world, they can only be mounted on ShapeBase objects.
 
-datablock ShapeBaseImageData(phoneShieldImage)
+datablock ShapeBaseImageData(squeegeeImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/gamemodes/noirbird/squeegee.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/gamemodes/noirbird/squeegee.cached.dts";
    emap = false;
 
-   item = phoneShield;
+   item = squeegee;
 
    infiniteAmmo = true;
 
-   //imageAnimPrefix = "phoneShield";
-   //imageAnimPrefixFP = "phoneShield";
+   //imageAnimPrefix = "squeegee";
+   //imageAnimPrefixFP = "squeegee";
 
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
+   offset = "0.0 0.2 0.0";
    //eyeOffset = "0.5 0.0 0.0";
    //rotation = "1 0 0 90";
 
@@ -117,13 +112,13 @@ datablock ShapeBaseImageData(phoneShieldImage)
    // the actual work.
    stateName[3]                     = "Fire";
    stateTransitionOnTimeout[3]      = "Ready";
-   stateTimeoutValue[3]             = 1.0;
+   stateTimeoutValue[3]             = 0.2;
    stateFire[3]                     = true;
    stateRecoil[3]                   = LightRecoil;
    stateAllowImageChange[3]         = false;
    stateSequence[3]                 = "Fire";
    stateScript[3]                   = "onFire";
-   stateSound[3]                    = "";//phoneShieldFireSound;
+   stateSound[3]                    = squeegeeFireSound;
    stateShapeSequence[3]            = "shoot";
 
    // Play the reload animation, and transition into
@@ -134,7 +129,7 @@ datablock ShapeBaseImageData(phoneShieldImage)
    stateAllowImageChange[4]         = false;
    stateSequence[4]                 = "Reload";
    //stateEjectShell[4]               = true;
-   //stateSound[4]                    = phoneShieldReloadSound;
+   //stateSound[4]                    = squeegeeReloadSound;
 
    // No ammo in the weapon, just idle until something
    // shows up. Play the dry fire sound if the trigger is
@@ -148,69 +143,56 @@ datablock ShapeBaseImageData(phoneShieldImage)
    stateName[6]                     = "DryFire";
    stateTimeoutValue[6]             = 1.0;
    stateTransitionOnTimeout[6]      = "Ready";
-   //stateSound[6]                    = "";//phoneShieldFireEmptySound;
+   //stateSound[6]                    = squeegeeFireEmptySound;
 };
 
 
 //-----------------------------------------------------------------------------
 
-function phoneShieldImage::onMount( %this, %obj, %slot )
+function squeegeeImage::onMount( %this, %obj, %slot )
 {
-  if (isObject(%obj.client.phoneShield_))
-  {
-    %obj.client.phoneShield_.delete();
-  }
-
    // The mine doesn't use ammo from a player's perspective.
    %obj.setImageAmmo( %slot, true );
    %numMines = %obj.getInventory(%this.item);
    %obj.client.RefreshWeaponHud( 1, %this.item.previewImage, %this.item.reticle, %this.item.zoomReticle, %numMines  );
-
-   %phoneShield = new TSStatic()
-   {
-     //dataBlock = "phoneShieldStaticShapeData";
-     shapeName = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
-     position = %obj.position;
-     collisionType = "Visible Mesh";
-     decalType = "Visible Mesh";
-     allowPlayerStep = "1";
-   };
-
-   %obj.mountObject(%phoneShield, 1, MatrixCreate("0 2 0", "1 0 0 0"));
-
-   %obj.client.phoneShield_ = %phoneShield;
-
-   sfxPlay(phoneShieldFireSound, %obj.position);
 }
 
-function phoneShieldImage::onUnmount( %this, %obj, %slot )
+function squeegeeImage::onUnmount( %this, %obj, %slot )
 {
    %obj.client.RefreshWeaponHud( 0, "", "" );
-
-   %obj.client.phoneShield_.unmount();
-   %obj.client.phoneShield_.delete();
 }
 
-function phoneShieldImage::onFire(%this, %obj, %slot)
+function squeegeeImage::onFire(%this, %obj, %slot)
 {
-  //
-}
+   %pos = %obj.getPosition();
 
-function phoneShield::loadOut(%this, %player)
-{
-  if (isObject(%player.client.phoneShield_))
-  {
-    %player.client.phoneShield_.delete();
-  }
-}
+   initContainerRadiusSearch(%pos, %this.item.damageRadius, $TypeMasks::ShapeBaseObjectType);
 
-DefaultPlayerData.maxInv[phoneShield] = 1;
+   while ( (%targetObject = containerSearchNext()) != 0 )
+   {
+     if(%targetObject != %obj)
+     {
+      %targetObject.damage(%obj, %pos, %this.item.directDamage, "squeegee");
+     }
+   }
+
+   %decalID = decalManagerFindDecal(%pos);
+
+   if (%decalID != -1)
+   {
+     decalManagerRemoveDecal(%decalID);
+     Game.incScore(%obj.client, 10, false);
+   }
+}
+/*
+DefaultPlayerData.maxInv[squeegee] = 1;
 
 %weaponSO = new ScriptObject()
 {
   class = "WeaponLoader";
-  weapon_ = phoneShield;
+  weapon_ = squeegee;
 };
 
 DNCServer.loadOutListeners_.add(%weaponSO);
 DNCServer.loadedWeapons_.add(%weaponSO);
+*/

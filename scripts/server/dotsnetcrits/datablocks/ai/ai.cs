@@ -148,3 +148,8 @@ datablock PlayerData(singlecellAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/weapons/singlecell/singlecell.dae";
 };
+
+datablock PlayerData(NoirBirdAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/noirbird/noirbird.dae";
+};
