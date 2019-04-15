@@ -1,5 +1,5 @@
 //--- OBJECT WRITE BEGIN ---
-new SimGroup(MissionGroup) {
+new Scene(MissionGroup) {
    canSave = "1";
    canSaveDynamicFields = "1";
       cdTrack = "2";
@@ -620,7 +620,7 @@ new SimGroup(MissionGroup) {
          position = "26.9544 -2.44751 0.678105";
          rotation = "0.0530977 0.998588 0.00174592 0.986743";
          mountPID = "bc5ecbfc-00d6-11e9-a594-9dbcffffffff";
-         mountNode = "24059";
+         mountNode = "0";
          mountPos = "0.0132141 1.18217 0.581998";
          mountRot = "0.0815019 -0.0795468 0.993494 0.620549";
          canSave = "1";
@@ -656,7 +656,7 @@ new SimGroup(MissionGroup) {
          position = "26.9544 -4.8934 0.680342";
          rotation = "0.0530977 0.998588 0.00174592 0.986743";
          mountPID = "bc5ecbfc-00d6-11e9-a594-9dbcffffffff";
-         mountNode = "24059";
+         mountNode = "0";
          mountPos = "-0.0130997 -1.26358 0.584168";
          mountRot = "0.0815019 -0.0795468 0.993494 0.620549";
          canSave = "1";
@@ -692,7 +692,7 @@ new SimGroup(MissionGroup) {
          position = "26.9334 -3.6266 1.89733";
          rotation = "0.0530977 0.998588 0.00174592 0.986743";
          mountPID = "bc5ecbfc-00d6-11e9-a594-9dbcffffffff";
-         mountNode = "24059";
+         mountNode = "0";
          mountPos = "0.00157547 0.00310612 1.80137";
          mountRot = "0.0815019 -0.0795468 0.993494 0.620549";
          canSave = "1";
@@ -728,7 +728,7 @@ new SimGroup(MissionGroup) {
          position = "26.9805 -3.6291 -0.836176";
          rotation = "0.0530977 0.998588 0.00174592 0.986743";
          mountPID = "bc5ecbfc-00d6-11e9-a594-9dbcffffffff";
-         mountNode = "24059";
+         mountNode = "0";
          mountPos = "-0.000793457 0.000705719 -0.932539";
          mountRot = "0.0815019 -0.0795468 0.993494 0.620549";
          canSave = "1";

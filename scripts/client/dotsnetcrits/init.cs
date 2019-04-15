@@ -94,9 +94,18 @@ function DotsNetCritsClient::onAdd(%this)
 
   vehicleMap.bindCmd(keyboard, "escape", "", "escapeFromGameDNC();");
 
+  if (isObject(%this.ladderActionMap_))
+  {
+    %this.ladderActionMap_.delete();
+  }
+  %this.ladderActionMap_ = new ActionMap();
+  %this.ladderActionMap_.bindCmd(keyboard, "w", %this @ ".LadderMoveUp(1);", %this @ ".LadderMoveUp(0);");
+  %this.ladderActionMap_.bindCmd(keyboard, "s", %this @ ".LadderMoveDown(1);", %this @ ".LadderMoveDown(0);");
+
   %this.execDirScripts("datablocks", "");
   %this.execDirScripts("npcs", "");
   %this.execDirScripts("weapons", "");
+  %this.execDirScripts("utilities", "");
 
   if (isObject(playGui))
   {
@@ -136,6 +145,12 @@ function DotsNetCritsClient::onRemove(%this)
   {
     %this.actionMap_.pop();
     %this.actionMap_.delete();
+  }
+
+  if (isObject(%this.ladderActionMap_))
+  {
+    %this.ladderActionMap_.pop();
+    %this.ladderActionMap_.delete();
   }
 
   if (isObject(%this.loadedNPCs_))
@@ -191,6 +206,7 @@ new ScriptObject(DNCClient)
   class = "DotsNetCritsClient";
   EventManager_ = "";
   actionMap_ = "";
+  ladderActionMap_ = "";
   loadedNPCs_ = "";
 };
 

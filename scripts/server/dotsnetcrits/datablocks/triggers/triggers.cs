@@ -52,3 +52,9 @@ datablock TriggerData(PumptreeGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(LadderTrigger)
+{
+  tickPeriodMS = 500;
+  ladderMoveInterval_ = 500;
+};

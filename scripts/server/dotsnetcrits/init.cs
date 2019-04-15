@@ -124,6 +124,13 @@ function DotsNetCritsServer::onAdd(%this)
     class = "GameModeVoteMachine";
   };
 
+  %this.ladderManager_ = new ScriptObject()
+  {
+    class = "LadderManager";
+  };
+
+  %this.ClientLeaveListeners_.add(%this.ladderManager_);
+
   %this.EventManager_.subscribe(%this.GameModeVoteMachine_, "GamemodeVoteCast");
 
   %this.LevelVoteMachine_ = new ScriptObject()
@@ -206,6 +213,13 @@ function DotsNetCritsServer::SoftOnRemove(%this)
     %this.loadedNPCs_.deleteAllObjects();
   }
 
+  %this.ladderManager_ = new ScriptObject()
+  {
+    class = "LadderManager";
+  };
+
+  %this.ClientLeaveListeners_.add(%this.ladderManager_);
+
   %this.TeamChooser_ = new ScriptObject()
   {
     class = "TeamChooser";
@@ -220,6 +234,11 @@ function DotsNetCritsServer::onRemove(%this)
   if (isObject(%this.EventManager_))
   {
     %this.EventManager_.delete();
+  }
+
+  if (isObject(%this.ladderManager_))
+  {
+    %this.ladderManager_.delete();
   }
 
   if (isObject(%this.GameModeVoteMachine_))
@@ -449,6 +468,7 @@ new ScriptObject(DNCServer)
 {
   class = "DotsNetCritsServer";
   EventManager_ = "";
+  ladderManager_ = "";
   GameModeVoteMachine_ = "";
   TeamChooser_ = "";
   ClientLeaveCleanup_ = "";

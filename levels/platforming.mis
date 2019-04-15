@@ -1,6 +1,6 @@
 //exec("levels/platforming/platforming.cs");
 //--- OBJECT WRITE BEGIN ---
-new SimGroup(MissionGroup) {
+new Scene(MissionGroup) {
    canSave = "1";
    canSaveDynamicFields = "1";
       cdTrack = "2";
@@ -926,11 +926,11 @@ new SimGroup(MissionGroup) {
    };
    new Trigger(ladderTriggger2) {
       polyhedron = "-0.5000000 0.5000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-      dataBlock = "PlatformingLadderTrigger";
+      dataBlock = "LadderTrigger";
       position = "-86.9534 -8.86161 0.0648108";
       rotation = "1 0 0 0";
       scale = "1 1 32";
-      class = "PlatformingLadderTriggerClass";
+      class = "";
       canSave = "1";
       canSaveDynamicFields = "1";
          actionMap_ = "26003";
@@ -999,22 +999,22 @@ new SimGroup(MissionGroup) {
    };
    new Trigger(ladderTriggger) {
       polyhedron = "-0.5000000 0.5000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-      dataBlock = "PlatformingLadderTrigger";
+      dataBlock = "LadderTrigger";
       position = "14.4431 0.0841379 0.0900726";
       rotation = "1 0 0 0";
       scale = "1 1 22";
-      class = "PlatformingLadderTriggerClass";
+      class = "";
       canSave = "1";
       canSaveDynamicFields = "1";
          actionMap_ = "26009";
    };
    new Trigger(ladderTriggger1) {
       polyhedron = "-0.5000000 0.5000000 0.0000000 1.0000000 0.0000000 0.0000000 0.0000000 -1.0000000 0.0000000 0.0000000 0.0000000 1.0000000";
-      dataBlock = "PlatformingLadderTrigger";
+      dataBlock = "LadderTrigger";
       position = "-35.518 -1.93962 0.111639";
       rotation = "1 0 0 0";
       scale = "1 1 22";
-      class = "PlatformingLadderTriggerClass";
+      class = "";
       canSave = "1";
       canSaveDynamicFields = "1";
          actionMap_ = "26011";

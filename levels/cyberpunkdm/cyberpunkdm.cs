@@ -16,6 +16,7 @@ function CyberpunkDMLevel::onAdd(%this)//should be using onMissionLoaded, need t
 
 function CyberpunkDMAI::onRemove(%this, %ai)
 {
+  %ai.targets_.delete();
   %ai.stop();
 }
 

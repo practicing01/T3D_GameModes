@@ -1,7 +1,5 @@
-//exec("levels/springinvasion/springinvasion.cs");
-
 //--- OBJECT WRITE BEGIN ---
-new SimGroup(MissionGroup) {
+new Scene(MissionGroup) {
    canSave = "1";
    canSaveDynamicFields = "1";
       cdTrack = "2";
