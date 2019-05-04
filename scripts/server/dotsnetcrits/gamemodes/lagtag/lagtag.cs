@@ -31,8 +31,20 @@ function LagTagAIClass::CountDown(%this)
 
 function LagTagAIClass::setDest(%this)
 {
+  if (!isObject(PlayerDropPoints))
+  {
+    return;
+  }
+
   %spawnPoint = PlayerDropPoints.getRandom();
-  %this.setPathDestination(%spawnPoint.position);
+  %result = %this.setPathDestination(%spawnPoint.position);
+
+  if (!%result)
+  {
+    %this.schedule(1000, "setDest");
+    return;
+  }
+  
   %this.setAimLocation(%spawnPoint);
   %this.clearAim();
 }

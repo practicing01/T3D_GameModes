@@ -320,3 +320,10 @@ datablock PlayerData(phunk0 : DefaultPlayerData)
    painSound_ = quechanPainCrySound;
    deathSound_ = quechanDeathCrySound;
 };
+
+datablock PlayerData(mech : DefaultPlayerData)
+{
+   shapeFile = "art/shapes/dotsnetcrits/actors/mech/mech.dae";
+   painSound_ = quechanPainCrySound;
+   deathSound_ = quechanDeathCrySound;
+};

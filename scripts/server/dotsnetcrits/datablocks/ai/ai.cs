@@ -153,3 +153,8 @@ datablock PlayerData(NoirBirdAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/noirbird/noirbird.dae";
 };
+
+datablock PlayerData(RastamonSnapAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/actors/mech/mech.dae";
+};

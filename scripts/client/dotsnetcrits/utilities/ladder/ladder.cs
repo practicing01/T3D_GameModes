@@ -27,5 +27,6 @@ function DotsNetCritsClient::ToggleLadderActionMap(%this, %state)
   else
   {
     %this.ladderActionMap_.pop();
+    %this.actionMap_.push();
   }
 }
