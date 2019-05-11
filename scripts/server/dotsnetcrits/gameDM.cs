@@ -1,3 +1,15 @@
+function serverCmdMessageSent(%client, %text)
+{
+   if(strlen(%text) >= $Pref::Server::MaxChatLen)
+      %text = getSubStr(%text, 0, $Pref::Server::MaxChatLen);
+   chatMessageAll(%client, '\c4%1: %2', %client.playerName, %text);
+
+   for (%x = 0; %x < DNCServer.chatListeners_.getCount(); %x++)
+   {
+     DNCServer.chatListeners_.getObject(%x).onChat(%client, %text);
+   }
+}
+
 function DeathMatchGame::onClientLeaveGame(%game, %client)
 {
   if (!isObject(DNCServer))

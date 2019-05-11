@@ -67,6 +67,7 @@ function DotsNetCritsServer::onAdd(%this)
   %this.incKillsListeners_ = new SimSet();
   %this.missionLoadedListeners_ = new SimSet();
   %this.deathListeners_ = new SimSet();
+  %this.chatListeners_ = new SimSet();
   %this.loadedGamemodes_ = new SimSet();
   %this.loadedWeapons_ = new SimSet();
   %this.loadedNPCs_ = new SimSet();
@@ -198,6 +199,11 @@ function DotsNetCritsServer::SoftOnRemove(%this)
     %this.deathListeners_.deleteAllObjects();
   }
 
+  if (isObject(%this.chatListeners_))
+  {
+    %this.chatListeners_.deleteAllObjects();
+  }
+
   if (isObject(%this.loadedGamemodes_))
   {
     %this.loadedGamemodes_.deleteAllObjects();
@@ -294,6 +300,11 @@ function DotsNetCritsServer::onRemove(%this)
   if (isObject(%this.deathListeners_))
   {
     %this.deathListeners_.delete();
+  }
+
+  if (isObject(%this.chatListeners_))
+  {
+    %this.chatListeners_.delete();
   }
 
   if (isObject(%this.loadedGamemodes_))
@@ -477,6 +488,7 @@ new ScriptObject(DNCServer)
   incKillsListeners_ = "";
   missionLoadedListeners_ = "";
   deathListeners_ = "";
+  chatListeners_ = "";
   loadedGamemodes_ = "";
   loadedWeapons_ = "";
   LevelVoteMachine_ = "";
