@@ -67,8 +67,6 @@ function PixenaryGMServer::onAdd(%this)
   %file.close();
   %file.delete();
 
-  %this.wordSchedule_ = %this.schedule(drawTime_, "NewWord");
-
   %this.pixels_ = new SimSet();
 
   %this.curArtistClient_ = ClientGroup.getRandom();
@@ -99,12 +97,14 @@ function PixenaryGMServer::onAdd(%this)
       %this.pixels_.add(%pixel);
     }
   }
+
+  %this.NewWord();
 }
 
 function PixenaryGMServer::onRemove(%this)
 {
   clearBottomPrint( %this.curArtistClient_ );
-  
+
   if (isObject(%this.EventManager_))
   {
     %this.EventManager_.delete();
