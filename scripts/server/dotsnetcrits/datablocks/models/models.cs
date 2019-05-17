@@ -225,3 +225,9 @@ datablock ItemData(GooshballItemData)
   isInvincible = "1";
   pickupName = "gooshball";
 };
+
+datablock StaticShapeData(PixenaryStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/pixenary/pixenary.dae";
+  //isInvincible = "1";
+};
