@@ -24,7 +24,7 @@ function gameboardScriptMsgListener::onAdd(%this)
   for (%x = 0; %x < getFieldCount(%dirList); %x++)
   {
     %card = getField(%dirList, %x);
-    exec("art/shapes/dotsnetcrits/tcg/" @ %card @ "/materials.cs");
+    //exec("art/shapes/dotsnetcrits/tcg/" @ %card @ "/materials.cs");
   }
 }
 
