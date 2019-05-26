@@ -158,3 +158,8 @@ datablock PlayerData(RastamonSnapAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/actors/mech/mech.dae";
 };
+
+datablock PlayerData(TrafficLightAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/goslowstop/trafficlight.dae";
+};
