@@ -199,7 +199,7 @@ function crayonImage::onFire(%this, %obj, %slot)
    };
 
    %crayonBeam.setTransform(%eyeTrans);
-   %crayonBeam.scale = "1.0" SPC (%distance * 10.0) SPC "1.0";
+   %crayonBeam.scale = "1.0" SPC (%distance * 5.0) SPC "1.0";
    %crayonBeam.position = VectorAdd(%eyePos, VectorScale(%eyeVec, %halfDist));
 
    %obj.playAudio(0, crayonFireSound);

@@ -163,3 +163,8 @@ datablock PlayerData(TrafficLightAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/goslowstop/trafficlight.dae";
 };
+
+datablock PlayerData(kaijudefenseAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/kaijudefense/kaiju.dae";
+};

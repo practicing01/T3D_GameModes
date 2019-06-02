@@ -114,3 +114,11 @@ datablock RigidShapeData( SciFi_0_Crate2RB )
    rollForce = 0.05;
    pitchForce = 0.05;
 };
+
+datablock RigidShapeData( KaijuAsteroidRB : BouncingBoulder)
+{
+  mass = 1;
+  vertFactor = 1.0;
+  maxDrag = 100;
+  minDrag = 100;
+};
