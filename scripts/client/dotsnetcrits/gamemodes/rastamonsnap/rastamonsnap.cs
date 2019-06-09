@@ -1,8 +1,6 @@
 function RastamonSnapGMClient::Fire(%this)
 {
   commandToServer('FireRastamonSnapGM');
-  //%npc = ServerConnection.getControlObject();
-  //%cam = ServerConnection.getCameraObject();
 }
 
 function RastamonSnapGMClient::onAdd(%this)
@@ -21,9 +19,6 @@ function RastamonSnapGMClient::onAdd(%this)
   %this.actionMap_ = new ActionMap();
   %this.actionMap_.bindCmd(mouse0, "button0", "", %this @ ".Fire();");
   %this.actionMap_.push();
-
-  //escapeFromGameDNC();
-  //showCursor();
 }
 
 function RastamonSnapGMClient::onRemove(%this)

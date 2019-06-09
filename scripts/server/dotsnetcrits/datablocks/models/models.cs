@@ -231,3 +231,9 @@ datablock StaticShapeData(PixenaryStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/pixenary/pixenary.dae";
   //isInvincible = "1";
 };
+
+datablock StaticShapeData(SkiTreeStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/skit3d/tree.dae";
+  isInvincible = "1";
+};

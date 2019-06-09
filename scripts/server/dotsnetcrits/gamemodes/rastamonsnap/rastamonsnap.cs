@@ -58,7 +58,7 @@ function RastamonSnapAIClass::setDest(%this)
     return;
   }
 
-  %this.setAimLocation(%spawnPoint);
+  %this.setAimLocation(%spawnPoint.position);
   %this.clearAim();
 }
 

@@ -44,8 +44,8 @@ function LagTagAIClass::setDest(%this)
     %this.schedule(1000, "setDest");
     return;
   }
-  
-  %this.setAimLocation(%spawnPoint);
+
+  %this.setAimLocation(%spawnPoint.position);
   %this.clearAim();
 }
 

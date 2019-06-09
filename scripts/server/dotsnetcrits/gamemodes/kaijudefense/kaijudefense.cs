@@ -99,7 +99,7 @@ function KaijuClass::setDest(%this)
     return;
   }
 
-  %this.setAimLocation(%spawnPoint);
+  %this.setAimLocation(%spawnPoint.position);
   %this.clearAim();
 }
 
@@ -202,7 +202,6 @@ function kaijudefenseGMServer::onAdd(%this)
   for (%x = 0; %x < ClientGroup.getCount(); %x++)
   {
     %client = ClientGroup.getObject(%x);
-    %player = %client.getControlObject();
 
     %this.SetupCamera(%client, %this.kaiju_);
   }

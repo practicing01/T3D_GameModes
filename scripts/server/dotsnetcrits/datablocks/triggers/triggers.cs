@@ -58,3 +58,8 @@ datablock TriggerData(LadderTrigger)
   tickPeriodMS = 500;
   ladderMoveInterval_ = 500;
 };
+
+datablock TriggerData(Skit3dGMTrigger)
+{
+  tickPeriodMS = 1000;
+};

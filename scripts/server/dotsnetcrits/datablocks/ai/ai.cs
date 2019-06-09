@@ -168,3 +168,13 @@ datablock PlayerData(kaijudefenseAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/kaijudefense/kaiju.dae";
 };
+
+datablock PlayerData(YetiAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/skit3d/yeti.dae";
+};
+
+datablock PlayerData(SkierAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/skit3d/skier.dae";
+};

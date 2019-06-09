@@ -81,10 +81,29 @@ function MommaBirdGMServer::onRemove(%this)
   }
 }
 
-function MommaBirdGMServerSO::loadOut(%this, %player)
+function MommaBirdGMServer::loadOut(%this, %player)
 {
   %client = %player.client;
-  %npc = %this.dictionary_.getValue(%this.dictionary_.getIndexFromKey(%client));
+  %key = %this.dictionary_.getIndexFromKey(%client);
+  %npc = "";
+
+  if (%key == -1)
+  {
+    %npc = new AiPlayer()
+    {
+      dataBlock = MommaBirdAI;
+      class = MommaBirdAIClass;
+      client = %client;
+    };
+
+    %this.npcs_.add(%npc);
+
+    %this.dictionary_.add(%client, %npc);
+  }
+  else
+  {
+    %npc = %this.dictionary_.getValue(%key);
+  }
 
   %this.TransformNPC(%player, %npc);
   %npc.followObject(%player, 1);
