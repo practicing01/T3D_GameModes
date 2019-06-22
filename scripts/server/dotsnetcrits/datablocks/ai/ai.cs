@@ -178,3 +178,13 @@ datablock PlayerData(SkierAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/skit3d/skier.dae";
 };
+
+datablock PlayerData(MerbillyAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/merbilly/merbilly.dae";
+};
+
+datablock PlayerData(MerbillyBaitAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/merbilly/seallager.dae";
+};

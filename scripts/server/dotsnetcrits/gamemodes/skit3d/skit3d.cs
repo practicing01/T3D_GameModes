@@ -159,6 +159,11 @@ function YetiAI::onMoveStuck(%this, %npc)
 
 function YetiClass::setDest(%this)
 {
+  if (!isObject(%this))
+  {
+    return;
+  }
+  
   %client = ClientGroup.getRandom();
   %player = %client.player;
 
