@@ -237,3 +237,15 @@ datablock StaticShapeData(SkiTreeStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/skit3d/tree.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(MinaryStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/minary/minary.dae";
+  isInvincible = "1";
+};
+
+datablock StaticShapeData(MinaryCrystalStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/minary/crystal.dae";
+  isInvincible = "1";
+};

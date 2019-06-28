@@ -188,3 +188,8 @@ datablock PlayerData(MerbillyBaitAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/merbilly/seallager.dae";
 };
+
+datablock PlayerData(MinaryCo2AI : DemoPlayer)
+{
+  //shapeFile = "art/shapes/dotsnetcrits/gamemodes/merbilly/seallager.dae";
+};
