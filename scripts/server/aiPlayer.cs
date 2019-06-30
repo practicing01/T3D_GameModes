@@ -273,7 +273,7 @@ function AIPlayer::getTargetDistance(%this, %target)
 
 function AIPlayer::getNearestPlayerTarget(%this)
 {
-   echo("\c4AIPlayer::getNearestPlayerTarget("@ %this @")");
+   //echo("\c4AIPlayer::getNearestPlayerTarget("@ %this @")");
 
    %index = -1;
    %botPos = %this.getPosition();

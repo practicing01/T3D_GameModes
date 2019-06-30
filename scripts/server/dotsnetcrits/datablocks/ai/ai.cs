@@ -193,3 +193,13 @@ datablock PlayerData(MinaryCo2AI : DemoPlayer)
 {
   //shapeFile = "art/shapes/dotsnetcrits/gamemodes/merbilly/seallager.dae";
 };
+
+datablock PlayerData(LampSRAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/shadowrescue/lamp/lamp.dae";
+};
+
+datablock PlayerData(ShadowSRAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/shadowrescue/shadowraven.dae";
+};

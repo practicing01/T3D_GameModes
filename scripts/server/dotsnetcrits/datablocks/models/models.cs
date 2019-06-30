@@ -249,3 +249,9 @@ datablock StaticShapeData(MinaryCrystalStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/minary/crystal.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(VoidBallStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/shadowrescue/voidball/voidball.dae";
+  isInvincible = "1";
+};
