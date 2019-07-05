@@ -203,3 +203,9 @@ datablock PlayerData(ShadowSRAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/shadowrescue/shadowraven.dae";
 };
+
+datablock PlayerData(GeorgieBalloonyAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/balloony/georgie/georgie.dae";
+  maxForwardSpeed = 500;
+};

@@ -255,3 +255,8 @@ datablock StaticShapeData(VoidBallStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/shadowrescue/voidball/voidball.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(BalloonyStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/balloony/balloon/balloon.dae";
+};
