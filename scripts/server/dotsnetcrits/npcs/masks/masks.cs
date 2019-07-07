@@ -146,6 +146,18 @@ function serverCmdNPCActionmasks(%client, %action, %mask)
   %data.delete();
 }
 
+function masksScriptMsgListener::loadOut(%this, %player)
+{
+  %index = %this.npcArray_.getIndexFromKey(%player.client);
+
+  %npc = %this.npcArray_.getValue(%index);
+
+  if (isObject(%npc))
+  {
+    %player.mountObject(%npc, 2);
+  }
+}
+
 %NPC = new ScriptMsgListener()
 {
   class = "masksScriptMsgListener";
@@ -153,6 +165,7 @@ function serverCmdNPCActionmasks(%client, %action, %mask)
   npcArray_ = "";
 };
 
+DNCServer.loadOutListeners_.add(%NPC);
 DNCServer.loadedNPCs_.add(%NPC);
 DNCServer.EventManager_.registerEvent("NPCActionmasks");
 DNCServer.EventManager_.subscribe(%NPC, "NPCLoadRequest");
