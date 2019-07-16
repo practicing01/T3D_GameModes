@@ -209,3 +209,13 @@ datablock PlayerData(GeorgieBalloonyAI : DemoPlayer)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/balloony/georgie/georgie.dae";
   maxForwardSpeed = 500;
 };
+
+datablock PlayerData(BloodbeakAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/bloodbeak/bloodbeak.dae";
+};
+
+datablock PlayerData(BenedictAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/bloodbeak/benedict.dae";
+};
