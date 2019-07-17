@@ -26,7 +26,7 @@ function BloodbeakAI::onCollision(%this, %obj, %collObj, %vec, %len)
     %spawnpoint = PlayerDropPoints.getRandom();
     %obj.setTransform(%spawnpoint.getTransform());
   }
-  else if (%collObj.getClassName() $= "Player")
+  else if (%collObj.isMemberOfClass("ShapeBase"))
   {
     if (!%obj.canAttack_)
     {
