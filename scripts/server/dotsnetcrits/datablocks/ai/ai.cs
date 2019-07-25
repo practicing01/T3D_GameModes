@@ -219,3 +219,9 @@ datablock PlayerData(BenedictAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/bloodbeak/benedict.dae";
 };
+
+datablock PlayerData(ExcavatorAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/excavator/excavator.dae";
+  maxForwardSpeed = 500;
+};

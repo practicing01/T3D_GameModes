@@ -63,3 +63,8 @@ datablock TriggerData(Skit3dGMTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(DirtMoundTrigger)
+{
+  tickPeriodMS = 1000;
+};

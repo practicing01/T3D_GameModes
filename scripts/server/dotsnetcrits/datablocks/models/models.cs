@@ -260,3 +260,8 @@ datablock StaticShapeData(BalloonyStaticShapeData)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/balloony/balloon/balloon.dae";
 };
+
+datablock StaticShapeData(DirtMoundStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/excavator/dirtmound.dae";
+};
