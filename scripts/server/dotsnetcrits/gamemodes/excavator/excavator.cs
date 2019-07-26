@@ -7,13 +7,13 @@ function ExcavatorAI::onCollision(%this, %obj, %collObj, %vec, %len)
 {
   parent::onCollision(%this, %obj, %collObj, %vec, %len);
 
-  if (%collObj.isMemberOfClass("ShapeBase"))
+  if (%collObj.isMemberOfClass("Player"))
   {
     if (!%obj.canAttack_)
     {
       return;
     }
-    
+
     %collObj.damage(%obj, %vec, 100, "Excavator");
     %obj.playThread(0, "attack");
     %obj.canAttack_ = false;
@@ -25,9 +25,17 @@ function ExcavatorAIClass::Attack(%this)
 {
   %pos = %this.getPosition();
 
-  if (VectorDist(%pos, %this.target_.position) > 2)
+  if (%this.targets_.getCount() == 0)
   {
-    %this.followObject(%this.target_, 0);
+    %this.FindTarget();
+    return;
+  }
+
+  %target = %this.targets_.getObject(0);
+
+  if (VectorDist(%pos, %target.position) > 2)
+  {
+    %this.followObject(%target, 0);
     %this.attackSchedule_ = %this.schedule(1000, "Attack");
     return;
   }
@@ -49,24 +57,24 @@ function ExcavatorAIClass::Attack(%this)
     }
   }
 
-  if (!isObject(%this.target_))
-  {
-    %this.FindTarget();
-    return;
-  }
-
   %this.attackSchedule_ = %this.schedule(1000, "Attack");
 }
 
-function ExcavatorAIClass::SetTarget(%this, %target)
+function ExcavatorAIClass::AddTarget(%this, %target)
 {
-  %this.target_ = %target;
-  %this.followObject(%target, 0);
+  if (!%this.targets_.isMember(%target))
+  {
+    %this.targets_.add(%target);
+  }
+
+  %this.followObject(%this.targets_.getObject(0), 0);
+
   %this.attackSchedule_ = %this.schedule(1000, "Attack");
 }
 
 function ExcavatorAIClass::FindTarget(%this)
 {
+  %this.targets_.clear();
   %client = ClientGroup.getRandom();
   %player = %client.player;
 
@@ -76,7 +84,6 @@ function ExcavatorAIClass::FindTarget(%this)
     return;
   }
 
-  %this.target_ = %player;
   %this.followObject(%player, 0);
 }
 
@@ -122,10 +129,12 @@ function ExcavatorGMServer::onAdd(%this)
     canAttack_ = true;
     cooldownSchedule_ = "";
     damage_ = 0;
-    target_ = "";
+    targets_ = "";
     searchSchedule_ = "";
     attackSchedule_ = "";
   };
+
+  %this.excavator_.targets_ = new SimSet();
 
   %spawnpoint = PlayerDropPoints.getRandom();
   %this.excavator_.setTransform(%spawnpoint.getTransform());
@@ -139,11 +148,6 @@ function ExcavatorGMServer::EquipExcavaber(%this, %player)
 
 function ExcavatorGMServer::loadOut(%this, %player)
 {
-  if (%player.client == %this.excavator_.target_.client)
-  {
-    %this.excavator_.FindTarget();
-  }
-
   %this.EquipExcavaber(%player);
 }
 
@@ -159,6 +163,7 @@ function ExcavatorGMServer::onRemove(%this)
     cancel(%this.excavator_.cooldownSchedule_);
     cancel(%this.excavator_.searchSchedule_);
     cancel(%this.excavator_.attackSchedule_);
+    %this.excavator_.targets_.delete();
     %this.excavator_.delete();
   }
 }
