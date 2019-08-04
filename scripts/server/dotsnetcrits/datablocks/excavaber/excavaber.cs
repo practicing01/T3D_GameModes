@@ -15,7 +15,23 @@ function DirtMoundTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
   if (%obj.dataBlock $= "ExcavatorAI")
   {
-    %obj.SetTarget(%trigger.dirtMound_);
+    %obj.AddTarget(%trigger.dirtMound_);
+  }
+}
+
+function DirtMoundTrigger::onTickTrigger(%this, %trigger)
+{
+  for (%x = 0; %x < %trigger.getNumObjects(); %x++)
+  {
+    %obj = %trigger.getObject(%x);
+
+    if (%obj.dataBlock $= "ExcavatorAI")
+    {
+      if (!%obj.targets_.isMember(%trigger.dirtMound_))
+      {
+        %obj.AddTarget(%trigger.dirtMound_);
+      }
+    }
   }
 }
 
@@ -27,7 +43,7 @@ function DirtMoundStaticShapeData::onRemove(%this, %shape)
 
       if (%obj.dataBlock $= "ExcavatorAI")
       {
-        %obj.FindTarget();
+        %obj.targets_.remove(%shape);
       }
     }
 
