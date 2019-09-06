@@ -68,3 +68,8 @@ datablock TriggerData(DirtMoundTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(PointAtoBTrigger)
+{
+  tickPeriodMS = 1000;
+};

@@ -265,3 +265,15 @@ datablock StaticShapeData(DirtMoundStaticShapeData)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/excavator/dirtmound.dae";
 };
+
+datablock StaticShapeData(KeyPointAtoBStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/pointatob/key.dae";
+  isInvincible = "1";
+};
+
+datablock StaticShapeData(DoorPointAtoBStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/pointatob/doorpatb.dae";
+  isInvincible = "1";
+};

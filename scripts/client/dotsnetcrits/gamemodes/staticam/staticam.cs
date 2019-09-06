@@ -46,10 +46,14 @@ function StaticamGMClient::onAdd(%this)
   %this.actionMap_.bindCmd(keyboard, "d", %this @ ".Rotate(1);", %this @ ".Rotate(0);");
   %this.actionMap_.bindCmd(mouse0, "button0", "", %this @ ".Fire();");
   %this.actionMap_.push();
+
+  DNCCrosshair.visible = false;
 }
 
 function StaticamGMClient::onRemove(%this)
 {
+  DNCCrosshair.visible = true;
+  
   if (isObject(%this.EventManager_))
   {
     %this.EventManager_.delete();

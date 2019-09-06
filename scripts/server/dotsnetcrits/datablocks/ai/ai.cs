@@ -225,3 +225,8 @@ datablock PlayerData(ExcavatorAI : DemoPlayer)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/excavator/excavator.dae";
   maxForwardSpeed = 500;
 };
+
+datablock PlayerData(ZombiePointAtoBAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/pointatob/maggotmouth.dae";
+};

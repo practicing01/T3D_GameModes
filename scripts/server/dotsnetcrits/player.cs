@@ -73,7 +73,7 @@ function Player::UseObject(%this)
 {
   %pos = %this.getPosition();
 
-  %rayResult = %this.doRaycast(2.0, $TypeMasks::ShapeBaseObjectType);
+  %rayResult = %this.doRaycast(3.0, $TypeMasks::ShapeBaseObjectType);
 
   %objTarget = firstWord(%rayResult);
 
