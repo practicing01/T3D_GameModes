@@ -19,3 +19,8 @@ function NPCButt::onClick(%this)
 
   commandToServer('NPCLoadDNC', %text);
 }
+
+function NPCList::onSelect(%this, %cellID, %text)
+{
+  exec("scripts/client/dotsnetcrits/npcs/" @ %text @ "/preview.cs");
+}

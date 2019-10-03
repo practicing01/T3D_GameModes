@@ -19,3 +19,8 @@ function ModelButt::onClick(%this)
 
   commandToServer('ModelLoadDNC', %text);
 }
+
+function ModelList::onSelect(%this, %cellID, %text)
+{
+  exec("art/shapes/dotsnetcrits/actors/" @ %text @ "/preview.cs");
+}

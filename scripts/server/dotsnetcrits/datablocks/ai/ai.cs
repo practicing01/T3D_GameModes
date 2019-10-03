@@ -230,3 +230,13 @@ datablock PlayerData(ZombiePointAtoBAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/pointatob/maggotmouth.dae";
 };
+
+datablock PlayerData(LegeyesAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/stackstealth/legeyes/legeyes.dae";
+};
+
+datablock PlayerData(HellwashAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/hellwash/washingmachine.dae";
+};

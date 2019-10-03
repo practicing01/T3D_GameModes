@@ -277,3 +277,9 @@ datablock StaticShapeData(DoorPointAtoBStaticShapeData)
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/pointatob/doorpatb.dae";
   isInvincible = "1";
 };
+
+datablock StaticShapeData(StealthCubeStaticShapeData)
+{
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/stackstealth/stealthcube/stealthcube.dae";
+  isInvincible = "1";
+};

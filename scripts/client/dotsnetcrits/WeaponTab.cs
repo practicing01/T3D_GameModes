@@ -19,3 +19,8 @@ function WeaponButt::onClick(%this)
 
   commandToServer('WeaponLoadDNC', %text);
 }
+
+function WeaponList::onSelect(%this, %cellID, %text)
+{
+  exec("scripts/client/dotsnetcrits/weapons/" @ %text @ "/preview.cs");
+}

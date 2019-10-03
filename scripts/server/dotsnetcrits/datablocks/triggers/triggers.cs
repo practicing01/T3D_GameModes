@@ -73,3 +73,18 @@ datablock TriggerData(PointAtoBTrigger)
 {
   tickPeriodMS = 1000;
 };
+
+datablock TriggerData(ShortbusTrigger)
+{
+  tickPeriodMS = 1000;
+};
+
+datablock TriggerData(StackStealthTrigger)
+{
+  tickPeriodMS = 1000;
+};
+
+datablock TriggerData(StackStealthExitTrigger)
+{
+  tickPeriodMS = 1000;
+};

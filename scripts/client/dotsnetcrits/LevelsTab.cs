@@ -19,3 +19,8 @@ function LevelButt::onClick(%this)
 
   commandToServer('LevelVoteDNC', %text);
 }
+
+function LevelList::onSelect(%this, %cellID, %text)
+{
+  exec("scripts/client/dotsnetcrits/levels/" @ %text @ "/preview.cs");
+}

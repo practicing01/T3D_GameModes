@@ -21,6 +21,12 @@ function altTrigger(%val)
    $mvTriggerCount1++;
 }
 
+function DotsNetCritsClient::ReloadBinds(%this)
+{
+  moveMap.push();
+  %this.actionMap_.push();
+}
+
 function DotsNetCritsClient::onAdd(%this)
 {
   %this.loadedNPCs_ = new SimSet();
@@ -168,6 +174,9 @@ function DotsNetCritsClient::onMainMenuToggle(%this)
     if (!Canvas.isMember(DNCMain))
     {
       Canvas.pushDialog(DNCMain);
+      ObjectPreviewDNC.setBitmap("art/gui/dotsnetcrits/background.png");
+      ObjectDescriptionDNC.setText("");
+      ObjectScrlDNC.visible = false;
     }
     else
     {

@@ -19,3 +19,8 @@ function GamemodeButt::onClick(%this)
 
   commandToServer('GamemodeVoteDNC', %text);
 }
+
+function GamemodeList::onSelect(%this, %cellID, %text)
+{
+  exec("scripts/client/dotsnetcrits/gamemodes/" @ %text @ "/preview.cs");
+}
