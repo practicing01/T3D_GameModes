@@ -164,7 +164,8 @@ function CandyHellGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "CandyHellGMServerQueue";
 
-  %trans = ClientGroup.getObject(0).getControlObject().getTransform();
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %trans = %spawnPoint.getTransform();
 
   %this.npc_ = new AiPlayer()
   {

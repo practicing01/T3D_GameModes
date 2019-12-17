@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Hard to kill.");
+ObjectDescriptionDNC.setText("Distract the beast with dirt mounds.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Poisonous.");
+ObjectDescriptionDNC.setText("Poisonous." NL "Poisons target, dealing damage over time.");

@@ -61,6 +61,8 @@ function DotsNetCritsServer::onAdd(%this)
   //schedule(0,0,startHeartbeat);
   stopHeartbeat();
 
+  %this.envRayMask_ = $TypeMasks::EnvironmentObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::StaticObjectType;
+
   %this.ClientLeaveCleanup_ = new ArrayObject();
   %this.ClientLeaveListeners_ = new SimSet();
   %this.loadOutListeners_ = new SimSet();
@@ -494,4 +496,5 @@ new ScriptObject(DNCServer)
   LevelVoteMachine_ = "";
   loadedNPCs_ = "";
   clientModels_ = "";
+  envRayMask_ = "";
 };

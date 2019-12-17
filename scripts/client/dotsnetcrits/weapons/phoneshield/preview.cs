@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Quite distracting.");
+ObjectDescriptionDNC.setText("Quite distracting. Shield.");

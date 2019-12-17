@@ -61,3 +61,16 @@ function DotsNetCritsServer::ProjectPos(%this, %dir, %dist, %offsetScale, %mask,
 
   return %endPos;
 }
+
+function DotsNetCritsServer::GetRandomVector(%this, %origin, %radius)
+{
+  %pos = %origin;
+
+  %angleY = mDegToRad(getRandom(0, 100) * m2Pi());
+  %angleXZ = mDegToRad(getRandom(0, 100) * m2Pi());
+
+  %pos.x = %pos.x + (mCos(%angleY) * mSin(%angleXZ) * getRandom(-%radius, %radius));
+  %pos.y = %pos.y + (mCos(%angleXZ) * getRandom(-%radius, %radius));
+
+  return %pos;
+}

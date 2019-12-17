@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Create water zone.");
+ObjectDescriptionDNC.setText("Natural spring water." NL "Water block.");

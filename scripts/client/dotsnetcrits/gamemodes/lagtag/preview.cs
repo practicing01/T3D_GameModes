@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Stop when you're told.");
+ObjectDescriptionDNC.setText("Stop when told.");

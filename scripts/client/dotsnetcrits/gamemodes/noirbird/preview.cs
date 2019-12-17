@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Clean that shit up.");
+ObjectDescriptionDNC.setText("Clean the droppings.");

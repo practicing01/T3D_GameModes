@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Single death.");
+ObjectDescriptionDNC.setText("Single death." NL "Instant kill target.");

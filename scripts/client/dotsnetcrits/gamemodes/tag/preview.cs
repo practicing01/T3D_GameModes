@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic tag.");
+ObjectDescriptionDNC.setText("Random player has to touch another player.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Bonk!");
+ObjectDescriptionDNC.setText("Bonk! Bounces target.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Wash their bloody clothes.");
+ObjectDescriptionDNC.setText("Take other players clothes to wash.");

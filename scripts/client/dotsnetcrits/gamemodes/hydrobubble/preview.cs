@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Dry hydroball.");
+ObjectDescriptionDNC.setText("Throw the ball into the basket.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Hotkeyed abilities.");
+ObjectDescriptionDNC.setText("Players have additional abilities.");

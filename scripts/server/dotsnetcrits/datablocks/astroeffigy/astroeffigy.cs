@@ -29,7 +29,7 @@ datablock ItemData(astroeffigy)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/astroeffigy/astronaut.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/actors/mbastroeffigy/astroeffigy.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
@@ -55,9 +55,10 @@ datablock ItemData(astroeffigy)
 datablock ShapeBaseImageData(astroeffigyImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/astroeffigy/astronaut.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/astroeffigy/astronaut.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/actors/mbastroeffigy/astroeffigy.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/actors/mbastroeffigy/astroeffigy.cached.dts";
    emap = false;
+   //useEyeNode = true;
 
    item = astroeffigy;
 
@@ -69,8 +70,7 @@ datablock ShapeBaseImageData(astroeffigyImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
-   //rotation = "1 0 0 90";
+   eyeOffset = "1.0 1.0 -0.5";
 
    // When firing from a point offset from the eye, muzzle correction
    // will adjust the muzzle vector to point to the eye LOS point.

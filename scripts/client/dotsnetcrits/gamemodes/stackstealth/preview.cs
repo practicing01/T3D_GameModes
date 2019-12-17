@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Reach the exit unseen.");
+ObjectDescriptionDNC.setText("Use the cubes to hide, reach the exit.");

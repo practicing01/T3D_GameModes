@@ -4,14 +4,15 @@ function KOTHGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "KOTHGMServerQueue";
 
-  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %throneSpawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
 
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
     %obj = MissionGroup.getObject(%x);
     if (%obj.getName() $= "throneSpawnKOTHGM")
     {
-      %pos = %obj.position;
+      %throneSpawnPos = %obj.position;
     }
   }
 
@@ -21,24 +22,24 @@ function KOTHGMServer::onAdd(%this)
   {
     dataBlock = "KOTHGMTrigger";
     polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-    position = %pos;
+    position = %throneSpawnPos;
     scale = "20 20 5";
   };
 
   %this.throne_ = new StaticShape()
   {
     dataBlock = "throneKOTHGM";
-    position = %pos;
+    position = %throneSpawnPos;
     rotation = "1 0 0 0";
     scale = "0.2 0.2 0.2";
   };
 
-  %pos.z += 0.5;
+  %throneSpawnPos.z += 0.5;
 
   %this.plunger_ = new StaticShape()
   {
     dataBlock = "plungerKOTHGM";
-    position = %pos;
+    position = %throneSpawnPos;
     rotation = "1 0 0 0";
     scale = "4.0 4.0 4.0";
   };

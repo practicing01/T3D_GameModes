@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Wash it clean.");
+ObjectDescriptionDNC.setText("Wash it clean. Heals.");

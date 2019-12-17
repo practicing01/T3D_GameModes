@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Invisible players.");
+ObjectDescriptionDNC.setText("Players are invisible.");

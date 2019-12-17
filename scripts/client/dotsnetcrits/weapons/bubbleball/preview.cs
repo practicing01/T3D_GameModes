@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Unpoppable.");
+ObjectDescriptionDNC.setText("Unpoppable." NL "Ball for tossing around.");

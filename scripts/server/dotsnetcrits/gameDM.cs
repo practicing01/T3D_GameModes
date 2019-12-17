@@ -108,13 +108,13 @@ function DeathMatchGame::onClientEnterGame(%game, %client)
 
 function DeathMatchGame::spawnPlayer(%game, %client, %spawnPoint, %noControl)
 {
-  %model = "raven2d";
+  %model = "mbnude";
 
   %index = DNCServer.clientModels_.getIndexFromKey(%client);
 
   if (%index == -1)
   {
-    DNCServer.clientModels_.add(%client, "raven2d");
+    DNCServer.clientModels_.add(%client, "mbnude");
   }
   else
   {

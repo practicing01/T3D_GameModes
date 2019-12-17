@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Dodge the fuzz.");
+ObjectDescriptionDNC.setText("Stay close for points, getting hit reduces points.");

@@ -6,22 +6,32 @@ function CTFGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "CTFGMServerQueue";
 
-  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %flagSpawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+  %flagSpawnRot = %spawnPoint.rotation;
 
-  %rot = ClientGroup.getObject(0).getControlObject().rotation;
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %flagSpawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+  %flagSpawnRot = %spawnPoint.rotation;
+
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %CaptureAPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %CaptureBPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
 
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
     %obj = MissionGroup.getObject(%x);
     if (%obj.getName() $= "FlagSpawnCTFGM")
     {
-      %pos = %obj.position;
-      %rot = %obj.rotation;
+      %flagSpawnPos = %obj.position;
+      %flagSpawnRot = %obj.rotation;
 
       %this.FlagSpawn_ = new Marker()
       {
-        position = %pos;
-        rotation = %rot;
+        position = %flagSpawnPos;
+        rotation = %flagSpawnRot;
       };
     }
     else if (%obj.getName() $= "CaptureACTFGM")
@@ -50,8 +60,8 @@ function CTFGMServer::onAdd(%this)
   {
     dataBlock = flagCTFGM;
     mMoveTolerance = 3.0;
-    position = %pos;
-    rotation = %rot;
+    position = %flagSpawnPos;
+    rotation = %flagSpawnRot;
     following_ = false;
     capturer_ = "";
     scale = "0.2 0.2 0.2";
@@ -61,35 +71,29 @@ function CTFGMServer::onAdd(%this)
   {
     %this.FlagSpawn_ = new Marker()
     {
-      position = %pos;
-      rotation = %rot;
+      position = %flagSpawnPos;
+      rotation = %flagSpawnRot;
     };
   }
 
   if (!isObject(%this.captureATrigger_))
   {
-    %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
-    %finalPos = VectorAdd(%pos, %finalPos);
-
     %this.captureATrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
       polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-      position = %finalPos;
+      position = %CaptureAPos;
       scale = "6 6 6";
     };
   }
 
   if (!isObject(%this.captureBTrigger_))
   {
-    %finalPos = VectorScale(ClientGroup.getObject(0).getControlObject().getForwardVector(), 12.0);
-    %finalPos = VectorSub(%pos, %finalPos);
-
     %this.captureBTrigger_ = new Trigger()
     {
       dataBlock = "CTFGMTrigger";
       polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-      position = %finalPos;
+      position = %CaptureBPos;
       scale = "6 6 6";
     };
   }

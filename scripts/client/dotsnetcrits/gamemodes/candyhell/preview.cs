@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Brush your teeth.");
+ObjectDescriptionDNC.setText("Avoid the candy.");

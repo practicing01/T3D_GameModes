@@ -141,12 +141,6 @@ datablock StaticShapeData(teleMirrorStaticShapeData)
   isInvincible = "1";
 };
 
-datablock StaticShapeData(catEarsStaticShapeData)
-{
-  shapeFile = "art/shapes/dotsnetcrits/npcs/catEars/catEars.cached.dts";
-  isInvincible = "1";
-};
-
 datablock StaticShapeData(glasspanelStaticShapeData)
 {
   shapeFile = "art/shapes/dotsnetcrits/levels/glass/glasspanel.dae";

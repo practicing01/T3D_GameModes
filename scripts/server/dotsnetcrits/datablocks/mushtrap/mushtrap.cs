@@ -137,7 +137,7 @@ datablock ShapeBaseImageData(mushtrapImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "0.5 1.0 -0.5";
    //rotation = "1 0 0 90";
    //scale = "0.1 0.1 0.1";
 
@@ -284,7 +284,7 @@ function mushtrap::onTriggered( %this, %mine, %target )
     dataBlock = "MushtrapStaticShapeData";
   };
 
-  %target.mountObject(%shroom, 1, MatrixCreate("0 0 1", "1 0 0 0"));
+  %target.mountObject(%shroom, 1, MatrixCreate("0 0 0", "1 0 0 0"));
 
   %this.schedule(10000, "Detonate", %mine, %shroom, %target);
 }

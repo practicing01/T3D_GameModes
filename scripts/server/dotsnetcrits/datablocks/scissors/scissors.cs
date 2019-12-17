@@ -70,7 +70,7 @@ datablock ShapeBaseImageData(scissorsImage)
    // for first person rendering.
    mountPoint = 0;
    offset = "0.0 0.2 0.0";
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "0.5 1.0 -0.5";
    //rotation = "1 0 0 90";
 
    // When firing from a point offset from the eye, muzzle correction

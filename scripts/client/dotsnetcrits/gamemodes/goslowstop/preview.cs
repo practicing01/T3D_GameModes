@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Shoot for green.");
+ObjectDescriptionDNC.setText("Shoot when green.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Place your bets.");
+ObjectDescriptionDNC.setText("Teleport randomly to other hexagons.");

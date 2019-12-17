@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic waves.");
+ObjectDescriptionDNC.setText("Mindless zombies follow and attack.");

@@ -1,6 +1,6 @@
 datablock PlayerData(HostieHostageRescueGM : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/angel/angel.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbangel/mbangel.dae";
 };
 
 datablock PlayerData(ZombieZombieWavesGM : DemoPlayer)
@@ -10,17 +10,17 @@ datablock PlayerData(ZombieZombieWavesGM : DemoPlayer)
 
 datablock PlayerData(ToySoldierAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/angel/angel.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbangel/mbangel.dae";
 };
 
 datablock PlayerData(ZombieMummyAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/mummy/mummy.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbmummy/mummy.dae";
 };
 
 datablock PlayerData(clownAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/clown/clown.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbclown/clown.dae";
 };
 
 datablock PlayerData(CandyHellAI : DemoPlayer)
@@ -41,7 +41,7 @@ datablock PlayerData(LagTagAI : DemoPlayer)
 
 datablock PlayerData(PeekabooAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/gamemodes/peekaboo/death.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbshinigami/shinigami.dae";
   maxForwardSpeed = 500;
 };
 
@@ -69,28 +69,28 @@ datablock PlayerData(SupplyRunAirplaneAI : DemoPlayer)
 
 datablock PlayerData(InstaboneAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/gamemodes/instabone/skeleton0.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbskeleton/skeleton.dae";
 };
 
 datablock PlayerData(RoyalEscortPrincessAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/gamemodes/royalescort/darkpeach.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbdarkpeach/darkpeach.dae";
 };
 
 datablock PlayerData(RoyalEscortPaparazziAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/yellowhead/yellowhead.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbyellowhead/yellowhead.dae";
 };
 
 datablock PlayerData(RoyalEscortCarAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/gamemodes/royalescort/carorange/CarOrange.dae";
+  shapeFile = "art/shapes/dotsnetcrits/gamemodes/royalescort/coquicar/coquicar.dae";
   isInvincible = 1;
 };
 
 datablock PlayerData(BamboomAI : DemoPlayer)
 {
-  shapeFile = "art/shapes/dotsnetcrits/actors/panda/panda.dae";
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbpanda/panda.dae";
 };
 
 datablock PlayerData(slimeAI : DemoPlayer)
@@ -239,4 +239,24 @@ datablock PlayerData(LegeyesAI : DemoPlayer)
 datablock PlayerData(HellwashAI : DemoPlayer)
 {
   shapeFile = "art/shapes/dotsnetcrits/gamemodes/hellwash/washingmachine.dae";
+};
+
+datablock PlayerData(OpenHouseAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbplaguedr/plaguedr.dae";
+};
+
+datablock PlayerData(mbpolarbearAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbpolarbear/polarbear.dae";
+};
+
+datablock PlayerData(mbpenguinAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/actors/mbpenguin/penguin.dae";
+};
+
+datablock PlayerData(sealAI : DemoPlayer)
+{
+  shapeFile = "art/shapes/dotsnetcrits/levels/upvector/seal.dae";
 };

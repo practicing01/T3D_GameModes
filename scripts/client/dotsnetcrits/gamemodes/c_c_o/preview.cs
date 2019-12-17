@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("One player shrinks.");
+ObjectDescriptionDNC.setText("Random player is shrunk and has regeneration.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Pump that tree full of vitamins.");
+ObjectDescriptionDNC.setText("Water to grow, cut to prune.");

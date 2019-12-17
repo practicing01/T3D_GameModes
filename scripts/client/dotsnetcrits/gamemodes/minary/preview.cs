@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Dead canaries mean stay put.");
+ObjectDescriptionDNC.setText("Find the invisible target.");

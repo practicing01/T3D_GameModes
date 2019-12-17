@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Tastey.");
+ObjectDescriptionDNC.setText("Tastey." NL "Bomb that explodes after contact.");

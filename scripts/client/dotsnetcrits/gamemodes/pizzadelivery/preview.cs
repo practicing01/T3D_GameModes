@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Capture the pizza.");
+ObjectDescriptionDNC.setText("Deliver the pizza to the microwave.");

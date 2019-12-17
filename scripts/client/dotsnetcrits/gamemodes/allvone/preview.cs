@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("All players vs one.");
+ObjectDescriptionDNC.setText("All players against one.");

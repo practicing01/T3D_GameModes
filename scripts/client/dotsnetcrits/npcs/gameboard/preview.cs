@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Gameboard test.");
+ObjectDescriptionDNC.setText("3D cards.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Scrub.");
+ObjectDescriptionDNC.setText("Scrub. Damage over time.");

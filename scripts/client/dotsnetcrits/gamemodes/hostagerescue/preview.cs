@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic hostage rescue.");
+ObjectDescriptionDNC.setText("Guide the hostage to the rescue zone.");

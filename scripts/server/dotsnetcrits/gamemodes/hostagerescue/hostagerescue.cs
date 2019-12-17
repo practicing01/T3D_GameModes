@@ -1,16 +1,16 @@
 function HostageRescueGMServer::SpawnHostie(%this)
 {
-  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
-
-  %rot = ClientGroup.getObject(0).getControlObject().rotation;
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %hostageSpawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+  %hostageSpawnRot = %spawnPoint.rotation;
 
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
     %obj = MissionGroup.getObject(%x);
     if (%obj.getName() $= "HostageSpawnHostageRescueGM")
     {
-      %pos = %obj.position;
-      %rot = %obj.rotation;
+      %hostageSpawnPos = %obj.position;
+      %hostageSpawnRot = %obj.rotation;
 
       break;
     }
@@ -25,8 +25,8 @@ function HostageRescueGMServer::SpawnHostie(%this)
   {
     dataBlock = HostieHostageRescueGM;
     mMoveTolerance = 3.0;
-    position = %pos;
-    rotation = %rot;
+    position = %hostageSpawnPos;
+    rotation = %hostageSpawnRot;
     following_ = false;
     rescuer_ = "";
   };
@@ -39,10 +39,6 @@ function HostageRescueGMServer::onAdd(%this)
   %this.EventManager_ = new EventManager();
 
   %this.EventManager_.queue = "HostageRescueGMServerQueue";
-
-  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
-
-  %rot = ClientGroup.getObject(0).getControlObject().rotation;
 
   for (%x = 0; %x < MissionGroup.getCount(); %x++)
   {
@@ -70,12 +66,16 @@ function HostageRescueGMServer::onAdd(%this)
     }
   }
 
+  %spawnPoint = PlayerDropPoints.getRandom();
+  %hostageSpawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+  %hostageSpawnRot = %spawnPoint.rotation;
+
   %this.hostage_ = new AiPlayer(Hostage)
   {
     dataBlock = HostieHostageRescueGM;
     mMoveTolerance = 3.0;
-    position = %pos;
-    rotation = %rot;
+    position = %hostageSpawnPos;
+    rotation = %hostageSpawnRot;
     following_ = false;
     rescuer_ = "";
   };
@@ -84,18 +84,21 @@ function HostageRescueGMServer::onAdd(%this)
   {
     %this.hostageSpawn_ = new Marker()
     {
-      position = %pos;
-      rotation = %rot;
+      position = %hostageSpawnPos;
+      rotation = %hostageSpawnRot;
     };
   }
 
   if (!isObject(%this.rescueTrigger_))
   {
+    %spawnPoint = PlayerDropPoints.getRandom();
+    %hostageRescuePos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+
     %this.rescueTrigger_ = new Trigger()
     {
       dataBlock = "HostageRescueGMTrigger";
       polyhedron = "-0.5 0.5 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 0.0 1.0";
-      position = VectorAdd(%pos, ClientGroup.getObject(0).getControlObject().getForwardVector());
+      position = %hostageRescuePos;
       scale = "6 6 6";
     };
   }

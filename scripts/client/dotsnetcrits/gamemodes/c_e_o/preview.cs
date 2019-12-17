@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("One player grows.");
+ObjectDescriptionDNC.setText("Random player is enlarged and has regeneration.");

@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic hydroball.");
+ObjectDescriptionDNC.setText("Players try to capture the rubber duckie.");

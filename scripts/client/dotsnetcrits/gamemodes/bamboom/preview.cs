@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Disarm the bomboo.");
+ObjectDescriptionDNC.setText("Difuse the bamboo before it explodes.");

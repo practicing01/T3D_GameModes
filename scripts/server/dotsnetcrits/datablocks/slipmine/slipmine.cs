@@ -80,7 +80,7 @@ datablock ProximityMineData(slipMine)
    //className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/slipMine/banana.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/slipMine/slipmine.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
@@ -118,8 +118,8 @@ datablock ProximityMineData(slipMine)
 datablock ShapeBaseImageData(slipMineImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/slipMine/banana.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/slipMine/banana.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/slipMine/slipmine.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/slipMine/slipmine.cached.dts";
    emap = false;
 
    item = slipMine;
@@ -132,7 +132,7 @@ datablock ShapeBaseImageData(slipMineImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "0.5 1.0 -0.5";
    //rotation = "1 0 0 90";
    //scale = "0.1 0.1 0.1";
 

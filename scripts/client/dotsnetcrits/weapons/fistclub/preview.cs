@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic melee.");
+ObjectDescriptionDNC.setText("Melee damage.");

@@ -10,3 +10,4 @@ exec("levels/rustybeams/rustybeams.cs");
 exec("levels/deadpixelmarsh/deadpixelmarsh.cs");
 exec("scripts/server/dotsnetcrits/gamemodes/noirbird/datablocks.cs");
 exec("art/shapes/dotsnetcrits/tcg/materials.cs");
+exec("levels/upvector/upvector.cs");

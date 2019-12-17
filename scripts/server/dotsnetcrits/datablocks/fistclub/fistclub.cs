@@ -29,7 +29,7 @@ datablock ItemData(fistClub)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/fistClub/fist_club.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/fistClub/fistick.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
@@ -55,8 +55,8 @@ datablock ItemData(fistClub)
 datablock ShapeBaseImageData(fistClubImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/fistClub/fist_club.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/fistClub/fist_club.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/fistClub/fistick.cached.dts";
+   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/fistClub/fistick.cached.dts";
    emap = false;
 
    item = fistClub;
@@ -69,7 +69,7 @@ datablock ShapeBaseImageData(fistClubImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "0.5 1.0 -0.5";
    //rotation = "1 0 0 90";
 
    // When firing from a point offset from the eye, muzzle correction

@@ -69,7 +69,7 @@ datablock ShapeBaseImageData(bathnukeImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "1.0 1.0 -0.5";
    //rotation = "1 1 1 90";
    //scale = "0.1 0.1 0.1";
 

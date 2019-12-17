@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Guess the pixel art.");
+ObjectDescriptionDNC.setText("Draw the word, guess the word.");

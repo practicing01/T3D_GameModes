@@ -1,7 +1,7 @@
 datablock HoverVehicleData(HoverWhaleDB)
 {
    category = "Vehicles";
-   shapeFile = "art/shapes/dotsnetcrits/npcs/hoverwhale/whale.dae";
+   shapeFile = "art/shapes/dotsnetcrits/npcs/hoverwhale/hoverwhale.dae";
    emap = 1;
 
    dragForce = 0.01;

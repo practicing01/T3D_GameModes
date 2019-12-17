@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Get your life back.");
+ObjectDescriptionDNC.setText("Get your life back." NL "Steal targets health.");

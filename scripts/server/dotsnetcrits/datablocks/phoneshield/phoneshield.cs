@@ -13,7 +13,7 @@
 
 /*datablock StaticShapeData(phoneShieldStaticShapeData)
 {
-  shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+  shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/cellfone.cached.dts";
   isInvincible = "1";
 };*/
 
@@ -35,7 +35,7 @@ datablock ItemData(phoneShield)
    className = "Weapon";
 
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/cellfone.cached.dts";
    mass = 1;
    elasticity = 0.2;
    friction = 0.6;
@@ -61,8 +61,9 @@ datablock ItemData(phoneShield)
 datablock ShapeBaseImageData(phoneShieldImage)
 {
    // Basic Item properties
-   shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
-   //shapeFileFP = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+   //shapeFile = "art/shapes/dotsnetcrits/weapons/phoneShield/cellfone.cached.dts";
+   shapeFile = "art/shapes/dotsnetcrits/misc/invisibleplane/invisibleplane.cached.dts";
+   shapeFileFP = "art/shapes/dotsnetcrits/misc/invisibleplane/invisibleplane.cached.dts";
    emap = false;
 
    item = phoneShield;
@@ -75,7 +76,7 @@ datablock ShapeBaseImageData(phoneShieldImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
+   eyeOffset = "0.5 1.0 -0.5";
    //rotation = "1 0 0 90";
 
    // When firing from a point offset from the eye, muzzle correction
@@ -169,7 +170,7 @@ function phoneShieldImage::onMount( %this, %obj, %slot )
    %phoneShield = new TSStatic()
    {
      //dataBlock = "phoneShieldStaticShapeData";
-     shapeName = "art/shapes/dotsnetcrits/weapons/phoneShield/phoneShield.cached.dts";
+     shapeName = "art/shapes/dotsnetcrits/weapons/phoneShield/cellfone.cached.dts";
      position = %obj.position;
      collisionType = "Visible Mesh";
      decalType = "Visible Mesh";

@@ -4,10 +4,6 @@ function ZombieWavesGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "ZombieWavesGMServerQueue";
 
-  %pos = ClientGroup.getObject(0).getControlObject().getPosition();
-
-  %rot = ClientGroup.getObject(0).getControlObject().rotation;
-
   %this.ZombieSpawns_ = new SimSet();
   %this.Zombies_ = new SimSet();
 
@@ -28,10 +24,14 @@ function ZombieWavesGMServer::onAdd(%this)
 
   if (%this.ZombieSpawns_.getCount() == 0)
   {
+    %spawnPoint = PlayerDropPoints.getRandom();
+    %spawnPos = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %spawnPoint);
+    %spawnRot = %spawnPoint.rotation;
+
     %zombieSpawn = new Marker()
     {
-      position = %pos;
-      rotation = %rot;
+      position = %spawnPos;
+      rotation = %spawnRot;
     };
 
     %this.ZombieSpawns_.add(%zombieSpawn);

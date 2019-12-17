@@ -64,6 +64,7 @@ datablock ShapeBaseImageData(crayonImage)
    shapeFile = "art/shapes/dotsnetcrits/weapons/crayon/crayon.cached.dts";
    //shapeFileFP = "art/shapes/dotsnetcrits/weapons/crayon/crayon.cached.dts";
    emap = false;
+   //useEyeNode = true;
 
    item = crayon;
 
@@ -75,8 +76,8 @@ datablock ShapeBaseImageData(crayonImage)
    // Specify mount point & offset for 3rd person, and eye offset
    // for first person rendering.
    mountPoint = 0;
-   //eyeOffset = "0.5 0.0 0.0";
-   //rotation = "1 0 0 90";
+   //firstPerson = false;
+   eyeOffset = "0.5 1.0 -0.5";
 
    // When firing from a point offset from the eye, muzzle correction
    // will adjust the muzzle vector to point to the eye LOS point.

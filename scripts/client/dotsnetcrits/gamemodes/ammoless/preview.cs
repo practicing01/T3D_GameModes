@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Reduced ammo.");
+ObjectDescriptionDNC.setText("Players are stripped of ammo, one resupply object spawns in the map.");

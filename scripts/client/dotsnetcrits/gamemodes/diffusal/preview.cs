@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Classic diffusal.");
+ObjectDescriptionDNC.setText("Player plants a bomb, others diffuse.");

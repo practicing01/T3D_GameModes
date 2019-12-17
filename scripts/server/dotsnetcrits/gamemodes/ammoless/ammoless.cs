@@ -9,7 +9,10 @@ function AmmolessGMServer::GetRandyAmmoSpawnVector(%this)
       return (%obj.getObject(%randy).position);
     }
   }
-  return ClientGroup.getObject(0).getControlObject().getPosition();
+
+  %spawnPoint = PlayerDropPoints.getRandom();
+
+  return %spawnPoint.position;
 }
 
 function AmmolessGMServer::ReduceAmmo(%this, %player)

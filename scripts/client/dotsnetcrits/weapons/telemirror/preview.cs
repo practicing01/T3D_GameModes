@@ -1,2 +1,2 @@
 ObjectScrlDNC.visible = true;
-ObjectDescriptionDNC.setText("Twin portals.");
+ObjectDescriptionDNC.setText("Mirrors on the wall." NL "Spawns teleportation portals.");

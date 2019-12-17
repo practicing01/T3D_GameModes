@@ -4,9 +4,9 @@ function FuzzHellGMServer::onAdd(%this)
 
   %this.EventManager_.queue = "FuzzHellGMServerQueue";
 
-  %player = ClientGroup.getObject(0).getControlObject();
+  %spawnPoint = PlayerDropPoints.getRandom();
 
-  %trans = %player.getTransform();
+  %trans = %spawnPoint.getTransform();
 
   %this.npc_ = new AiPlayer()
   {
@@ -17,7 +17,7 @@ function FuzzHellGMServer::onAdd(%this)
 
   %this.npc_.setTransform(%trans);
 
-  %this.npc_.position = VectorAdd(%this.npc_.position, VectorScale(%player.getForwardVector(), 10.0));
+  %this.npc_.position = DNCServer.GetRayHitPos("0 0 -1", 1000, 0, DNCServer.envRayMask_, %this.npc_);
 
   %this.npc_.FireFuzz();
 
