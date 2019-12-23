@@ -135,5 +135,5 @@ $pref::Water::disableTrueReflections = "0";
 $pref::windEffectRadius = "25";
 $pref::WorldEditor::cameraFOV = "75";
 $Pref::WorldEditor::FileSpec = "Torque Mission Files (*.mis)|*.mis|All Files (*.*)|*.*|";
-$Pref::WorldEditor::LastPath = "../../../../../../../..";
+$Pref::WorldEditor::LastPath = "/home/practicing01/Documents/T3D/devBranch/My Projects/DotsNetCrits/game";
 $pref::WorldEditor::visibleDistanceScale = "1";

@@ -71,15 +71,13 @@ function GooshballGMServer::MountGooshball(%this, %player)
 
   %gooshball = new AiPlayer()
   {
-    dataBlock = GooshballAI;
+    dataBlock = "GooshballAI";
     client_ = %player.client;
   };
 
   %this.TransformNPC(%player, %gooshball);
 
   %gooshball.followObject(%player, 4);
-
-  MissionCleanup.add(%gooshball);
 
   %player.client.gooshball_ = %gooshball;
 }

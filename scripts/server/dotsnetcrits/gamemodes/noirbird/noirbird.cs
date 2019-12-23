@@ -10,7 +10,7 @@ function NoirBirdAIClass::Poop(%this)
   %rot = 0.5;
   %scale = 1.0;
 
-  %id = decalManagerAddDecal(%pos, %norm, %rot, %scale, poopDecalnoirbird, true);
+  %id = decalManagerAddDecal(%pos, %norm, %rot, %scale, "poopDecalnoirbird", true);
 
   %decalSO = new ScriptObject()
   {
@@ -18,6 +18,13 @@ function NoirBirdAIClass::Poop(%this)
   };
 
   %this.parent_.decalSet_.add(%decalSO);
+
+  for (%x = 0; %x < ClientGroup.getCount(); %x++)
+  {
+    %client = ClientGroup.getObject(%x);
+
+    commandToClient(%client, 'NoirBirdPoop', %pos);
+  }
 
   %this.poopSchedule_ = %this.schedule(10000, "Poop");
 }

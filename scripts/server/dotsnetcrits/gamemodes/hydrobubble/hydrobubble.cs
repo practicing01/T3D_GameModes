@@ -28,7 +28,7 @@ function HydrobubbleGMServer::SpawnBubbleball(%this, %pos)
 
 function HydrobubbleGoalClass::onCollision(%this, %collObj, %vec, %len)
 {
-  if (%collObj.dataBlock == bubbleballBulletProjectile)
+  if (%collObj.dataBlock $= "bubbleballBulletProjectile")
   {
     %player = %collObj.sourceObject;
 

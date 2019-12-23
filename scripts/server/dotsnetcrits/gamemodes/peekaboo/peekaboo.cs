@@ -86,6 +86,7 @@ function PeekabooGMServer::onRemove(%this)
 
   if (isObject(%this.npc_))
   {
+    %this.npc_.setHidden(false);
     cancel(%this.npc_.schedule_);
     %this.npc_.delete();
   }

@@ -54,6 +54,8 @@ function QuickTypeGMServer::onRemove(%this)
   }
 
   cancel(%this.wordSchedule_);
+
+  clearBottomPrintAll();
 }
 
 function QuickTypeGMServer::onChat(%this, %client, %text)

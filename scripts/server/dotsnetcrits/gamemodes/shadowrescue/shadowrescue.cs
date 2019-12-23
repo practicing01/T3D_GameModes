@@ -9,6 +9,11 @@ function VoidBallClass::UseObject(%this, %player)
 
 function ShadowRescueGMServer::CheckLOS(%this, %originObject, %destObject)
 {
+  if (!isObject(%originObject) || !isObject(%destObject))
+  {
+    return false;
+  }
+
   %startPos = VectorAdd(%originObject.position, "0 0 1");
   %endPos = VectorAdd(%destObject.position, "0 0 1");
   %rayResult = containerRayCast(%startPos, %endPos, %this.rayMask_, %originObject);

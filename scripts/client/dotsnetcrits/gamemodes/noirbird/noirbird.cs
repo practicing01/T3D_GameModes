@@ -1,3 +1,22 @@
+function clientCmdNoirBirdPoop(%pos)
+{
+  if (!isObject(NoirBirdGMClientSO))
+  {
+    return;
+  }
+
+  NoirBirdGMClientSO.Poop(%pos);
+}
+
+function NoirBirdGMClient::Poop(%this, %pos)
+{
+  %norm = "0.0 0.0 1.0";
+  %rot = 0.5;
+  %scale = 1.0;
+
+  decalManagerAddDecal(%pos, %norm, %rot, %scale, "poopDecalnoirbird", true);
+}
+
 function NoirBirdGMClient::onAdd(%this)
 {
   ClientMissionCleanup.add(%this);
@@ -14,6 +33,8 @@ function NoirBirdGMClient::onRemove(%this)
   {
     %this.EventManager_.delete();
   }
+
+  decalManagerClear();
 
   echo("NoirBirdGMClient go bye bye");
 }
